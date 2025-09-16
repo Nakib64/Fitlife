@@ -10,7 +10,7 @@ const reviews = [
       "From the first day, Eliot has made me more comfortable and confident in my fitness training with him. After 8 months, I have seen great progress — lost weight and gained muscle.",
     title: "Great first-time fitness experience",
     rating: 5,
-    img: "https://i.ibb.co.com/V0vkXJ7w/premium-photo-1689530775582-83b8abdb5020.jpg",
+    img: "/ReviewImage/image1.jpeg",
   },
   {
     name: "James Parker",
@@ -19,7 +19,7 @@ const reviews = [
       "This isn’t just about nutrition — it’s a complete lifestyle shift. The mentoring sessions gave me the motivation and tools I needed to stay consistent, and I’ve never felt better.",
     title: "Professional and science-based course",
     rating: 5,
-    img: "https://i.ibb.co.com/m5PCYJnL/istockphoto-2063799507-612x612.jpg",
+    img: "/ReviewImage/image4.jpeg",
   },
   {
     name: "Floyd Miles",
@@ -28,7 +28,7 @@ const reviews = [
       "I’ve tried many fitness programs before, but this one actually made a difference. The support and clear guidance helped me stay consistent and see real progress.",
     title: "The results speak for themselves",
     rating: 5,
-    img: "https://i.ibb.co.com/jP79Bd7Q/photo-1530268729831-4b0b9e170218.jpg",
+    img: "/ReviewImage/image1.jpeg",
   },
   {
     name: "Emily Watson",
@@ -37,7 +37,7 @@ const reviews = [
       "The coaching sessions were incredible. I learned to balance fitness with my lifestyle, and the progress has been amazing!",
     title: "Life-changing experience",
     rating: 5,
-    img: "https://i.ibb.co.com/V0vkXJ7w/premium-photo-1689530775582-83b8abdb5020.jpg",
+    img: "/ReviewImage/image3.jpeg",
   },
   {
     name: "Michael Brown",
@@ -46,7 +46,7 @@ const reviews = [
       "Amazing guidance and support! The structured program helped me transform my health in just a few months.",
     title: "Highly recommend this program",
     rating: 5,
-    img: "https://i.ibb.co/FbcbczSB/men.jpg",
+    img: "/ReviewImage/image4.jpeg",
   },
 ];
 
