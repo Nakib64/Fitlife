@@ -1,8 +1,9 @@
 import Image from "next/image";
-import Navbar from "./component/Navbar";
 import Footer from "./component/Footer";
 import Description from "./component/Description";
 import FeaturesSection from "./component/FeaturesSection/features";
+import Navbar from "./component/Navbar/Navbar";
+import Hero from "./component/Hero/Hero";
 import Reviews from "./component/ReviewSection/Reviews";
 
 export default function Home() {
@@ -12,10 +13,11 @@ export default function Home() {
         <Navbar></Navbar>
       </nav>
       <main>
+        <Hero></Hero>
         <Description></Description>
         <FeaturesSection/>
         <div>
-          <Reviews/>
+         <Reviews></Reviews>
         </div>
       </main>
       <footer>
