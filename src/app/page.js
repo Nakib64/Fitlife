@@ -4,6 +4,7 @@ import Description from "./component/Description";
 import FeaturesSection from "./component/FeaturesSection/features";
 import Navbar from "./component/Navbar/Navbar";
 import Hero from "./component/Hero/Hero";
+import Reviews from "./component/ReviewSection/Reviews";
 
 export default function Home() {
   return (
@@ -15,6 +16,9 @@ export default function Home() {
         <Hero></Hero>
         <Description></Description>
         <FeaturesSection/>
+        <div>
+         <Reviews></Reviews>
+        </div>
       </main>
       <footer>
         <Footer></Footer>
