@@ -10,7 +10,7 @@ const Footer = () => {
                 {/* About Section */}
                 <div className="flex flex-col gap-4">
                     <h2 className="flex items-center gap-3 text-2xl md:text-3xl font-extrabold text-gray-900 mb-2">
-                        <Dumbbell className="w-10 h-10 text-green-500" /> Our Company
+                        <Dumbbell className="w-10 h-10 text-green-500 font-mono" /> FITLIFE
                     </h2>
                     <p className="text-gray-600 leading-relaxed text-sm md:text-base">
                         We provide high-quality products and services to our customers, ensuring satisfaction and excellence in every step.
