@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dumbbell, Facebook, Mail } from "lucide-react";
+import { useSession, signIn, signOut } from "next-auth/react"
+
 
 export default function AuthPage() {
   const [tab, setTab] = useState("login");
@@ -35,6 +37,7 @@ export default function AuthPage() {
   // Handle login submit
   const handleLoginSubmit = (e) => {
     e.preventDefault();
+    
     console.log("Login Data:", loginData);
     // You can send loginData to backend here
   };
@@ -95,7 +98,7 @@ export default function AuthPage() {
                     transition={{ duration: 0.4 }}
                     className="space-y-4"
                   >
-                    <form className="space-y-4" onSubmit={handleLoginSubmit}>
+                    <form className="space-y-4">
                       <div>
                         <Label htmlFor="login-email">Email</Label>
                         <Input
@@ -124,10 +127,10 @@ export default function AuthPage() {
                           required
                         />
                       </div>
-                      <Button type="submit" className="w-full bg-green-700 hover:bg-green-800">
+                    </form>
+                      <Button onClick={() => signIn()} className="w-full bg-green-700 hover:bg-green-800">
                         Login
                       </Button>
-                    </form>
                   </motion.div>
                 )}
 

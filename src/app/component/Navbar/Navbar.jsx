@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
+import UserInfo from "../userInfo/UserInfo";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +54,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 h-full">
         {/* Logo with scaling */}
         <motion.div
-          animate={{ scale: scrolled ? 0.9 : 1 }}
+          animate={{ scale: scrolled ? 0.7 : 1 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           <Image
@@ -76,6 +77,8 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
+
+          <UserInfo></UserInfo>
 
           {/* Login Button */}
           <Link
