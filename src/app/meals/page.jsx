@@ -27,7 +27,7 @@ export default function MyMeals() {
       type: "Dinner",
       icon: <FaDrumstickBite className="text-green-700 text-3xl" />,
       description: "Grilled chicken breast with roasted sweet potatoes and spinach salad.",
-      calories: "610 kcal",
+      calories: "620 kcal",
     },
   ]);
 
