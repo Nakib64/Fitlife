@@ -7,7 +7,10 @@ import cycleLottie from '../../../public/Lottie/Cycling.json';
 import {
   FaUser, FaRulerVertical, FaWeight, FaBullseye,
   FaRunning, FaDumbbell, FaFireAlt, FaHeartbeat, FaBicycle,
-  FaTrophy, FaSmile, FaAppleAlt, FaWater, FaBed, FaHeart
+  FaTrophy, FaSmile, FaAppleAlt, FaWater, FaBed, FaHeart,
+  FaMars,
+  FaFlag,
+  FaVenus
 } from "react-icons/fa";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
@@ -72,48 +75,94 @@ export default function Myworkout() {
 
       {/* Form + Lottie Side-by-Side */}
       <motion.div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-        {/* Form */}
-        <motion.form
-          onSubmit={handleSubmit}
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="p-10 bg-white rounded-3xl shadow-2xl space-y-6"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {["age","height","weight"].map((field, idx) => (
-              <motion.div key={idx} whileHover={{ scale: 1.03 }} className="flex items-center gap-3 bg-green-50 p-4 rounded-xl shadow-inner">
-                {field === "age" && <FaUser className="text-green-500 text-xl"/>}
-                {field === "height" && <FaRulerVertical className="text-green-500 text-xl"/>}
-                {field === "weight" && <FaWeight className="text-green-500 text-xl"/>}
-                <input type="number" name={field} value={formData[field]} onChange={handleChange} placeholder={field.charAt(0).toUpperCase() + field.slice(1)} className="w-full border-none focus:ring-0 bg-green-50 font-medium text-gray-700"/>
-              </motion.div>
-            ))}
+      
+<motion.form
+  onSubmit={handleSubmit}
+  initial={{ opacity: 0, y: 50 }}
+  animate={{ opacity: 1, y: 0 }}
+  className="p-10 bg-white rounded-3xl shadow-2xl space-y-6"
+>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            <motion.select whileHover={{ scale: 1.03 }} name="gender" value={formData.gender} onChange={handleChange} className="w-full border-none bg-green-50 p-4 rounded-xl shadow-inner font-medium text-gray-700" required>
-              <option value="">Gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </motion.select>
+    {/* Age, Height, Weight */}
+    {["age","height","weight"].map((field, idx) => (
+      <motion.div key={idx} whileHover={{ scale: 1.03 }} className="flex items-center gap-3 bg-green-50 p-4 rounded-xl shadow-inner">
+        {field === "age" && <FaUser className="text-green-500 text-xl"/>}
+        {field === "height" && <FaRulerVertical className="text-green-500 text-xl"/>}
+        {field === "weight" && <FaWeight className="text-green-500 text-xl"/>}
+        <input
+          type="number"
+          name={field}
+          value={formData[field]}
+          onChange={handleChange}
+          placeholder={
+            field === "height" 
+              ? "Height (cm)" 
+              : field === "weight"
+              ? "Weight (kg)"
+              : field.charAt(0).toUpperCase() + field.slice(1)
+          }
+          className="w-full border-none focus:ring-0 bg-green-50 font-medium text-gray-700"
+        />
+      </motion.div>
+    ))}
 
-            <motion.select whileHover={{ scale: 1.03 }} name="goal" value={formData.goal} onChange={handleChange} className="w-full border-none bg-green-50 p-4 rounded-xl shadow-inner font-medium text-gray-700" required>
-              <option value="">Goal</option>
-              <option value="weight_loss">Weight Loss</option>
-              <option value="weight_gain">Weight Gain</option>
-              <option value="fitness">Stay Fit</option>
-            </motion.select>
+    {/* Gender */}
+    <motion.div whileHover={{ scale:1.03 }} className={`flex items-center gap-3 p-4 rounded-xl shadow-inner ${formData.gender ? "bg-green-100" : "bg-green-50"}`}>
+      {formData.gender === "male" ? <FaMars className="text-green-600 text-xl"/> : formData.gender === "female" ? <FaVenus className="text-pink-500 text-xl"/> : <FaUser className="text-gray-400 text-xl"/>}
+      <select
+        name="gender"
+        value={formData.gender}
+        onChange={handleChange}
+        className="w-full border-none bg-transparent font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+      >
+        <option value="">Gender</option>
+        <option value="male" className="hover:bg-green-200">Male</option>
+        <option value="female" className="hover:bg-green-200">Female</option>
+      </select>
+    </motion.div>
 
-            <motion.select whileHover={{ scale: 1.03 }} name="activity" value={formData.activity} onChange={handleChange} className="w-full border-none bg-green-50 p-4 rounded-xl shadow-inner font-medium text-gray-700">
-              <option value="">Activity Level</option>
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="advanced">Advanced</option>
-            </motion.select>
-          </div>
+    {/* Goal */}
+    <motion.div whileHover={{ scale:1.03 }} className={`flex items-center gap-3 p-4 rounded-xl shadow-inner ${formData.goal ? "bg-green-100" : "bg-green-50"}`}>
+      <FaFlag className="text-green-500 text-xl"/>
+      <select
+        name="goal"
+        value={formData.goal}
+        onChange={handleChange}
+        className="w-full border-none bg-transparent font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+      >
+        <option value="">Goal</option>
+        <option value="weight_loss" className="hover:bg-green-200">Weight Loss</option>
+        <option value="weight_gain" className="hover:bg-green-200">Weight Gain</option>
+        <option value="fitness" className="hover:bg-green-200">Stay Fit</option>
+      </select>
+    </motion.div>
 
-          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} type="submit" className="w-full bg-green-500 text-white font-bold py-4 rounded-2xl shadow-xl hover:bg-green-600 transition-all text-lg tracking-wide">
-            Generate Workout Plan
-          </motion.button>
-        </motion.form>
+    {/* Activity */}
+    <motion.div whileHover={{ scale:1.03 }} className={`flex items-center gap-3 p-4 rounded-xl shadow-inner ${formData.activity ? "bg-green-100" : "bg-green-50"}`}>
+      <FaRunning className="text-green-500 text-xl"/>
+      <select
+        name="activity"
+        value={formData.activity}
+        onChange={handleChange}
+        className="w-full border-none bg-transparent font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+      >
+        <option value="">Activity Level</option>
+        <option value="beginner" className="hover:bg-green-200">Beginner</option>
+        <option value="intermediate" className="hover:bg-green-200">Intermediate</option>
+        <option value="advanced" className="hover:bg-green-200">Advanced</option>
+      </select>
+    </motion.div>
+
+  </div>
+
+  {/* Submit */}
+  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} type="submit" className="w-full bg-green-500 text-white font-bold py-4 rounded-2xl shadow-xl hover:bg-green-600 transition-all text-lg tracking-wide">
+    Generate Workout Plan
+  </motion.button>
+</motion.form>
+
+
 
         {/* Lottie Animation */}
         <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }}>
