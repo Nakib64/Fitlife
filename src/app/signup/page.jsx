@@ -8,8 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dumbbell, Facebook, Mail } from "lucide-react";
-import { useSession, signIn, signOut } from "next-auth/react"
-
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function AuthPage() {
   const [tab, setTab] = useState("login");
@@ -35,18 +34,38 @@ export default function AuthPage() {
   };
 
   // Handle login submit
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    
-    console.log("Login Data:", loginData);
-    // You can send loginData to backend here
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: loginData.email,
+      password: loginData.password,
+    });
+
+    console.log(res);
   };
 
   // Handle register submit
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
-    console.log("Register Data:", registerData);
-    // You can send registerData to backend here
+
+    if (registerData.password !== registerData.confirmPassword) {
+      alert("Password do not match");
+      return;
+    }
+
+    const res = await fetch("/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(registerData),
+    });
+    if (res.ok) {
+      await signIn("credentials", {
+        redirect: false,
+        email: registerData.email,
+        password: registerData.password,
+      });
+    }
   };
 
   return (
@@ -98,7 +117,7 @@ export default function AuthPage() {
                     transition={{ duration: 0.4 }}
                     className="space-y-4"
                   >
-                    <form className="space-y-4">
+                    <form className="space-y-4" onSubmit={handleLoginSubmit}>
                       <div>
                         <Label htmlFor="login-email">Email</Label>
                         <Input
@@ -108,7 +127,10 @@ export default function AuthPage() {
                           className="mt-1"
                           value={loginData.email}
                           onChange={(e) =>
-                            setLoginData({ ...loginData, email: e.target.value })
+                            setLoginData({
+                              ...loginData,
+                              email: e.target.value,
+                            })
                           }
                           required
                         />
@@ -122,15 +144,21 @@ export default function AuthPage() {
                           className="mt-1"
                           value={loginData.password}
                           onChange={(e) =>
-                            setLoginData({ ...loginData, password: e.target.value })
+                            setLoginData({
+                              ...loginData,
+                              password: e.target.value,
+                            })
                           }
                           required
                         />
                       </div>
-                    </form>
-                      <Button onClick={() => signIn()} className="w-full bg-green-700 hover:bg-green-800">
+                      <Button
+                        type="submit"
+                        className="w-full bg-green-700 hover:bg-green-800"
+                      >
                         Login
                       </Button>
+                    </form>
                   </motion.div>
                 )}
 
@@ -155,7 +183,10 @@ export default function AuthPage() {
                           className="mt-1"
                           value={registerData.name}
                           onChange={(e) =>
-                            setRegisterData({ ...registerData, name: e.target.value })
+                            setRegisterData({
+                              ...registerData,
+                              name: e.target.value,
+                            })
                           }
                           required
                         />
@@ -169,7 +200,10 @@ export default function AuthPage() {
                           className="mt-1"
                           value={registerData.email}
                           onChange={(e) =>
-                            setRegisterData({ ...registerData, email: e.target.value })
+                            setRegisterData({
+                              ...registerData,
+                              email: e.target.value,
+                            })
                           }
                           required
                         />
@@ -183,13 +217,18 @@ export default function AuthPage() {
                           className="mt-1"
                           value={registerData.password}
                           onChange={(e) =>
-                            setRegisterData({ ...registerData, password: e.target.value })
+                            setRegisterData({
+                              ...registerData,
+                              password: e.target.value,
+                            })
                           }
                           required
                         />
                       </div>
                       <div>
-                        <Label htmlFor="confirm-password">Confirm Password</Label>
+                        <Label htmlFor="confirm-password">
+                          Confirm Password
+                        </Label>
                         <Input
                           id="confirm-password"
                           type="password"
@@ -205,7 +244,10 @@ export default function AuthPage() {
                           required
                         />
                       </div>
-                      <Button type="submit" className="w-full bg-green-700 hover:bg-green-800">
+                      <Button
+                        type="submit"
+                        className="w-full bg-green-700 hover:bg-green-800"
+                      >
                         Register
                       </Button>
                     </form>

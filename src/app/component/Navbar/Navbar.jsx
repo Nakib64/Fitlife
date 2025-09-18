@@ -12,7 +12,7 @@ const Navbar = () => {
   const controls = useAnimation();
 
   const navLinks = [
-    { name: "My Workouts", href: "/workouts" },
+    { name: "My Workouts", href: "/myworkouts" },
     { name: "My Meals", href: "/meals" },
     { name: "Progress Tracker", href: "/progress-tracker" },
     { name: "Wellness", href: "/wellness" },

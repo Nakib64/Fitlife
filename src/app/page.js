@@ -5,6 +5,7 @@ import FeaturesSection from "./component/FeaturesSection/features";
 import Navbar from "./component/Navbar/Navbar";
 import Hero from "./component/Hero/Hero";
 import Reviews from "./component/ReviewSection/Reviews";
+import BMICalculator from "./component/BMICalculator/BMICalculator";
 
 export default function Home() {
   return (
@@ -15,7 +16,8 @@ export default function Home() {
       <main>
         <Hero></Hero>
         <Description></Description>
-        <FeaturesSection/>
+        <BMICalculator></BMICalculator>
+        <FeaturesSection></FeaturesSection>
         <div>
          <Reviews></Reviews>
         </div>
