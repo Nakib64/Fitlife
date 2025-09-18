@@ -7,7 +7,7 @@ export default function ChatButton() {
   const router = useRouter();
   const pathname = usePathname();
 
-  // 🔹 Hide button if already on AI Coach page
+  // 🔹 Hide button if already on AI Coach page.
   if (pathname === "/ai-coach") return null;
 
   return (
