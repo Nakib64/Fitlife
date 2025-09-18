@@ -6,6 +6,7 @@ import Navbar from "./component/Navbar/Navbar";
 import Hero from "./component/Hero/Hero";
 import Reviews from "./component/ReviewSection/Reviews";
 import BMICalculator from "./component/BMICalculator/BMICalculator";
+import FAQSection from "./component/FAQSection/FAQSection";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
         <div>
          <Reviews></Reviews>
         </div>
+         <FAQSection></FAQSection>
       </main>
       <footer>
         <Footer></Footer>
