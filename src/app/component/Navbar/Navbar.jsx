@@ -14,7 +14,7 @@ const Navbar = () => {
   const navLinks = [
     { name: "My Workouts", href: "/myworkouts" },
     { name: "My Meals", href: "/meals" },
-    { name: "Progress Tracker", href: "/progress-tracker" },
+    { name: "Progress Tracker", href: "/progressTracker" },
     { name: "Wellness", href: "/wellness" },
     { name: "Achievements", href: "/achievements" },
     { name: "AI Coach", href: "/ai-coach" },
