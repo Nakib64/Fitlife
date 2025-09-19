@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
+import UserInfo from "../userInfo/UserInfo";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +18,7 @@ const Navbar = () => {
     { name: "Wellness", href: "/wellness" },
     { name: "Achievements", href: "/achievements" },
     { name: "AI Coach", href: "/ai-coach" },
+    { name: "About", href: "/about" },
   ];
 
   useEffect(() => {
@@ -47,13 +49,13 @@ const Navbar = () => {
       animate={controls}
       initial={{ height: "140px", boxShadow: "0px 0px 0px rgba(0,0,0,0)" }}
       className={`w-full bg-white z-50 transition-colors duration-300 ${
-        scrolled ? "fixed top-0 left-0 border-b border-gray-200" : "relative"
+        scrolled ? "fixed top-0 z-50 left-0 border-b border-gray-200" : "relative"
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 h-full">
         {/* Logo with scaling */}
         <motion.div
-          animate={{ scale: scrolled ? 0.9 : 1 }}
+          animate={{ scale: scrolled ? 0.7 : 1 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           <Image
@@ -76,6 +78,8 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
+
+          <UserInfo></UserInfo>
 
           {/* Login Button */}
           <Link

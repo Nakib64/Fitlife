@@ -8,7 +8,7 @@ const reviews = [
     role: "Fitness Instructor",
     review:
       "From the first day, Eliot has made me more comfortable and confident in my fitness training with him. After 8 months, I have seen great progress — lost weight and gained muscle.",
-    title: "Great first-time fitness experience",
+    title: "Great experience first time with fitness",
     rating: 5,
     img: "/ReviewImage/image1.jpeg",
   },
@@ -17,7 +17,7 @@ const reviews = [
     role: "Software Engineer",
     review:
       "This isn’t just about nutrition — it’s a complete lifestyle shift. The mentoring sessions gave me the motivation and tools I needed to stay consistent, and I’ve never felt better.",
-    title: "Professional and science-based course",
+    title: "Professional and science based course",
     rating: 5,
     img: "/ReviewImage/image4.jpeg",
   },
@@ -25,8 +25,8 @@ const reviews = [
     name: "Floyd Miles",
     role: "Sales Director",
     review:
-      "I’ve tried many fitness programs before, but this one actually made a difference. The support and clear guidance helped me stay consistent and see real progress.",
-    title: "The results speak for themselves",
+      "I’ve tried many fitness programs before, but this one actually made a difference. The support and clear instructions helped me stay consistent and see real progress!",
+    title: "The Results Speak for Themselves!",
     rating: 5,
     img: "/ReviewImage/image1.jpeg",
   },
@@ -80,11 +80,18 @@ export default function PremiumReviews() {
   const allReviews = [...reviews, ...reviews];
 
   return (
-    <section className="py-20 w-full">
-      <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-16 px-4">
-        What Our Clients Say
-      </h2>
+    <section className="py-20 w-full mb-20" style={{ backgroundColor: "#EBF1F1" }}>
+      {/* Section Title */}
+      <div className="text-center mb-16 px-4">
+        <p className="text-sm md:text-base tracking-wider font-semibold mb-4 text-green-600 relative inline-block">
+          WHAT CLIENTS SAY
+        </p>
+       <h1 className="text-6xl font-extrabold tracking-tight text-black mb-6">
+          Real Stories from our clients
+        </h1>
+      </div>
 
+      {/* Scrollable Reviews */}
       <div
         ref={containerRef}
         className="flex w-full overflow-hidden gap-6 px-4"
@@ -92,41 +99,55 @@ export default function PremiumReviews() {
         {allReviews.map((review, idx) => (
           <div
             key={idx}
-            className="flex-none w-[90%] sm:w-[45%] md:w-[30%] relative rounded-2xl p-6 shadow-xl border border-gray-200 transition-transform duration-500 hover:scale-105"
-            style={{ backgroundColor: "#E1F0E5" }} // Card body color
+            className="flex-none w-[90%] sm:w-[45%] md:w-[30%] rounded-2xl shadow-lg border border-gray-200 transition-transform duration-500 hover:scale-105"
+            style={{ backgroundColor: "#F4F9F9" }}
           >
-            {/* Decorative shadow circles */}
-            <div className="absolute -top-6 -right-6 w-16 h-16 bg-yellow-100 rounded-full opacity-30 blur-2xl"></div>
-            <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-pink-100 rounded-full opacity-20 blur-2xl"></div>
-
-            {/* User Info */}
-            <div className="flex items-center gap-4 mb-4">
-              <div className="relative w-16 h-16 flex-shrink-0">
-                <Image
-                  src={review.img}
-                  alt={review.name}
-                  fill
-                  className="rounded-full object-cover border-2 border-white shadow-md"
-                />
+            {/* Top Section (User Info + Rating) */}
+            <div
+              className="flex items-center justify-between p-4 rounded-t-2xl"
+              style={{ backgroundColor: "#ffffff" }}
+            >
+              <div className="flex items-center gap-4">
+                <div className="relative w-16 h-16 flex-shrink-0">
+                  <Image
+                    src={review.img}
+                    alt={review.name}
+                    fill
+                    className="rounded-full object-cover border-2 border-gray-200 shadow-md"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-gray-900">
+                    {review.name}
+                  </h3>
+                  <p className="text-sm text-gray-500">{review.role}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-bold text-lg text-gray-900">{review.name}</h3>
-                <p className="text-sm text-gray-500">{review.role}</p>
+
+              {/* Rating aligned to the right */}
+              <div className="text-yellow-400 text-lg font-bold">
+                {"★".repeat(review.rating)}
               </div>
             </div>
 
-            {/* Title */}
-            <h4 className="font-semibold text-xl text-gray-800 mb-3">{review.title}</h4>
-
-            {/* Review */}
-            <p className="text-gray-700 leading-relaxed mb-4">{review.review}</p>
-
-            {/* Rating */}
-            <div className="text-yellow-400 text-lg font-bold">
-              {"★".repeat(review.rating)}
+            {/* Card Body */}
+            <div className="p-6">
+              <h4 className="font-semibold text-lg text-gray-800 mb-3">
+                {review.title}
+              </h4>
+              <div className="bg-white/80 rounded-xl p-4 shadow-sm">
+                <p className="text-gray-700 leading-relaxed">{review.review}</p>
+              </div>
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Bottom Badge */}
+      <div className="mt-12 text-center">
+        <span className="inline-block bg-yellow-400 text-gray-900 font-semibold px-6 py-3 rounded-full shadow-md">
+          ★ 4.9 Rating From 12k+ Reviews
+        </span>
       </div>
     </section>
   );
