@@ -8,10 +8,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dumbbell, Facebook, Mail } from "lucide-react";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function AuthPage() {
   const [tab, setTab] = useState("login");
+  const router = useRouter();
 
   // Login state
   const [loginData, setLoginData] = useState({
@@ -42,7 +45,12 @@ export default function AuthPage() {
       password: loginData.password,
     });
 
-    console.log(res);
+    if (res?.error) {
+      toast.error("Invalid credentials, please try again.");
+    } else {
+      toast.success("Login successful!");
+      router.push("/");
+    }
   };
 
   // Handle register submit
@@ -50,7 +58,7 @@ export default function AuthPage() {
     e.preventDefault();
 
     if (registerData.password !== registerData.confirmPassword) {
-      alert("Password do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
@@ -59,12 +67,17 @@ export default function AuthPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(registerData),
     });
+
     if (res.ok) {
+      toast.success("Registration successful! Logging in...");
       await signIn("credentials", {
         redirect: false,
         email: registerData.email,
         password: registerData.password,
       });
+      router.push("/");
+    } else {
+      toast.error("Registration failed. Please try again.");
     }
   };
 
@@ -173,7 +186,10 @@ export default function AuthPage() {
                     transition={{ duration: 0.4 }}
                     className="space-y-4"
                   >
-                    <form className="space-y-4" onSubmit={handleRegisterSubmit}>
+                    <form
+                      className="space-y-4"
+                      onSubmit={handleRegisterSubmit}
+                    >
                       <div>
                         <Label htmlFor="name">Full Name</Label>
                         <Input
