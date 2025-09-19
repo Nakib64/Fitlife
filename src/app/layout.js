@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NextAuthSessionProvider from "@/Providers/NextAuthSessionProvider";
 import ChatButton from "./component/ChatButton/ChatButton";
+import { Toaster } from "sonner";
 
 
 const geistSans = Geist({
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
+          <Toaster richColors closeButton />
           {children}
            <ChatButton />
         </body>
