@@ -8,9 +8,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dumbbell, Facebook, Mail } from "lucide-react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function AuthPage() {
   const [tab, setTab] = useState("login");
+  const router = useRouter();
 
   // Login state
   const [loginData, setLoginData] = useState({
@@ -33,17 +37,48 @@ export default function AuthPage() {
   };
 
   // Handle login submit
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login Data:", loginData);
-    // You can send loginData to backend here
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: loginData.email,
+      password: loginData.password,
+    });
+
+    if (res?.error) {
+      toast.error("Invalid credentials, please try again.");
+    } else {
+      toast.success("Login successful!");
+      router.push("/");
+    }
   };
 
   // Handle register submit
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
-    console.log("Register Data:", registerData);
-    // You can send registerData to backend here
+
+    if (registerData.password !== registerData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    const res = await fetch("/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(registerData),
+    });
+
+    if (res.ok) {
+      toast.success("Registration successful! Logging in...");
+      await signIn("credentials", {
+        redirect: false,
+        email: registerData.email,
+        password: registerData.password,
+      });
+      router.push("/");
+    } else {
+      toast.error("Registration failed. Please try again.");
+    }
   };
 
   return (
@@ -105,7 +140,10 @@ export default function AuthPage() {
                           className="mt-1"
                           value={loginData.email}
                           onChange={(e) =>
-                            setLoginData({ ...loginData, email: e.target.value })
+                            setLoginData({
+                              ...loginData,
+                              email: e.target.value,
+                            })
                           }
                           required
                         />
@@ -119,12 +157,18 @@ export default function AuthPage() {
                           className="mt-1"
                           value={loginData.password}
                           onChange={(e) =>
-                            setLoginData({ ...loginData, password: e.target.value })
+                            setLoginData({
+                              ...loginData,
+                              password: e.target.value,
+                            })
                           }
                           required
                         />
                       </div>
-                      <Button type="submit" className="w-full bg-green-700 hover:bg-green-800">
+                      <Button
+                        type="submit"
+                        className="w-full bg-green-700 hover:bg-green-800"
+                      >
                         Login
                       </Button>
                     </form>
@@ -142,7 +186,10 @@ export default function AuthPage() {
                     transition={{ duration: 0.4 }}
                     className="space-y-4"
                   >
-                    <form className="space-y-4" onSubmit={handleRegisterSubmit}>
+                    <form
+                      className="space-y-4"
+                      onSubmit={handleRegisterSubmit}
+                    >
                       <div>
                         <Label htmlFor="name">Full Name</Label>
                         <Input
@@ -152,7 +199,10 @@ export default function AuthPage() {
                           className="mt-1"
                           value={registerData.name}
                           onChange={(e) =>
-                            setRegisterData({ ...registerData, name: e.target.value })
+                            setRegisterData({
+                              ...registerData,
+                              name: e.target.value,
+                            })
                           }
                           required
                         />
@@ -166,7 +216,10 @@ export default function AuthPage() {
                           className="mt-1"
                           value={registerData.email}
                           onChange={(e) =>
-                            setRegisterData({ ...registerData, email: e.target.value })
+                            setRegisterData({
+                              ...registerData,
+                              email: e.target.value,
+                            })
                           }
                           required
                         />
@@ -180,13 +233,18 @@ export default function AuthPage() {
                           className="mt-1"
                           value={registerData.password}
                           onChange={(e) =>
-                            setRegisterData({ ...registerData, password: e.target.value })
+                            setRegisterData({
+                              ...registerData,
+                              password: e.target.value,
+                            })
                           }
                           required
                         />
                       </div>
                       <div>
-                        <Label htmlFor="confirm-password">Confirm Password</Label>
+                        <Label htmlFor="confirm-password">
+                          Confirm Password
+                        </Label>
                         <Input
                           id="confirm-password"
                           type="password"
@@ -202,7 +260,10 @@ export default function AuthPage() {
                           required
                         />
                       </div>
-                      <Button type="submit" className="w-full bg-green-700 hover:bg-green-800">
+                      <Button
+                        type="submit"
+                        className="w-full bg-green-700 hover:bg-green-800"
+                      >
                         Register
                       </Button>
                     </form>
