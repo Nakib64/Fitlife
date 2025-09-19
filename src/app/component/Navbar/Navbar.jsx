@@ -79,7 +79,7 @@ const Navbar = () => {
             </Link>
           ))}
 
-          <UserInfo></UserInfo>
+          {/* <UserInfo></UserInfo> */}
 
           {/* Login Button */}
           <Link
