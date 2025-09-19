@@ -124,7 +124,7 @@ export default function Myworkout() {
       {/* Motivational Quote */}
       <motion.div className="my-8 text-center">
         <p className="text-xl font-semibold text-black italic">
-          "The only bad workout is the one you didn’t do."
+          The only bad workout is the one you didn’t do.
         </p>
       </motion.div>
 
