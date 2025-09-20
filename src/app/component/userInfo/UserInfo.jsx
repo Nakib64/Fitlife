@@ -18,7 +18,7 @@ const UserInfo = () => {
 			<>
 				<Link
 					href="/signup"
-					className="px-12 py-3 bg-[#cbff5b] text-xl text-black font-bold rounded-full hover:font-normal transition-all duration-300"
+					className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
 				>
 					Login
 				</Link>
