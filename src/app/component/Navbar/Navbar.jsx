@@ -115,13 +115,7 @@ const Navbar = () => {
           ))}
 
           {/* Mobile Login Button */}
-          <Link
-            href="/signup"
-            onClick={() => setIsOpen(false)}
-            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
-          >
-            Login
-          </Link>
+         <UserInfo></UserInfo>
         </div>
       </motion.div>
     </motion.div>
