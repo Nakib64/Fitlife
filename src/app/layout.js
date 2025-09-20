@@ -3,6 +3,8 @@ import "./globals.css";
 import NextAuthSessionProvider from "@/Providers/NextAuthSessionProvider";
 import ChatButton from "./component/ChatButton/ChatButton";
 import { Toaster } from "sonner";
+import Navbar from "./component/Navbar/Navbar";
+import Footer from "./component/Footer/Footer";
 
 
 const geistSans = Geist({
@@ -29,9 +31,11 @@ export default function RootLayout({ children }) {
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
+          <Navbar></Navbar>
           <Toaster richColors closeButton />
           {children}
            <ChatButton />
+           <Footer></Footer>
         </body>
       </NextAuthSessionProvider>
     </html>
