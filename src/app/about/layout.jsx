@@ -14,7 +14,7 @@ export default function layout({children}) {
         </main>
         <Footer></Footer>
         <HeadlineMarquee></HeadlineMarquee>
-        <FooterLast></FooterLast>
+        {/* <FooterLast></FooterLast> */}
     </div>
   )
 }
