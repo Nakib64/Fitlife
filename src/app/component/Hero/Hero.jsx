@@ -29,9 +29,9 @@ const cardVariants = {
 
 const Hero = () => {
   return (
-    <section className="overflow-hidden pb-10">
+    <section className="overflow-hidden pb-10 pt-32 bg-[#f4f4f4]">
       <motion.div
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+        className="w-11/12 mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -39,7 +39,7 @@ const Hero = () => {
         {/* Left Side */}
         <div className="text-center lg:text-left mb-20">
           <motion.h1
-            className="text-4xl sm:text-5xl md:text-7xl font-bold text-zinc-900 leading-tight"
+            className="text-5xl sm:text-5xl md:text-8xl font-semibold text-zinc-900 leading-tight"
             variants={itemVariants}
           >
             Your AI-powered
@@ -57,7 +57,7 @@ const Hero = () => {
             className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
             variants={itemVariants}
           >
-            <button className="w-full sm:w-auto bg-lime-400 text-zinc-900 font-bold px-8 py-4 rounded-full text-lg hover:bg-lime-500 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2">
+            <button className="w-full sm:w-auto bg-[#cbff5b] text-zinc-900 font-bold px-8 py-4 rounded-full text-lg hover:font-normal transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2">
               Get your workout plan now
             </button>
           </motion.div>
