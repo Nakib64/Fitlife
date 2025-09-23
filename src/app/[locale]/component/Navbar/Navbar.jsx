@@ -5,12 +5,13 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import UserInfo from "../userInfo/UserInfo";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const controls = useAnimation();
-
+  const pathname = usePathname();
   const navLinks = [
     { name: "My Workouts", href: "/myworkouts" },
     { name: "My Meals", href: "/meals" },
@@ -43,6 +44,11 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [controls]);
+
+
+  if(pathname.includes('/signup')){
+    return <></>
+  }
 
   return (
     <motion.div
