@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Check, Dumbbell, Heart, MessageCircle, Zap } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 // Animation variants (no changes here)
 const containerVariants = {
@@ -28,6 +29,8 @@ const cardVariants = {
 };
 
 const Hero = () => {
+
+  const t = useTranslations();
   return (
     <section className="overflow-hidden pb-10">
       <motion.div
@@ -42,9 +45,7 @@ const Hero = () => {
             className="text-4xl sm:text-5xl md:text-7xl font-bold text-zinc-900 leading-tight"
             variants={itemVariants}
           >
-            Your AI-powered
-            <br />
-            fitness coach
+            {t('home.title')}
           </motion.h1>
           <motion.p
             className="mt-6 max-w-md mx-auto lg:mx-0 text-lg text-zinc-600"

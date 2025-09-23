@@ -5,12 +5,13 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import UserInfo from "../userInfo/UserInfo";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const controls = useAnimation();
-
+  const pathname = usePathname();
   const navLinks = [
     { name: "My Workouts", href: "/myworkouts" },
     { name: "My Meals", href: "/meals" },
@@ -44,28 +45,37 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [controls]);
 
+
+  if(pathname.includes('/signup')){
+    return <></>
+  }
+
   return (
     <motion.div
       animate={controls}
       initial={{ height: "140px", boxShadow: "0px 0px 0px rgba(0,0,0,0)" }}
       className={`w-full bg-white z-50 transition-colors duration-300 ${
-        scrolled ? "fixed top-0 z-50 left-0 border-b border-gray-200" : "relative"
+        scrolled
+          ? "fixed top-0 z-50 left-0 border-b border-gray-200"
+          : "relative"
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 h-full">
         {/* Logo with scaling */}
-        <motion.div
-          animate={{ scale: scrolled ? 0.7 : 1 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-        >
-          <Image
-            src="/Logo/logo.png"
-            height={100}
-            width={180}
-            alt="Logo"
-            className="object-contain"
-          />
-        </motion.div>
+        <Link href={'/'}>
+          <motion.div
+            animate={{ scale: scrolled ? 0.7 : 1 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            <Image
+              src="/Logo/logo.png"
+              height={100}
+              width={180}
+              alt="Logo"
+              className="object-contain"
+            />
+          </motion.div>
+        </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-9">
@@ -80,8 +90,6 @@ const Navbar = () => {
           ))}
 
           <UserInfo></UserInfo>
-
-         
         </div>
 
         {/* Mobile Menu Button */}
@@ -98,7 +106,9 @@ const Navbar = () => {
       {/* Mobile Drawer */}
       <motion.div
         initial={{ height: 0, opacity: 0 }}
-        animate={isOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+        animate={
+          isOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }
+        }
         transition={{ duration: 0.4, ease: "easeInOut" }}
         className="md:hidden bg-white shadow-md overflow-hidden"
       >
@@ -115,13 +125,7 @@ const Navbar = () => {
           ))}
 
           {/* Mobile Login Button */}
-          <Link
-            href="/signup"
-            onClick={() => setIsOpen(false)}
-            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
-          >
-            Login
-          </Link>
+          <UserInfo></UserInfo>
         </div>
       </motion.div>
     </motion.div>
