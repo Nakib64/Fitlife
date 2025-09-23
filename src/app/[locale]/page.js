@@ -1,12 +1,10 @@
-import Image from "next/image";
-import Description from "./component/Description";
-import FeaturesSection from "./component/FeaturesSection/features";
-import Navbar from "./component/Navbar/Navbar";
-import Hero from "./component/Hero/Hero";
-import Reviews from "./component/ReviewSection/Reviews";
 import BMICalculator from "./component/BMICalculator/BMICalculator";
+import Description from "./component/Description";
 import FAQSection from "./component/FAQSection/FAQSection";
-import Footer from "./component/Footer/Footer";
+import FeaturesSection from "./component/FeaturesSection/features";
+import Hero from "./component/Hero/Hero";
+import PremiumReviews from "./component/ReviewSection/Reviews";
+
 
 export default function Home() {
   return (
@@ -16,7 +14,7 @@ export default function Home() {
       <BMICalculator></BMICalculator>
       <FeaturesSection></FeaturesSection>
       <div>
-        <Reviews></Reviews>
+        <PremiumReviews></PremiumReviews>
       </div>
       <FAQSection></FAQSection>
     </div>
