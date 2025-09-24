@@ -46,9 +46,9 @@ export default function AICoachPage() {
       <header className="bg-green-600 text-white py-4 shadow-md relative">
         <div className="max-w-5xl mx-auto px-6 flex justify-between items-center">
           <h1 className="text-2xl font-bold flex items-center gap-2">
-            <FaRobot /> AI Coach
+            <FaRobot /> AI Fitness Coach
           </h1>
-          <p className="text-sm opacity-80">Real-time fitness guidance</p>
+          <p className="text-md opacity-90">Real-time fitness guidance</p>
         </div>
 
         {/* Close (X) Button */}
