@@ -11,7 +11,6 @@ import {
   FaAppleAlt,
   FaSyncAlt,
   FaCookieBite,
-  FaMoneyBillWave
 } from "react-icons/fa";
 
 /* ---------- Utility Inputs ---------- */
@@ -26,7 +25,7 @@ function FormInput({ icon, label, placeholder, value, onChange, type = "text" })
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="w-full pl-12 pr-4 py-3 rounded-xl bg-[#ecfbf3] border border-transparent focus:outline-none focus:ring-2 focus:ring-green-200"
+          className="w-full pl-12 pr-4 py-3 rounded-xl bg-white border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-green-400 transition"
         />
       </div>
     </label>
@@ -42,7 +41,7 @@ function SelectInput({ icon, label, value, onChange, options = [] }) {
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full pl-12 pr-4 py-3 rounded-xl bg-[#ecfbf3] border border-transparent focus:outline-none focus:ring-2 focus:ring-green-200"
+          className="w-full pl-12 pr-4 py-3 rounded-xl bg-white border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-green-400 transition"
         >
           {options.map((opt) => (
             <option key={opt} value={opt}>
@@ -60,8 +59,10 @@ function TabButton({ label, active, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-2 rounded-full font-semibold ${
-        active ? "bg-green-600 text-white shadow-md" : "text-gray-600 bg-white"
+      className={`px-4 py-2 rounded-full font-semibold transition-all ${
+        active
+          ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg"
+          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
       }`}
     >
       {label}
@@ -69,273 +70,102 @@ function TabButton({ label, active, onClick }) {
   );
 }
 
-/* ---------- Basic Form ---------- */
-function BasicForm({ form, setField, toggleMealType }) {
-  return (
-    <motion.div
-      key="basic"
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -8 }}
-      transition={{ duration: 0.25 }}
-      className="grid grid-cols-1 md:grid-cols-2 gap-4"
-    >
-      <FormInput
-        icon={<FaUser className="text-green-600" />}
-        label="Age"
-        placeholder="30"
-        value={form.age}
-        onChange={(v) => setField("age", v)}
-        type="number"
-      />
-      <FormInput
-        icon={<FaRulerVertical className="text-green-600" />}
-        label="Height (ft)"
-        placeholder="5"
-        value={form.heightFt}
-        onChange={(v) => setField("heightFt", v)}
-        type="number"
-      />
-      <FormInput
-        icon={<FaWeight className="text-green-600" />}
-        label="Weight (lbs)"
-        placeholder="180"
-        value={form.weight}
-        onChange={(v) => setField("weight", v)}
-        type="number"
-      />
-      <FormInput
-        icon={<FaAppleAlt className="text-green-600" />}
-        label="BMI (optional)"
-        placeholder="e.g. 24.5"
-        value={form.bmi || ""}
-        onChange={(v) => setField("bmi", v)}
-        type="number"
-      />
-      <SelectInput
-        icon={<FaVenusMars className="text-green-600" />}
-        label="Gender"
-        value={form.gender}
-        onChange={(v) => setField("gender", v)}
-        options={["Male", "Female", "Other"]}
-      />
-      <SelectInput
-        icon={<FaRunning className="text-green-600" />}
-        label="Activity Level"
-        value={form.activity}
-        onChange={(v) => setField("activity", v)}
-        options={["Sedentary","Lightly Active","Moderately Active","Active","Very Active"]}
-      />
-      <SelectInput
-        icon={<FaAppleAlt className="text-green-600" />}
-        label="Goal"
-        value={form.goal}
-        onChange={(v) => setField("goal", v)}
-        options={["Lose Fat","Build Muscle","Maintain Weight"]}
-      />
+/* ---------- Meal Card ---------- */
 
-      {/* Meals */}
-      <div className="md:col-span-2">
-        <label className="text-sm font-semibold text-gray-600 mb-2 block">Daily Meals</label>
-        <div className="flex flex-wrap gap-3">
-          {["Breakfast","Lunch","Dinner","Snack"].map((m) => {
-            const active = form.meals.includes(m);
-            return (
-              <button
-                key={m}
-                onClick={() => toggleMealType(m)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition ${
-                  active
-                    ? "bg-green-600 text-white shadow-md"
-                    : "bg-[#f4fbf7] text-gray-700 border border-transparent"
-                }`}
-              >
-                {m}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      <SelectInput
-        icon={<FaCookieBite className="text-green-600" />}
-        label="Diet Type"
-        value={form.dietType}
-        onChange={(v) => setField("dietType", v)}
-        options={["Anything","Keto","Vegetarian","Vegan","High-Protein"]}
-      />
-    </motion.div>
-  );
-}
-
-/* ---------- Advanced Form ---------- */
-function AdvancedForm({ form, setField, updateTarget, toggleAllergy, allergyOptions }) {
-  return (
-    <motion.div
-      key="advanced"
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -8 }}
-      transition={{ duration: 0.25 }}
-      className="grid grid-cols-1 gap-4"
-    >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <FormInput
-          icon={<FaAppleAlt className="text-green-600" />}
-          label="Target Calories"
-          placeholder="e.g. 2200"
-          value={form.calories}
-          onChange={(v) => setField("calories", v)}
-          type="number"
-        />
-        <FormInput
-          icon={<FaUser className="text-green-600" />}
-          label="Protein target (g)"
-          placeholder="e.g. 150"
-          value={form.protein}
-          onChange={(v) => setField("protein", v)}
-          type="number"
-        />
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <FormInput
-          icon={<FaCookieBite className="text-green-600" />}
-          label="Carbs target (g)"
-          placeholder="e.g. 200"
-          value={form.carbs}
-          onChange={(v) => setField("carbs", v)}
-          type="number"
-        />
-        <FormInput
-          icon={<FaWeight className="text-green-600" />}
-          label="Fat target (g)"
-          placeholder="e.g. 70"
-          value={form.fat}
-          onChange={(v) => setField("fat", v)}
-          type="number"
-        />
-      </div>
-
-      {/* Nutrition Targets */}
-      <div className="mt-2">
-        <label className="text-sm font-semibold text-gray-600 mb-2 block">Nutrition Targets</label>
-        <div className="space-y-3">
-          {form.targets.map((t, i) => (
-            <div key={i} className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                checked={t.enabled}
-                onChange={(e) => updateTarget(i, "enabled", e.target.checked)}
-                className="h-5 w-5 text-green-600"
-              />
-              <select
-                value={t.mode}
-                onChange={(e) => updateTarget(i, "mode", e.target.value)}
-                className="border rounded-md px-2 py-1 text-sm"
-              >
-                <option value="at most">at most</option>
-                <option value="at least">at least</option>
-              </select>
-              <input
-                type="number"
-                value={t.value}
-                onChange={(e) => updateTarget(i, "value", e.target.value)}
-                placeholder="0"
-                className="w-20 border rounded-md px-2 py-1 text-sm"
-              />
-              <select
-                value={t.unit}
-                onChange={(e) => updateTarget(i, "unit", e.target.value)}
-                className="border rounded-md px-2 py-1 text-sm"
-              >
-                <option>g</option>
-                <option>cal</option>
-              </select>
-              <select
-                value={t.nutrient}
-                onChange={(e) => updateTarget(i, "nutrient", e.target.value)}
-                className="border rounded-md px-2 py-1 text-sm"
-              >
-                <option value="protein">protein</option>
-                <option value="fat">fat</option>
-                <option value="carbs">carbs</option>
-              </select>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Allergies */}
-      <div className="mt-4">
-        <label className="block font-semibold mb-2">Food Allergies</label>
-        <div className="flex flex-wrap gap-3">
-          {allergyOptions.map((a) => {
-            const active = form.allergies.includes(a);
-            return (
-              <button
-                key={a}
-                onClick={() => toggleAllergy(a)}
-                className={`px-3 py-2 rounded-full text-sm font-medium transition ${
-                  active ? "bg-green-600 text-white shadow-md" : "bg-white text-gray-700 border border-gray-200"
-                }`}
-              >
-                {a}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-/* ---------- Meal Cards ---------- */
 function MealCard({ meal }) {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.98 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.25 }}
-      className="bg-white rounded-2xl shadow-lg p-5"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      whileHover={{ scale: 1.02 }}
+      className="w-full bg-white rounded-3xl shadow-md border border-gray-100
+                 p-6 hover:shadow-md hover:border-green-200 
+                 transition-all duration-300"
     >
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="font-semibold text-lg">{meal.name}</h3>
-        <div className="text-sm text-gray-500">{meal.calories} kcal</div>
+      {/* Header */}
+      <div className="mb-4">
+        <div className="flex items-center justify-between">
+          <h3 className="font-bold text-2xl text-gray-800 tracking-wide">
+            {meal.name}
+          </h3>
+          <span className="text-gray-500 font-semibold">
+            {meal.calories} kcal
+          </span>
+        </div>
+
+        {/* 🔹 Animated underline */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mt-2 h-0.5 w-full origin-left bg-gray-100 rounded-full"
+        />
       </div>
-      <p className="text-sm text-gray-600 mb-3">{meal.sample}</p>
-      <div className="mt-3 grid grid-cols-3 gap-2 text-xs text-gray-600">
-        <MacroBadge label="Protein" value={meal.protein} />
-        <MacroBadge label="Carbs" value={meal.carbs} />
-        <MacroBadge label="Fat" value={meal.fat} />
+
+      {/* Description */}
+      <p className="text-gray-600 sm:text-lg mb-6 leading-relaxed">
+        {meal.sample}
+      </p>
+
+      {/* Macros */}
+      <div className="flex flex-wrap gap-3">
+        <MacroBadge
+          label="Protein"
+          value={`${meal.protein} g`}
+          color="bg-green-100 text-green-700"
+        />
+        <MacroBadge
+          label="Carbs"
+          value={`${meal.carbs} g`}
+          color="bg-yellow-100 text-yellow-700"
+        />
+        <MacroBadge
+          label="Fat"
+          value={`${meal.fat} g`}
+          color="bg-red-100 text-red-700"
+        />
       </div>
     </motion.div>
   );
 }
 
-function MacroBadge({ label, value }) {
+ 
+
+function MacroBadge({ label, value, color }) {
   return (
-    <div className="bg-[#f7faf7] rounded-md p-2 text-center">
-      <div className="font-semibold">{value} g</div>
-      <div>{label}</div>
+    <div
+      className={`flex flex-col items-center justify-center px-5 py-2 rounded-2xl
+                  text-sm font-medium shadow-sm ${color}`}
+    >
+      <span className="font-bold">{value}</span>
+      <span className="text-xs">{label}</span>
     </div>
   );
 }
 
-/* ---------- Utility: Sample Dishes ---------- */
-function sampleDishForMeal(mealName, dietType) {
-  const base = {
-    Breakfast: ["Avocado toast with egg and cherry tomatoes","Oatmeal with almond butter and banana","Greek yogurt with mixed berries & granola"],
-    Lunch: ["Grilled salmon, quinoa & steamed greens","Chicken & brown rice bowl with veggies","Lentil salad with roasted vegetables"],
-    Dinner: ["Turkey meatballs with zucchini noodles","Grilled steak, sweet potato & broccoli","Tofu stir-fry with brown rice"],
-    Snack: ["Protein smoothie (banana + whey + peanut butter)","Apple with almond butter","Cottage cheese & berries"],
-  };
-  const arr = base[mealName] || base["Lunch"];
-  if (dietType === "Vegetarian") return arr.find((s) => s.toLowerCase().includes("tofu") || s.toLowerCase().includes("lentil")) || arr[0];
-  if (dietType === "Vegan") return arr.find((s) => !s.toLowerCase().includes("chicken") && !s.toLowerCase().includes("salmon")) || arr[0];
-  if (dietType === "Keto") return arr.find((s) => s.toLowerCase().includes("steak") || s.toLowerCase().includes("meat")) || arr[0];
-  return arr[Math.floor(Math.random() * arr.length)];
+/* ---------- Loading Animation ---------- */
+function LoadingAnimation() {
+  return (
+   <div className="flex flex-col items-center justify-center py-12">
+  <motion.div
+    className="w-16 h-16 border-4 border-green-500 border-t-transparent bg-gradient-to-l from-green-300 to-green-400 rounded-full animate-spin"
+    initial={{ rotate: 0 }}
+    animate={{ rotate: 360 }}
+    transition={{ repeat: Infinity, duration: 1 }}
+  />
+    <motion.p
+        className="mt-6 text-gray-700 font-semibold text-xl text-center"
+        initial={{ opacity: 0.3 }}
+        animate={{ opacity: [0.3, 1, 0.3] }}
+        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+      >
+        AI is generating your personalized plan...
+      </motion.p>
+</div>
+  );
 }
+
 
 /* ---------- Main Page ---------- */
 export default function MyMealsPage() {
@@ -361,142 +191,303 @@ export default function MyMealsPage() {
     ],
     allergies: [],
   });
-
   const [mealPlan, setMealPlan] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const allergyOptions = ["Dairy","Eggs","Peanuts","Tree nuts","Soy","Gluten","Fish","Shellfish"];
-
-  function setField(name, value) {
-    setForm((p) => ({ ...p, [name]: value }));
-  }
-
-  function toggleMealType(value) {
+  /* ---------- Handlers ---------- */
+  const setField = (name, value) => setForm((p) => ({ ...p, [name]: value }));
+  const toggleMealType = (value) =>
     setForm((p) => {
       const has = p.meals.includes(value);
       return { ...p, meals: has ? p.meals.filter((m) => m !== value) : [...p.meals, value] };
     });
-  }
-
-  function toggleAllergy(tag) {
+  const toggleAllergy = (tag) =>
     setForm((p) => {
       const has = p.allergies.includes(tag);
       return { ...p, allergies: has ? p.allergies.filter((a) => a !== tag) : [...p.allergies, tag] };
     });
-  }
-
-  function updateTarget(idx, key, val) {
+  const updateTarget = (idx, key, val) => {
     setForm((p) => {
       const t = [...p.targets];
       t[idx] = { ...t[idx], [key]: val };
       return { ...p, targets: t };
     });
-  }
+  };
 
-  function handleGenerate() {
+  /* ---------- Generate ---------- */
+  const handleGenerate = async () => {
     setLoading(true);
     setMealPlan(null);
-
-    const targetCalories = Number(form.calories) || 2000;
-    setTimeout(() => {
-      const distribution = {
-        Breakfast: Math.round(targetCalories * 0.25),
-        Lunch: Math.round(targetCalories * 0.3),
-        Dinner: Math.round(targetCalories * 0.3),
-        Snack: Math.round(targetCalories * 0.15),
-      };
-
-      const meals = Object.keys(distribution).map((m) => {
-        const cals = distribution[m];
-        const proteinG = Math.round((cals * 0.3) / 4);
-        const carbsG = Math.round((cals * 0.45) / 4);
-        const fatG = Math.round((cals * 0.25) / 9);
-
-        return {
-          name: m,
-          calories: cals,
-          protein: proteinG,
-          carbs: carbsG,
-          fat: fatG,
-          sample: sampleDishForMeal(m, form.dietType),
-        };
+    try {
+      const res = await fetch("/api/nutrition", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ form }),
       });
-
-      setMealPlan({ generatedAt: new Date(), meals });
+      const data = await res.json();
+      if (data.error) alert("Server error: " + data.error);
+      else if (data.plan) setMealPlan(data.plan);
+      else if (data.planText) setMealPlan({ rawText: data.planText, generatedAt: new Date().toISOString() });
+      else alert("Unexpected response from server");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to call API. See console.");
+    } finally {
       setLoading(false);
-
       setTimeout(() => {
         const el = document.getElementById("meal-results");
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 100);
-    }, 900);
-  }
+    }
+  };
+
+  const allergyOptions = ["Dairy","Eggs","Peanuts","Tree nuts","Soy","Gluten","Fish","Shellfish"];
 
   return (
-    <div className="min-h-screen bg-white text-gray-700">
-      <div className="max-w-7xl mx-auto px-6 py-16">
+    <div className="min-h-screen bg-gray-50 text-gray-900 py-12 px-6">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold">Custom Macro Meal Planner</h1>
+          <h1 className="text-4xl md:text-5xl font-extrabold">Custom Macro Meal Planner</h1>
           <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
-            Generate meal plans based on your macros and goals. Switch between Basic and Advanced for more customization.
+            Generate AI-powered meal plans based on your macros and goals. Switch between <b>Basic</b> and <b>Advanced</b> modes.
           </p>
         </motion.div>
 
         {/* Form */}
-        <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} className="bg-white rounded-3xl shadow-2xl p-8">
+        <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} className="relative bg-white rounded-3xl shadow-2xl p-8 border border-green-100">
+          {/* Tabs */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex space-x-4">
               <TabButton label="Basic" active={tab === "basic"} onClick={() => setTab("basic")} />
               <TabButton label="Advanced" active={tab === "advanced"} onClick={() => setTab("advanced")} />
             </div>
-            <div className="text-sm text-gray-400">Step 1 of 2</div>
+           
           </div>
 
+          {/* Tab Content */}
           <AnimatePresence mode="wait">
             {tab === "basic" ? (
               <BasicForm form={form} setField={setField} toggleMealType={toggleMealType} />
             ) : (
-              <AdvancedForm form={form} setField={setField} updateTarget={updateTarget} toggleAllergy={toggleAllergy} allergyOptions={allergyOptions} />
+              <AdvancedForm
+                form={form}
+                setField={setField}
+                updateTarget={updateTarget}
+                toggleAllergy={toggleAllergy}
+                allergyOptions={allergyOptions}
+              />
             )}
           </AnimatePresence>
 
-          <div className="mt-6">
-            <button onClick={handleGenerate} className="w-full bg-green-600 text-white py-4 rounded-full font-bold text-lg shadow-xl hover:bg-green-700 transform hover:-translate-y-0.5 transition">
-              <span className="inline-flex items-center gap-3 justify-center">
-                <FaSyncAlt /> {loading ? "Generating..." : "Generate Macro Plan"}
-              </span>
+          {/* Generate Button */}
+          <div className="mt-8">
+            <button
+              onClick={handleGenerate}
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-4 rounded-full font-bold text-lg shadow-xl transition transform hover:-translate-y-0.5 disabled:opacity-60 flex justify-center items-center gap-3 cursor-pointer"
+            >
+              <FaSyncAlt className={loading ? "animate-spin" : ""} />
+              {loading ? "Generating…" : "Generate Macro Plan"}
             </button>
           </div>
+
+          {/* Loading Overlay */}
+          <AnimatePresence>
+            {loading && (
+              <div
+                className="absolute inset-0 bg-white/70 backdrop-blur-md flex items-center justify-center rounded-3xl z-10 "
+              >
+                <LoadingAnimation />
+              </div>
+            )}
+          </AnimatePresence>
         </motion.div>
 
         {/* Results */}
-        <div id="meal-results" className="mt-12">
-          <AnimatePresence>
-            {mealPlan && (
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }} transition={{ duration: 0.4 }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {mealPlan.meals.map((m) => (
-                  <MealCard key={m.name} meal={m} />
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+       <div id="meal-results" className="mt-16 py-16">
+  <AnimatePresence>
+    {mealPlan && (
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 12 }}
+        transition={{ duration: 0.4 }}
+      >
+        {/* 🔹 Title Section */}
+        <h2 className="text-4xl font-bold text-center text-gray-800 mb-10">
+          🍽️ Your Personalized Meal Plan
+        </h2>
 
-        {/* Instructions */}
-        <div className="mt-16 bg-[#f4f9f7] p-8 rounded-xl">
-          <h2 className="text-2xl font-bold mb-4">How This Works</h2>
-          <ol className="list-decimal list-inside space-y-2 text-gray-700">
-            <li>Fill in your personal details: age, height, weight, and optionally BMI.</li>
-            <li>Select your gender, activity level, fitness goal, meals per day, and diet type.</li>
-            <li>Switch to "Advanced" to set macro targets, calories, and food allergies.</li>
-            <li>Click "Generate Macro Plan" to create a personalized meal plan.</li>
-            <li>Scroll down to view your weekly meal plan with calorie and macronutrient breakdown.</li>
-            <li>Follow the plan and adjust based on your progress.</li>
-          </ol>
-        </div>
+        {mealPlan.meals ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2  gap-6 ">
+            {mealPlan.meals.map((m) => (
+              <MealCard key={m.name} meal={m} />
+            ))}
+          </div>
+        ) : mealPlan.rawText ? (
+          <div className="bg-white rounded-2xl shadow p-6">
+            <h3 className="font-semibold mb-3">Generated Plan (raw)</h3>
+            <pre className="whitespace-pre-wrap text-sm text-gray-700">
+              {mealPlan.rawText}
+            </pre>
+          </div>
+        ) : (
+          <div className="bg-white rounded-2xl shadow p-6">No meals returned.</div>
+        )}
+      </motion.div>
+    )}
+  </AnimatePresence>
+</div>
+
       </div>
     </div>
   );
 }
 
+/* ---------- Forms ---------- */
+function BasicForm({ form, setField, toggleMealType }) {
+  return (
+    <motion.div key="basic" initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 8 }} transition={{ duration: 0.25 }} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <FormInput icon={<FaUser className="text-green-600" />} label="Age" placeholder="30" value={form.age} onChange={(v) => setField("age", v)} type="number" />
+      <FormInput icon={<FaRulerVertical className="text-green-600" />} label="Height (ft)" placeholder="5" value={form.heightFt} onChange={(v) => setField("heightFt", v)} type="number" />
+      <FormInput icon={<FaWeight className="text-green-600" />} label="Weight (lbs)" placeholder="180" value={form.weight} onChange={(v) => setField("weight", v)} type="number" />
+      <FormInput icon={<FaAppleAlt className="text-green-600" />} label="BMI (optional)" placeholder="e.g. 24.5" value={form.bmi || ""} onChange={(v) => setField("bmi", v)} type="number" />
+      <SelectInput icon={<FaVenusMars className="text-green-600" />} label="Gender" value={form.gender} onChange={(v) => setField("gender", v)} options={["Male", "Female", "Other"]} />
+      <SelectInput icon={<FaRunning className="text-green-600" />} label="Activity Level" value={form.activity} onChange={(v) => setField("activity", v)} options={["Sedentary","Lightly Active","Moderately Active","Active","Very Active"]} />
+      <SelectInput icon={<FaAppleAlt className="text-green-600" />} label="Goal" value={form.goal} onChange={(v) => setField("goal", v)} options={["Lose Fat","Build Muscle","Maintain Weight"]} />
+
+      <div className="md:col-span-2">
+        <label className="text-sm font-semibold text-gray-600 mb-2 block">Daily Meals</label>
+        <div className="flex flex-wrap gap-3">
+          {["Breakfast","Lunch","Dinner","Snack"].map((m) => {
+            const active = form.meals.includes(m);
+            return (
+              <button
+                key={m}
+                onClick={() => toggleMealType(m)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+                  active
+                    ? "bg-green-600 text-white shadow-md"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                {m}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <SelectInput icon={<FaCookieBite className="text-green-600" />} label="Diet Type" value={form.dietType} onChange={(v) => setField("dietType", v)} options={["Anything","Keto","Vegetarian","Vegan","High-Protein"]} />
+    </motion.div>
+  );
+}
+
+function AdvancedForm({ form, setField, updateTarget, toggleAllergy, allergyOptions }) {
+  const [customAllergy, setCustomAllergy] = useState("");
+  const [typing, setTyping] = useState(false);
+
+  const addCustomAllergy = () => {
+    const trimmed = customAllergy.trim();
+    if (trimmed && !form.allergies.includes(trimmed)) {
+      setField("allergies", [...form.allergies, trimmed]);
+      setCustomAllergy("");
+      setTyping(false);
+    }
+  };
+
+  const handleTyping = (value) => {
+    setCustomAllergy(value);
+    setTyping(value.length > 0);
+  };
+  return (
+     <motion.div  key="advanced"  initial={{ opacity: 0, x: 8 }}   animate={{ opacity: 1, x: 0 }}   exit={{ opacity: 0, x: -8 }}   transition={{ duration: 0.25 }}
+      className="grid grid-cols-1 gap-4"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <FormInput icon={<FaAppleAlt className="text-green-600" />} label="Target Calories" placeholder="e.g. 2200" value={form.calories} onChange={(v) => setField("calories", v)} type="number" />
+        <FormInput icon={<FaUser className="text-green-600" />} label="Protein target (g)" placeholder="e.g. 150" value={form.protein} onChange={(v) => setField("protein", v)} type="number" />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <FormInput icon={<FaCookieBite className="text-green-600" />} label="Carbs target (g)" placeholder="e.g. 200" value={form.carbs} onChange={(v) => setField("carbs", v)} type="number" />
+        <FormInput icon={<FaWeight className="text-green-600" />} label="Fat target (g)" placeholder="e.g. 70" value={form.fat} onChange={(v) => setField("fat", v)} type="number" />
+      </div>
+
+      {/* Nutrition Targets & Allergies */}
+      <div className="mt-4">
+        <label className="block font-semibold mb-2">Food Allergies</label>
+        
+        {/* Predefined allergies */}
+        <div className="flex flex-wrap gap-3 mb-2">
+          {allergyOptions.map((a) => {
+            const active = form.allergies.includes(a);
+            return (
+              <motion.button
+                key={a}
+                onClick={() => toggleAllergy(a)}
+                whileTap={{ scale: 0.95 }}
+                className={`px-3 py-2 rounded-full text-sm font-medium transition ${
+                  active
+                    ? "bg-green-600 text-white shadow-md"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                {a}
+              </motion.button>
+            );
+          })}
+        </div>
+
+        {/* Custom allergy input */}
+        <div className="flex gap-2 items-center mt-2">
+        <input
+            type="text"
+            value={customAllergy}
+            onChange={(e) => handleTyping(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && addCustomAllergy()}
+            placeholder="Add other allergy..."
+            className={`flex-1 px-4 py-2 rounded-xl border ${
+              typing
+                ? "border-green-400 shadow-md animate-pulse"
+                : "border-gray-200 focus:ring-2 focus:ring-green-200 focus:border-green-400"
+            } focus:outline-none transition`}
+          />
+
+          <button
+            onClick={addCustomAllergy}
+            className="px-4 py-2 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition"
+          >
+            Add
+          </button>
+        </div>
+
+        {/* Display custom allergies */}
+        <div className="flex flex-wrap gap-2 mt-2">
+          {form.allergies.map((a) => (
+            <motion.div
+              key={a}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0 }}
+              className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm flex items-center gap-1"
+            >
+              {a}
+              <button
+                onClick={() =>
+                  setField(
+                    "allergies",
+                    form.allergies.filter((al) => al !== a)
+                  )
+                }
+                className="text-green-700 font-bold text-xs ml-1"
+              >
+                ×
+              </button>
+    </motion.div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+}

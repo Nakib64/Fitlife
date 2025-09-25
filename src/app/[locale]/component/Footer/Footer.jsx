@@ -31,22 +31,22 @@ export default function Footer() {
   const bgImage = "/about/marque.jpg";
 
   return (
-    <footer className="bg-[#1A3438] text-white pt-16 pb-12 font-sans">
-      <div className="max-w-7xl mx-auto">
+    <footer className="bg-[#1A3438] text-white font-sans">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-16 pb-12">
         {/* Footer Top Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 border-b border-white border-opacity-20 pb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 border-b border-white/20 pb-12">
           {/* Columns from data */}
           {footerLinks.map((column) => (
             <div key={column.title} className="flex flex-col">
-              <h4 className="text-xl font-bold uppercase mb-6 text-white">
+              <h4 className="text-lg md:text-xl font-bold uppercase mb-4 md:mb-6">
                 {column.title}
               </h4>
-              <ul className="space-y-3">
+              <ul className="space-y-2 md:space-y-3">
                 {column.links.map((link) => (
                   <li key={link}>
                     <Link
                       href="#"
-                      className="hover:text-[#C0F948] transition-colors"
+                      className="hover:text-[#C0F948] transition-colors text-sm md:text-base"
                     >
                       {link}
                     </Link>
@@ -58,22 +58,22 @@ export default function Footer() {
 
           {/* Newsletter Column */}
           <div className="flex flex-col">
-            <h4 className="text-xl font-bold uppercase mb-6 text-white">
+            <h4 className="text-lg md:text-xl font-bold uppercase mb-4 md:mb-6">
               Newsletter
             </h4>
-            <p className="text-base leading-relaxed mb-4">
+            <p className="text-sm md:text-base leading-relaxed mb-4 text-gray-200">
               Sign up for exclusive product launches, promotions, and unique
               experiences.
             </p>
-            <div className="flex flex-col sm:flex-row gap-2">
+            <div className="flex flex-col gap-3">
               <input
                 type="email"
                 placeholder="Your email..."
-                className="flex-grow p-3 bg-[#27484B] rounded-md border-none focus:outline-none focus:ring-2 focus:ring-[#C0F948] text-white placeholder-gray-400"
+                className="w-full p-3 bg-[#27484B] rounded-md border-none focus:outline-none focus:ring-2 focus:ring-[#C0F948] text-white placeholder-gray-400 text-sm md:text-base"
               />
               <button
                 type="submit"
-                className="bg-[#C0F948] text-[#1A3438] font-bold py-3 px-6 rounded-md uppercase hover:bg-[#aae03b] transition-colors"
+                className="w-full bg-[#C0F948] text-[#1A3438] font-bold py-3 px-6 rounded-md uppercase hover:bg-[#aae03b] transition-colors text-sm md:text-base"
               >
                 SUBSCRIBE
               </button>
@@ -82,8 +82,8 @@ export default function Footer() {
         </div>
 
         {/* Footer Bottom Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-center py-8 text-white font-bold uppercase">
-          <div className="flex flex-col sm:flex-row mb-4 sm:mb-0 space-y-2 sm:space-y-0 sm:space-x-8">
+        <div className="flex flex-col sm:flex-row justify-between items-center pt-6 pb-6 text-white text-sm md:text-base font-semibold uppercase gap-4 sm:gap-0">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-8 text-center sm:text-left">
             <span>CALL US: (094) 123 - 456 88</span>
             <span>EMAIL: SUPPORT@EXAMPLE.COM</span>
           </div>
@@ -103,37 +103,33 @@ export default function Footer() {
 
       {/* marquee */}
       <div
-        className="relative w-full h-[40vh] overflow-hidden"
+        className="relative w-full h-[30vh] md:h-[40vh] overflow-hidden"
         style={{
           backgroundImage: `url(${bgImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 bg-no-repeat  bg-opacity-40">
-          {/* <img src="/about/marque.jpg" alt="" className='object-cover ' /> */}
-
-          <motion.div
-            className="absolute whitespace-nowrap items-center text-white font-extrabold text-[10vw] md:text-[12vw] lg:text-[14vw] uppercase flex"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 20, // adjust for speed
-              ease: "linear",
-            }}
-          >
-            <div>
-              {headline}&nbsp;&nbsp;&nbsp;{headline}&nbsp;&nbsp;&nbsp;{headline}
-              &nbsp;&nbsp;&nbsp;{headline}
-            </div>
-            {/* Repeat the text to make seamless scrolling */}
-          </motion.div>
-        </div>
+        <div className="absolute inset-0 bg-black/40" />
+        <motion.div
+          className="absolute whitespace-nowrap text-white font-extrabold text-[8vw] sm:text-[10vw] md:text-[12vw] uppercase flex"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: 16, // smoother speed
+            ease: "linear",
+          }}
+        >
+          <div>
+            {headline}&nbsp;&nbsp;&nbsp;{headline}&nbsp;&nbsp;&nbsp;{headline}
+            &nbsp;&nbsp;&nbsp;{headline}
+          </div>
+        </motion.div>
       </div>
 
       {/* copyright */}
-      <div className="bg-[#1A3438] text-white text-center font-bold text-xl pt-10 px-8 font-sans">
+      <div className="bg-[#1A3438] text-white text-center font-medium text-sm sm:text-lg md:text-xl py-6 px-6">
         Copyright <span className="text-lime-400">© 2025</span> Guildy. All
         rights reserved
       </div>
