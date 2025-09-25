@@ -55,8 +55,8 @@ export default function Description() {
       className="relative w-full overflow-hidden bg-[#f3f4f7]"
     >
       {/* Heading */}
-      <motion.div variants={cardVariant} className="py-12 text-center">
-<h2 className="text-5xl md:text-6xl font-extrabold tracking-wide 
+      <motion.div variants={cardVariant} className="py-10 text-center">
+<h2 className="text-4xl md:text-6xl font-extrabold tracking-wide 
   bg-gradient-to-r from-gray-800 via-slate-700 to-blue-600 
   text-transparent bg-clip-text animate-gradient">
   FitLife AI Coach
