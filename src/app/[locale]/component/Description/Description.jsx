@@ -55,15 +55,12 @@ export default function Description() {
       className="relative w-full overflow-hidden bg-[#f3f4f7]"
     >
       {/* Heading */}
-      <motion.div variants={cardVariant} className="py-12 text-center">
-<h2 className="text-5xl md:text-6xl font-extrabold tracking-wide 
+      <motion.div variants={cardVariant} className="py-10 text-center">
+<h2 className="text-4xl md:text-6xl font-extrabold tracking-wide 
   bg-gradient-to-r from-gray-800 via-slate-700 to-blue-600 
   text-transparent bg-clip-text animate-gradient">
   FitLife AI Coach
 </h2>
-
-
-
         <p className="mt-4 text-lg md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
           A <span className="font-semibold text-gray-800">premium fitness experience</span> — personalized workouts, nutrition, and wellness powered by{" "}
           <span className="text-indigo-600 font-semibold">AI intelligence</span>.

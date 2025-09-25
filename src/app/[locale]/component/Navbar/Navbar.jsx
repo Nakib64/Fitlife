@@ -22,6 +22,8 @@ const Navbar = () => {
     { name: "About", href: "/about" },
   ];
 
+  const hiddenPaths = ["/signup", "/login", "/reset-password", "/verify-otp"];
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) {
@@ -45,8 +47,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [controls]);
 
-
-  if(pathname.includes('/signup')){
+  if (hiddenPaths.some((p) => pathname.includes(p))) {
     return <></>
   }
 
@@ -62,7 +63,7 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 h-full">
         {/* Logo with scaling */}
-        <Link href={'/'}>
+        <Link href={"/"}>
           <motion.div
             animate={{ scale: scrolled ? 0.7 : 1 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}

@@ -52,14 +52,16 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="bg-white px-6 py-24">
+    <section className="bg-[#f3f4f7] px-6 py-10">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-wide 
+  bg-gradient-to-r from-gray-800 via-slate-700 to-blue-600 
+  text-transparent bg-clip-text animate-gradient">
             Frequently Asked Questions
           </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <p className="mt-4 mb-7 text-lg md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Find answers to the most common questions about our AI Wellness
             Coach.
           </p>
