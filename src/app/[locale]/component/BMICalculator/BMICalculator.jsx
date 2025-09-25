@@ -60,7 +60,7 @@ export default function BMICalculator() {
     <section className="py-10 bg-[#f3f4f7]">
       <div className="max-w-7xl mx-auto px-6 text-center">
         <motion.h2
-          className="text-4xl md:text-6xl font-extrabold tracking-wide 
+          className="text-4xl md:text-5xl font-extrabold tracking-wide 
   bg-gradient-to-r from-gray-800 via-slate-700 to-blue-600 
   text-transparent bg-clip-text animate-gradient"
           initial={{ opacity: 0, y: -20 }}

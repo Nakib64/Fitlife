@@ -57,7 +57,7 @@ export default function PremiumReviews() {
   const allReviews = [...reviews, ...reviews]; // duplicate for loop effect
 
   return (
-    <section className="py-10 w-full mb-20 bg-[#f3f4f7]">
+    <section className="py-10 w-full bg-[#f3f4f7]">
       {/* Section Title */}
       <div className="text-center mb-14 px-4">
         <p className="text-sm md:text-base tracking-wider font-semibold mb-4 text-green-600 uppercase">

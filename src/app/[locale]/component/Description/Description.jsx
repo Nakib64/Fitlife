@@ -61,9 +61,6 @@ export default function Description() {
   text-transparent bg-clip-text animate-gradient">
   FitLife AI Coach
 </h2>
-
-
-
         <p className="mt-4 text-lg md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
           A <span className="font-semibold text-gray-800">premium fitness experience</span> — personalized workouts, nutrition, and wellness powered by{" "}
           <span className="text-indigo-600 font-semibold">AI intelligence</span>.

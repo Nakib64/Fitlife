@@ -98,7 +98,7 @@ function FeaturesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-6xl font-extrabold tracking-wide 
+          className="text-4xl md:text-5xl font-extrabold tracking-wide 
   bg-gradient-to-r from-gray-800 via-slate-700 to-blue-600 
   text-transparent bg-clip-text animate-gradient"
         >
