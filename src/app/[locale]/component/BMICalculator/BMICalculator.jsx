@@ -57,17 +57,19 @@ export default function BMICalculator() {
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-10 bg-[#f3f4f7]">
       <div className="max-w-7xl mx-auto px-6 text-center">
         <motion.h2
-          className="text-4xl md:text-5xl font-bold text-gray-900 mb-2"
+          className="text-4xl md:text-5xl font-extrabold tracking-wide 
+  bg-gradient-to-r from-gray-800 via-slate-700 to-blue-600 
+  text-transparent bg-clip-text animate-gradient"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
         >
           Know Your BMI
         </motion.h2>
         <motion.p
-          className="mb-12 text-zinc-600"
+          className="mt-4 mb-7 text-lg md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >

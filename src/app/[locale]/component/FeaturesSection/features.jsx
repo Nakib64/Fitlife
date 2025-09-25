@@ -90,7 +90,7 @@ const features = [
 
 function FeaturesSection() {
   return (
-    <section className="relative py-20 bg-[#f3f4f7] overflow-hidden">
+    <section className="relative py-10 bg-[#f3f4f7] overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
         {/* Heading */}
         <motion.h2
@@ -98,7 +98,9 @@ function FeaturesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4"
+          className="text-4xl md:text-5xl font-extrabold tracking-wide 
+  bg-gradient-to-r from-gray-800 via-slate-700 to-blue-600 
+  text-transparent bg-clip-text animate-gradient"
         >
           Premium Features
         </motion.h2>
@@ -107,7 +109,7 @@ function FeaturesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
           viewport={{ once: true }}
-          className="text-gray-600 italic mb-14 max-w-2xl mx-auto"
+          className="mt-4 mb-7 text-lg md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
         >
           Everything you need to achieve your fitness & wellness goals, all in
           one place.

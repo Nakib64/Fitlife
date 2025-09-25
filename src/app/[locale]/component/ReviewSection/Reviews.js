@@ -57,16 +57,18 @@ export default function PremiumReviews() {
   const allReviews = [...reviews, ...reviews]; // duplicate for loop effect
 
   return (
-    <section className="py-20 w-full mb-20 bg-[#ECF2F2]">
+    <section className="py-10 w-full bg-[#f3f4f7]">
       {/* Section Title */}
       <div className="text-center mb-14 px-4">
         <p className="text-sm md:text-base tracking-wider font-semibold mb-4 text-green-600 uppercase">
           What Clients Say
         </p>
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 mb-4">
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-wide 
+  bg-gradient-to-r from-gray-800 via-slate-700 to-blue-600 
+  text-transparent bg-clip-text animate-gradient">
           Real Stories, Real Results
         </h1>
-        <p className="text-lg md:text-xl text-gray-800 max-w-2xl mx-auto">
+        <p className="mt-4 mb-7 text-lg md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
           Thousands of clients worldwide have trusted our program to transform
           their health and fitness journey.
         </p>
