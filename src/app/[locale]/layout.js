@@ -9,6 +9,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Providers from "./component/Provider/Provider";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -39,12 +40,14 @@ export default async function RootLayout({ children, params }) {
 					<body
 						className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 					>
+
 						<NextIntlClientProvider>
 							<Providers>
 							<Navbar></Navbar>
 							<Toaster richColors closeButton />
 							{children}
 							<ChatButton />
+							<LanguageSwitcher></LanguageSwitcher>
 							<Footer></Footer>
 							</Providers>
 						</NextIntlClientProvider>

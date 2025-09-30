@@ -1,5 +1,7 @@
 {
   "home": {
-    "title": "Your AI-powered\nfitness coach"
+    "hero": {
+      "title": "Your AI-powered fitness coach"
+    }
   }
 }
