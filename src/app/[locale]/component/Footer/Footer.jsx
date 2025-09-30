@@ -1,6 +1,7 @@
 'use client'
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const footerLinks = [
   {
@@ -27,6 +28,13 @@ const footerLinks = [
 const socialLinks = ["FACEBOOK", "INSTAGRAM", "YOUTUBE", "TWITTER"];
 
 export default function Footer() {
+  const pathname = usePathname(); // ✅ Moved inside component
+  const hiddenPath = ["/dashBoard"];
+
+  if (hiddenPath.some((p) => pathname.includes(p))) {
+    return <></>; // hides footer on specified paths
+  }
+
   const headline = "FITLIFE COACH";
   const bgImage = "/about/marque.jpg";
 
@@ -117,7 +125,7 @@ export default function Footer() {
           transition={{
             repeat: Infinity,
             repeatType: "loop",
-            duration: 16, // smoother speed
+            duration: 16,
             ease: "linear",
           }}
         >

@@ -22,7 +22,7 @@ const Navbar = () => {
     {name:"Dashboard",href:"/dashBoard"}
   ];
 
-  const hiddenPaths = ["/signup", "/login", "/reset-password", "/verify-otp"];
+  const hiddenPaths = ["/signup", "/login", "/reset-password", "/verify-otp","/dashBoard"];
 
   useEffect(() => {
     const handleScroll = () => {
