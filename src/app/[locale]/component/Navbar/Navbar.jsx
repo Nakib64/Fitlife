@@ -15,11 +15,11 @@ const Navbar = () => {
   const navLinks = [
     { name: "My Workouts", href: "/myworkouts" },
     { name: "My Meals", href: "/meals" },
-    { name: "Progress Tracker", href: "/progressTracker" },
     { name: "Wellness", href: "/wellness" },
     { name: "Achievements", href: "/achievements" },
     { name: "AI Coach", href: "/ai-coach" },
     { name: "About", href: "/about" },
+    {name:"Dashboard",href:"/dashBoard"}
   ];
 
   const hiddenPaths = ["/signup", "/login", "/reset-password", "/verify-otp"];
