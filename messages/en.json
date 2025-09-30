@@ -1,5 +1,29 @@
 {
   "home": {
-    "title": "Your AI-powered\nfitness coach"
-  }
+    "hero": {
+      "btn": "Get your workout plan now",
+      "des": "With the FitLife workout app, you get a personalized fitness program\n            that gets real results.",
+      "subtitle": "Your fitness program /n is ready. Are you?",
+      "title": "Your AI-powered fitness coach"
+    }
+  },
+   "description": {
+      "heading": "FitLife AI Coach",
+      "subHeading": "A premium fitness experience — personalized workouts, nutrition, and wellness powered by AI intelligence.",
+      "intro": "Achieve your fitness goals with tailored workouts, meal plans, and wellness guidance. FitLife adapts to your progress, ensuring lasting results.",
+      "features": [
+        {
+          "title": "AI-Powered Workouts",
+          "desc": "Adaptive daily & weekly plans, intelligently evolving as you grow stronger."
+        },
+        {
+          "title": "Smart Nutrition",
+          "desc": "Curated meal plans with calorie targets & lifestyle-based alternatives."
+        },
+        {
+          "title": "Mindfulness & Wellness",
+          "desc": "Expert guidance on mindfulness, stress relief, and better sleep."
+        }
+      ]
+    }
 }

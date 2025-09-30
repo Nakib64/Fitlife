@@ -1,0 +1,29 @@
+{
+	"home": {
+		"hero": {
+			"btn": "Obtenez votre plan d'entraînement maintenant",
+			"des": "Avec l'application d'entraînement FitLife, vous obtenez un programme de fitness personnalisé\n            qui donne de vrais résultats.",
+			"subtitle": "Votre programme de fitness est prêt. Êtes-vous prêt ?",
+			"title": "Votre coach de fitness alimenté par l'IA"
+		},
+		"description": {
+			"heading": "FitLife Coach IA",
+			"subHeading": "Une expérience de fitness premium — entraînements personnalisés, nutrition et bien-être, propulsés par l’intelligence artificielle.",
+			"intro": "Atteignez vos objectifs de fitness grâce à des entraînements, des plans de repas et des conseils de bien-être personnalisés. FitLife s’adapte à vos progrès pour garantir des résultats durables.",
+			"features": [
+				{
+					"title": "Entraînements IA",
+					"desc": "Plans quotidiens et hebdomadaires adaptatifs, évoluant intelligemment à mesure que vous progressez."
+				},
+				{
+					"title": "Nutrition Intelligente",
+					"desc": "Plans de repas adaptés avec objectifs caloriques et alternatives selon votre style de vie."
+				},
+				{
+					"title": "Pleine Conscience & Bien-être",
+					"desc": "Conseils d’experts en pleine conscience, gestion du stress et amélioration du sommeil."
+				}
+			]
+		}
+	}
+}

@@ -4,9 +4,12 @@ import { motion } from "framer-motion";
 import { FiActivity } from "react-icons/fi";
 import { GiMeal } from "react-icons/gi";
 import { MdSelfImprovement } from "react-icons/md";
+import { useTranslations } from "next-intl";
 
 export default function Description() {
-  // Container for staggered animations
+  const t = useTranslations("home.description");
+
+  // Animation Variants
   const containerVariant = {
     hidden: { opacity: 0 },
     visible: {
@@ -15,7 +18,6 @@ export default function Description() {
     },
   };
 
-  // Feature card variant
   const cardVariant = {
     hidden: { opacity: 0, y: 40 },
     visible: {
@@ -25,23 +27,24 @@ export default function Description() {
     },
   };
 
+  // Features (text comes from JSON)
   const features = [
     {
       icon: <FiActivity className="text-3xl text-indigo-600" />,
-      title: "AI-Powered Workouts",
-      desc: "Adaptive daily & weekly plans, intelligently evolving as you grow stronger.",
+      title: t("features.0.title"),
+      desc: t("features.0.desc"),
       color: "from-indigo-100 to-indigo-200",
     },
     {
       icon: <GiMeal className="text-3xl text-green-600" />,
-      title: "Smart Nutrition",
-      desc: "Curated meal plans with calorie targets & lifestyle-based alternatives.",
+      title: t("features.1.title"),
+      desc: t("features.1.desc"),
       color: "from-green-100 to-green-200",
     },
     {
       icon: <MdSelfImprovement className="text-3xl text-pink-600" />,
-      title: "Mindfulness & Wellness",
-      desc: "Expert guidance on mindfulness, stress relief, and better sleep.",
+      title: t("features.2.title"),
+      desc: t("features.2.desc"),
       color: "from-pink-100 to-pink-200",
     },
   ];
@@ -56,17 +59,19 @@ export default function Description() {
     >
       {/* Heading */}
       <motion.div variants={cardVariant} className="py-10 text-center">
-<h2 className="text-4xl md:text-6xl font-extrabold tracking-wide 
-  bg-gradient-to-r from-gray-800 via-slate-700 to-blue-600 
-  text-transparent bg-clip-text animate-gradient">
-  FitLife AI Coach
-</h2>
+        <h2
+          className="text-4xl md:text-6xl font-extrabold tracking-wide 
+          bg-gradient-to-r from-gray-800 via-slate-700 to-blue-600 
+          text-transparent bg-clip-text animate-gradient"
+        >
+          {t("heading")}
+        </h2>
         <p className="mt-4 text-lg md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-          A <span className="font-semibold text-gray-800">premium fitness experience</span> — personalized workouts, nutrition, and wellness powered by{" "}
-          <span className="text-indigo-600 font-semibold">AI intelligence</span>.
+          {t("subHeading")}
         </p>
       </motion.div>
 
+    
       {/* Main Content */}
       <div className="pb-16">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
@@ -76,9 +81,7 @@ export default function Description() {
               variants={cardVariant}
               className="text-gray-700 mb-8 text-lg leading-relaxed max-w-2xl"
             >
-              Achieve your <strong className="text-gray-900">fitness goals</strong> with tailored{" "}
-              <em className="text-gray-800">workouts, meal plans, and wellness guidance</em>.  
-              FitLife adapts to your progress, ensuring lasting results.
+              {t("intro")}
             </motion.p>
 
             {/* Feature Cards */}
@@ -96,7 +99,11 @@ export default function Description() {
                 >
                   <motion.div
                     animate={{ y: [0, -6, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                     className={`flex-shrink-0 p-4 rounded-full shadow-md bg-gradient-to-tr ${card.color}`}
                   >
                     {card.icon}
@@ -114,7 +121,10 @@ export default function Description() {
             </motion.div>
 
             {/* CTA */}
-            <motion.div variants={cardVariant} className="flex gap-3 mt-10 flex-wrap">
+            <motion.div
+              variants={cardVariant}
+              className="flex gap-3 mt-10 flex-wrap"
+            >
               <motion.a
                 href="#"
                 whileHover={{ scale: 1.05, rotate: -1 }}
@@ -140,13 +150,14 @@ export default function Description() {
                 />
               </motion.a>
             </motion.div>
-            <p className="mt-4 text-gray-500 text-sm">
-              Join <span className="font-semibold text-gray-800">10,000+</span> already transforming their lives with FitLife
-            </p>
+            
           </div>
 
           {/* Right Images */}
-          <motion.div variants={cardVariant} className="relative flex justify-center">
+          <motion.div
+            variants={cardVariant}
+            className="relative flex justify-center"
+          >
             <motion.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}

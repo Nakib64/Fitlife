@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Mail, Facebook, Loader2 } from "lucide-react";
 
 export default function SignUp() {

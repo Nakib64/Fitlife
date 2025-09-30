@@ -1,7 +1,7 @@
 "use client";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import UserInfo from "../userInfo/UserInfo";
@@ -48,6 +48,9 @@ const Navbar = () => {
   }, [controls]);
 
   if (hiddenPaths.some((p) => pathname.includes(p))) {
+    return <></>
+  }
+  if(pathname.includes("/dashBoard")){
     return <></>
   }
 
