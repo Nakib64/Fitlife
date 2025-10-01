@@ -24,6 +24,199 @@
 					"desc": "Expert guidance on mindfulness, stress relief, and better sleep."
 				}
 			]
+		},
+		"bmi": {
+			"title": "Know Your BMI",
+			"subtitle": "Calculate your Body Mass Index (BMI) and see your health category.",
+			"calculatorTitle": "BMI Calculator",
+			"weight": "Weight (kg):",
+			"height": "Height:",
+			"feet": "Feet",
+			"inches": "Inches",
+			"age": "Age:",
+			"gender": "Gender:",
+			"male": "Male",
+			"female": "Female",
+			"calculateBtn": "Calculate BMI",
+			"beforeTitle": "Your BMI Result Will Appear Here",
+			"beforeDesc": "Enter your weight, height, and age in the form to calculate your Body Mass Index.",
+			"resultTitle": "BMI Result",
+			"categories": "BMI Categories",
+			"adult": "(Adult)",
+			"children": "(Children)",
+			"underweight": "Underweight",
+			"normal": "Normal weight",
+			"healthy": "Healthy",
+			"overweight": "Overweight",
+			"obese1": "Obese (Class I)",
+			"obese2": "Obese (Class II)",
+			"obese3": "Obese (Class III / Severe)",
+			"percentileUnder": "< 5th percentile",
+			"percentileHealthy": "5th–84th percentile",
+			"percentileOver": "85th–94th percentile",
+			"percentileObese": "≥ 95th percentile",
+			"rangeUnder": "< 18.5",
+			"rangeNormal": "18.5 – 24.9",
+			"rangeOver": "25 – 29.9",
+			"rangeObese1": "30 – 34.9",
+			"rangeObese2": "35 – 39.9",
+			"rangeObese3": "40+"
+		},
+		"featuresSection": {
+			"heading": "Premium Features",
+			"subtitle": "Everything you need to achieve your fitness & wellness goals, all in one place.",
+			"userProfile": {
+				"title": "User Profile & Biometric Data",
+				"description": "Create your personal profile with age, weight, height, activity level, and fitness goals. Biometric data like steps, heart rate, and calories can also be synced. This foundation helps AI generate tailored fitness and wellness plans just for you."
+			},
+			"aiWorkout": {
+				"title": "AI-Powered Workout Recommendations",
+				"description": "Receive daily or weekly workout routines designed by AI, including home and gym exercises. Your plan adapts automatically as you log workouts, ensuring gradual progress while preventing injury and workout fatigue."
+			},
+			"aiNutrition": {
+				"title": "AI-Based Nutrition & Diet Suggestions",
+				"description": "Get customized meal plans with exact calorie and nutrient breakdowns. The system suggests alternatives based on your dietary needs, such as vegetarian, low-carb, or high-protein, helping you stay healthy without sacrificing variety."
+			},
+			"progressTracking": {
+				"title": "Progress Tracking & Analytics",
+				"description": "Track your journey with interactive charts showing weight changes, calories burned, workout frequency, and nutrition trends. These insights keep you motivated by making progress visible and measurable."
+			},
+			"goalSetting": {
+				"title": "Goal Setting & Achievement System",
+				"description": "Set specific goals like losing 5kg, building muscle, or improving stamina. The system monitors your performance, adjusts your plan, and rewards you with digital badges when milestones are achieved, making fitness fun and rewarding."
+			},
+			"logging": {
+				"title": "Workout & Meal Logging System",
+				"description": "Easily log workouts and meals you complete each day. The AI continuously learns from your input and updates your fitness and meal plans in real-time, keeping them relevant to your lifestyle and progress."
+			},
+			"fitnessBot": {
+				"title": "AI Chat Assistant (Fitness Bot)",
+				"description": "A built-in chatbot acts as your personal trainer and nutritionist. Ask quick questions like 'What to eat after a workout?' or 'How many pushups should I do today?' and get instant AI-powered advice."
+			},
+			"gamification": {
+				"title": "Gamification & Rewards",
+				"description": "Stay motivated with fun features like daily streaks, achievement badges, and motivational quotes. The gamified approach turns fitness into an engaging challenge rather than a boring routine."
+			},
+			"wellness": {
+				"title": "Mindfulness & Wellness Section",
+				"description": "Beyond fitness, focus on your overall well-being with guided breathing exercises, meditation tips, stress management advice, and sleep hygiene guidance for a healthier lifestyle."
+			},
+			"multiLanguage": {
+				"title": "Multi-language Support",
+				"description": "Switch seamlessly between English and regional languages for a personalized experience. This makes the app more inclusive and comfortable for users from different backgrounds."
+			}
+		},
+
+		"goodLife": {
+			"heading": "Good Life Tips",
+			"subtitle": "Simple daily habits for a healthier lifestyle.",
+			"categories": "Food,Exercise,Activity",
+
+			"tip1_category": "Food",
+			"tip1_title": "Eat More Greens",
+			"tip1_desc": "Fill your plate with fresh green vegetables for energy.",
+			"tip1_details": "✅ Boosts immunity, improves digestion\n✅ Rich in vitamins A, C, K and fiber\n✅ Spinach, broccoli, kale, peas, beans\n💡 Add greens in smoothies, soups or omelets",
+
+			"tip2_category": "Food",
+			"tip2_title": "Healthy Breakfast",
+			"tip2_desc": "Start your day with a colorful, nutrient-packed bowl.",
+			"tip2_details": "✅ Improves focus and metabolism\n✅ Best choices: oats, fruits, eggs, yogurt\n💡 Avoid sugary cereals, prefer whole grains",
+
+			"tip3_category": "Food",
+			"tip3_title": "Stay Hydrated",
+			"tip3_desc": "Drink enough water daily for focus and wellness.",
+			"tip3_details": "✅ Supports brain and body functions\n✅ Minimum 8 glasses per day\n💡 Add lemon or cucumber for natural flavor",
+
+			"tip4_category": "Exercise",
+			"tip4_title": "Morning Jog",
+			"tip4_desc": "Jogging in fresh air keeps your heart strong.",
+			"tip4_details": "✅ Boosts stamina and energy\n✅ Improves heart and lung health\n💡 20–30 min jog is enough",
+
+			"tip5_category": "Exercise",
+			"tip5_title": "Yoga & Mindfulness",
+			"tip5_desc": "Practice yoga to reduce stress and stay flexible.",
+			"tip5_details": "✅ Reduces stress & anxiety\n✅ Increases flexibility & balance\n💡 Just 10 mins daily can improve mood",
+
+			"tip6_category": "Exercise",
+			"tip6_title": "Strength Training",
+			"tip6_desc": "Build stamina and muscle with training.",
+			"tip6_details": "✅ Increases strength & metabolism\n✅ Improves posture & bone density\n💡 Use bodyweight, resistance bands, or weights",
+
+			"tip7_category": "Activity",
+			"tip7_title": "Desk Stretching",
+			"tip7_desc": "Stretch at work for better posture.",
+			"tip7_details": "✅ Relieves stiffness & improves circulation\n✅ Prevents back/neck pain\n💡 Stretch 5 min every hour",
+
+			"tip8_category": "Activity",
+			"tip8_title": "Cycling Outdoors",
+			"tip8_desc": "Cycling keeps you active and happy.",
+			"tip8_details": "✅ Burns calories & tones muscles\n✅ Improves cardiovascular health\n💡 Great for commuting & reducing stress",
+
+			"tip9_category": "Activity",
+			"tip9_title": "Evening Walk",
+			"tip9_desc": "Relax your body and mind with walking.",
+			"tip9_details": "✅ Supports digestion after meals\n✅ Reduces stress and clears the mind\n💡 Walk 20–30 min at an easy pace"
+		},
+
+		"testimonials": {
+			"testimonial1": {
+				"quote": "The AI-powered workout plans feel like having a personal trainer 24/7. I've never been more consistent with my fitness routine.",
+				"name": "Sophia Martinez",
+				"designation": "Fitness Enthusiast",
+				"rating": 5,
+				"src": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3"
+			},
+			"testimonial2": {
+				"quote": "Nutrition tracking and personalized workout adjustments have helped me lose 10kg in just 3 months. Truly life-changing!",
+				"name": "David Johnson",
+				"designation": "Tech Professional",
+				"rating": 5,
+				"src": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3"
+			},
+			"testimonial3": {
+				"quote": "The AI coach motivates me daily and adapts workouts to my energy levels. It’s like my body is understood better than ever before.",
+				"name": "Aisha Khan",
+				"designation": "Student Athlete",
+				"rating": 4,
+				"src": "https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3"
+			},
+			"testimonial4": {
+				"quote": "As a busy professional, I struggled to stay consistent. This app’s AI-driven short workouts are perfect for my lifestyle.",
+				"name": "Michael Lee",
+				"designation": "Entrepreneur",
+				"rating": 5,
+				"src": "https://images.unsplash.com/photo-1636041293178-808a6762ab39?q=80&w=3464&auto=format&fit=crop&ixlib=rb-4.0.3"
+			},
+			"testimonial5": {
+				"quote": "I love how the AI tailors recovery days and stretches based on my progress. My performance has improved drastically!",
+				"name": "Emily Carter",
+				"designation": "Yoga Practitioner",
+				"rating": 5,
+				"src": "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3"
+			}
+		},
+		
+		"faq": {
+			"header": "Frequently Asked Questions",
+			"subheader": "Find answers to the most common questions about our AI Wellness Coach.",
+
+			"faq1_question": "What is the Personalized Fitness & Wellness Coach?",
+			"faq1_answer": "It is an AI-powered platform that helps you track workouts, meals, and wellness activities. It also provides personalized suggestions to improve your fitness and overall lifestyle.",
+
+			"faq2_question": "How does the AI provide recommendations?",
+			"faq2_answer": "Our AI analyzes your daily inputs such as meals, and workout data. Based on this information, it generates personalized tips to help you stay balanced and healthy.",
+
+			"faq3_question": "Can I track both fitness and nutrition?",
+			"faq3_answer": "Yes! The platform includes dedicated sections for tracking workouts and meals. You can log your exercises, monitor calorie intake, and get nutrition tips tailored to your lifestyle.",
+
+			"faq4_question": "Do I need to pay for using the platform?",
+			"faq4_answer": "Currently, the platform is free to use during development. In the future, premium features like advanced AI coaching, detailed progress analytics, and meal planning may be offered.",
+
+			"faq5_question": "Is my personal health data secure on this platform?",
+			"faq5_answer": "Yes, your privacy and data security are top priorities. All health and wellness data is stored securely, and we follow best practices in encryption and data protection to ensure your information remains confidential.",
+
+			"cta_text": "Still have questions? Our team is here to help.",
+			"cta_button": "Contact Support"
 		}
 	}
 }
