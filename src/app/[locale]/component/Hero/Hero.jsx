@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Check, Dumbbell, Heart, MessageCircle, Zap } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 // Animation variants (no changes here)
 const containerVariants = {
@@ -30,7 +31,7 @@ const cardVariants = {
 
 const Hero = () => {
 
-  const t = useTranslations();
+  const t = useTranslations("home.hero");
   return (
     <section className="overflow-hidden pb-10">
       <motion.div
@@ -45,22 +46,21 @@ const Hero = () => {
             className="text-4xl sm:text-5xl md:text-7xl font-bold text-zinc-900 leading-tight"
             variants={itemVariants}
           >
-            {t('home.title')}
+            {t('title')}
           </motion.h1>
           <motion.p
             className="mt-6 max-w-md mx-auto lg:mx-0 text-lg text-zinc-600"
             variants={itemVariants}
           >
-            With the FitLife workout app, you get a personalized fitness program
-            that gets real results.
+            {t('des')}
           </motion.p>
           <motion.div
             className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
             variants={itemVariants}
           >
-            <button className="w-full sm:w-auto bg-lime-400 text-zinc-900 font-bold px-8 py-4 rounded-full text-lg hover:bg-lime-500 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2">
-              Get your workout plan now
-            </button>
+            <Link className="w-full sm:w-auto bg-lime-400 text-zinc-900 font-bold px-8 py-4 rounded-full text-lg hover:bg-lime-500 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2" href={'/workout'}>
+              {t("btn")}
+            </Link>
           </motion.div>
         </div>
 
@@ -120,7 +120,7 @@ const Hero = () => {
                 <MessageCircle size={20} className="text-green-600" />
               </div>
               <p className="text-sm font-medium text-zinc-700">
-                Your fitness program <br /> is ready. Are you?
+                {t("subtitle")}
               </p>
             </div>
           </FloatingCard>

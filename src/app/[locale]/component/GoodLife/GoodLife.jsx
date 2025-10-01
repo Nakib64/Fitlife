@@ -3,127 +3,20 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import clsx from "clsx";
-
-const tips = [
-  {
-    id: 1,
-    category: "Food",
-    title: "Eat More Greens",
-    desc: "Fill your plate with fresh green vegetables for energy.",
-    details: `
-      ✅ Boosts immunity, improves digestion
-      ✅ Rich in vitamins A, C, K and fiber
-      ✅ Spinach, broccoli, kale, peas, beans
-      💡 Add greens in smoothies, soups or omelets
-    `,
-    img: "/images/image-1.png",
-  },
-  {
-    id: 2,
-    category: "Food",
-    title: "Healthy Breakfast",
-    desc: "Start your day with a colorful, nutrient-packed bowl.",
-    details: `
-      ✅ Improves focus and metabolism
-      ✅ Best choices: oats, fruits, eggs, yogurt
-      💡 Avoid sugary cereals, prefer whole grains
-    `,
-    img: "/images/image-2.png",
-  },
-  {
-    id: 3,
-    category: "Food",
-    title: "Stay Hydrated",
-    desc: "Drink enough water daily for focus and wellness.",
-    details: `
-      ✅ Supports brain and body functions
-      ✅ Minimum 8 glasses per day
-      💡 Add lemon or cucumber for natural flavor
-    `,
-    img: "/images/image-3.png",
-  },
-  {
-    id: 4,
-    category: "Exercise",
-    title: "Morning Jog",
-    desc: "Jogging in fresh air keeps your heart strong.",
-    details: `
-      ✅ Boosts stamina and energy
-      ✅ Improves heart and lung health
-      💡 20–30 min jog is enough
-    `,
-    img: "/images/image-4.png",
-  },
-  {
-    id: 5,
-    category: "Exercise",
-    title: "Yoga & Mindfulness",
-    desc: "Practice yoga to reduce stress and stay flexible.",
-    details: `
-      ✅ Reduces stress & anxiety
-      ✅ Increases flexibility & balance
-      💡 Just 10 mins daily can improve mood
-    `,
-    img: "/images/image-5.png",
-  },
-  {
-    id: 6,
-    category: "Exercise",
-    title: "Strength Training",
-    desc: "Build stamina and muscle with training.",
-    details: `
-      ✅ Increases strength & metabolism
-      ✅ Improves posture & bone density
-      💡 Use bodyweight, resistance bands, or weights
-    `,
-    img: "/images/image-6.png",
-  },
-  {
-    id: 7,
-    category: "Activity",
-    title: "Desk Stretching",
-    desc: "Stretch at work for better posture.",
-    details: `
-      ✅ Relieves stiffness & improves circulation
-      ✅ Prevents back/neck pain
-      💡 Stretch 5 min every hour
-    `,
-    img: "/images/image-7.png",
-  },
-  {
-    id: 8,
-    category: "Activity",
-    title: "Cycling Outdoors",
-    desc: "Cycling keeps you active and happy.",
-    details: `
-      ✅ Burns calories & tones muscles
-      ✅ Improves cardiovascular health
-      💡 Great for commuting & reducing stress
-    `,
-    img: "/images/image-8.png",
-  },
-  {
-    id: 9,
-    category: "Activity",
-    title: "Evening Walk",
-    desc: "Relax your body and mind with walking.",
-    details: `
-      ✅ Supports digestion after meals
-      ✅ Reduces stress and clears the mind
-      💡 Walk 20–30 min at an easy pace
-    `,
-    img: "/images/image-9.png",
-  },
-];
+import { useTranslations } from "next-intl";
 
 export default function GoodLife() {
-  const categories = ["Food", "Exercise", "Activity"];
-  const [activeCategory, setActiveCategory] = useState("Food");
+  const t = useTranslations("home.goodLife");
+
+  // Parse categories from comma-separated string
+  const categories = t("categories").split(",");
+
+  const [activeCategory, setActiveCategory] = useState(categories[0]);
   const [manualCategory, setManualCategory] = useState(null);
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(null);
 
-  // auto button highlight
+  // Auto button highlight
   useEffect(() => {
     if (manualCategory) return;
 
@@ -134,11 +27,26 @@ export default function GoodLife() {
     }, 6000);
 
     return () => clearInterval(interval);
-  }, [manualCategory]);
+  }, [manualCategory, categories]);
 
+  // Build tips dynamically from flattened keys
+  const tipCount = 9; // total tips
+  const allTips = Array.from({ length: tipCount }, (_, i) => {
+    const id = i + 1;
+    return {
+      id,
+      category: t(`tip${id}_category`),
+      title: t(`tip${id}_title`),
+      desc: t(`tip${id}_desc`),
+      details: t(`tip${id}_details`),
+      img: `/images/image-${id}.png`, // keep your existing images
+    };
+  });
+
+  // Filter tips by current category
   const visibleTips = manualCategory
-    ? tips.filter((t) => t.category === manualCategory)
-    : [...tips, ...tips, ...tips, ...tips]; // ✅ repeat 4× for smooth infinite scroll
+    ? allTips.filter((t) => t.category === manualCategory)
+    : [...allTips, ...allTips, ...allTips, ...allTips]; // repeat 4x for smooth infinite scroll
 
   return (
     <section
@@ -153,10 +61,12 @@ export default function GoodLife() {
         {/* Header */}
         <div className="text-center mb-7">
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-wide 
-  bg-gradient-to-r from-gray-800 via-slate-700 to-blue-600 
-  text-transparent bg-clip-text animate-gradient">Good Life Tips</h2>
+            bg-gradient-to-r from-gray-800 via-slate-700 to-blue-600 
+            text-transparent bg-clip-text animate-gradient">
+            {t("heading")}
+          </h2>
           <p className="mt-4 mb-7 text-lg md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Simple daily habits for a healthier lifestyle.
+            {t("subtitle")}
           </p>
         </div>
 
@@ -225,7 +135,7 @@ export default function GoodLife() {
               className="flex gap-8"
               animate={paused ? {} : { x: ["0%", "-100%"] }}
               transition={{
-                duration: 30, // slower, smoother
+                duration: 30,
                 ease: "linear",
                 repeat: Infinity,
               }}
