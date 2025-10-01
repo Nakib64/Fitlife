@@ -58,7 +58,7 @@ const Hero = () => {
             className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
             variants={itemVariants}
           >
-            <Link className="w-full sm:w-auto bg-lime-400 text-zinc-900 font-bold px-8 py-4 rounded-full text-lg hover:bg-lime-500 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2">
+            <Link className="w-full sm:w-auto bg-lime-400 text-zinc-900 font-bold px-8 py-4 rounded-full text-lg hover:bg-lime-500 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2" href={'/workout'}>
               {t("btn")}
             </Link>
           </motion.div>
