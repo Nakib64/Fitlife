@@ -24,14 +24,12 @@ export const createUser = async ({ name, email, password }) => {
 };
 
 //function to update user by email
-
 export const updateUser = async (email, updateFields) => {
   const users = await dbConnect("users");
   return users.updateOne({ email }, { $set: updateFields });
 };
 
 //set new otp on users login
-
 export const setUserOtp = async (email, otp, ttlMs = 5 * 60 * 1000) => {
   const users = await dbConnect("users");
   const otpExpires = Date.now() + ttlMs;
@@ -39,18 +37,17 @@ export const setUserOtp = async (email, otp, ttlMs = 5 * 60 * 1000) => {
 };
 
 //verify otp and clear it on success
-
 export const verifyOtp = async (email, otp) => {
   const users = await dbConnect("users");
   const user = await users.findOne({ email });
-  console.log("User in DB:", user); // <--- ADD THIS
+  // console.log("User in DB:", user);
 
   if (!user || !user.otpCode || !user.otpExpires) {
     return false;
   }
 
-  console.log("Comparing OTP:", otp, "with stored OTP:", user.otpCode);
-  console.log("Expiry check:", user.otpExpires > Date.now());
+  // console.log("Comparing OTP:", otp, "with stored OTP:", user.otpCode);
+  // console.log("Expiry check:", user.otpExpires > Date.now());
 
   if (
     String(user.otpCode) === String(otp) &&
@@ -58,7 +55,7 @@ export const verifyOtp = async (email, otp) => {
   ) {
     await users.updateOne(
       { email },
-      { $unset: { otpCode: 1, otpExpires: 1 } } // use 1 to remove the fields
+      { $unset: { otpCode: 1, otpExpires: 1 } }
     );
     return true;
   }
@@ -66,7 +63,6 @@ export const verifyOtp = async (email, otp) => {
 };
 
 // clear OTP
-
 export const clearUserOtp = async (email) => {
   const users = await dbConnect("users");
   await users.updateOne({ email }, { $unset: { otpCode: "", otpExpires: "" } });

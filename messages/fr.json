@@ -1,212 +1,326 @@
 {
-	"home": {
-		"hero": {
-			"btn": "Obtenez votre plan d'entraînement maintenant",
-			"des": "Avec l'application d'entraînement FitLife, vous obtenez un programme de fitness personnalisé\n            qui donne de vrais résultats.",
-			"subtitle": "Votre programme de fitness est prêt. Êtes-vous prêt ?",
-			"title": "Votre coach de fitness alimenté par l'IA"
-		},
-		"description": {
-			"heading": "FitLife Coach IA",
-			"subHeading": "Une expérience de fitness premium — entraînements personnalisés, nutrition et bien-être, propulsés par l’intelligence artificielle.",
-			"intro": "Atteignez vos objectifs de fitness grâce à des entraînements, des plans de repas et des conseils de bien-être personnalisés. FitLife s’adapte à vos progrès pour garantir des résultats durables.",
-			"features": [
-				{
-					"title": "Entraînements IA",
-					"desc": "Plans quotidiens et hebdomadaires adaptatifs, évoluant intelligemment à mesure que vous progressez."
-				},
-				{
-					"title": "Nutrition Intelligente",
-					"desc": "Plans de repas adaptés avec objectifs caloriques et alternatives selon votre style de vie."
-				},
-				{
-					"title": "Pleine Conscience & Bien-être",
-					"desc": "Conseils d’experts en pleine conscience, gestion du stress et amélioration du sommeil."
-				}
-			]
-		},
+  "home": {
+    "hero": {
+      "btn": "Obtenez votre plan d'entraînement maintenant",
+      "des": "Avec l'application d'entraînement FitLife, vous obtenez un programme de fitness personnalisé\n            qui donne de vrais résultats.",
+      "subtitle": "Votre programme de fitness est prêt. Êtes-vous prêt ?",
+      "title": "Votre coach de fitness alimenté par l'IA"
+    },
+    "description": {
+      "heading": "FitLife Coach IA",
+      "subHeading": "Une expérience de fitness premium — entraînements personnalisés, nutrition et bien-être, propulsés par l’intelligence artificielle.",
+      "intro": "Atteignez vos objectifs de fitness grâce à des entraînements, des plans de repas et des conseils de bien-être personnalisés. FitLife s’adapte à vos progrès pour garantir des résultats durables.",
+      "features": [
+        {
+          "title": "Entraînements IA",
+          "desc": "Plans quotidiens et hebdomadaires adaptatifs, évoluant intelligemment à mesure que vous progressez."
+        },
+        {
+          "title": "Nutrition Intelligente",
+          "desc": "Plans de repas adaptés avec objectifs caloriques et alternatives selon votre style de vie."
+        },
+        {
+          "title": "Pleine Conscience & Bien-être",
+          "desc": "Conseils d’experts en pleine conscience, gestion du stress et amélioration du sommeil."
+        }
+      ]
+    },
 
-		"bmi": {
-			"title": "Connaissez votre IMC",
-			"subtitle": "Calculez votre Indice de Masse Corporelle (IMC) et découvrez votre catégorie de santé.",
-			"calculatorTitle": "Calculateur IMC",
-			"weight": "Poids (kg):",
-			"height": "Taille:",
-			"feet": "Pieds",
-			"inches": "Pouces",
-			"age": "Âge:",
-			"gender": "Sexe:",
-			"male": "Homme",
-			"female": "Femme",
-			"calculateBtn": "Calculer l'IMC",
-			"beforeTitle": "Votre résultat IMC apparaîtra ici",
-			"beforeDesc": "Entrez votre poids, taille et âge dans le formulaire pour calculer votre Indice de Masse Corporelle.",
-			"resultTitle": "Résultat IMC",
-			"categories": "Catégories IMC",
-			"adult": "(Adulte)",
-			"children": "(Enfants)",
-			"underweight": "Insuffisance pondérale",
-			"normal": "Poids normal",
-			"healthy": "En bonne santé",
-			"overweight": "Surpoids",
-			"obese1": "Obésité (Classe I)",
-			"obese2": "Obésité (Classe II)",
-			"obese3": "Obésité (Classe III / Sévère)",
-			"percentileUnder": "< 5e percentile",
-			"percentileHealthy": "5e–84e percentile",
-			"percentileOver": "85e–94e percentile",
-			"percentileObese": "≥ 95e percentile",
-			"rangeUnder": "< 18,5",
-			"rangeNormal": "18,5 – 24,9",
-			"rangeOver": "25 – 29,9",
-			"rangeObese1": "30 – 34,9",
-			"rangeObese2": "35 – 39,9",
-			"rangeObese3": "40+"
-		},
-		"featuresSection": {
-			"heading": "Fonctionnalités Premium",
-			"subtitle": "Tout ce dont vous avez besoin pour atteindre vos objectifs de fitness et de bien-être, réunis en un seul endroit.",
-			"userProfile": {
-				"title": "Profil utilisateur & données biométriques",
-				"description": "Créez votre profil personnel avec l’âge, le poids, la taille, le niveau d’activité et vos objectifs de fitness. Les données biométriques comme les pas, le rythme cardiaque et les calories peuvent également être synchronisées. Cela permet à l’IA de générer des plans de fitness et de bien-être adaptés uniquement pour vous."
-			},
-			"aiWorkout": {
-				"title": "Recommandations d’entraînement alimentées par l’IA",
-				"description": "Recevez des routines d’entraînement quotidiennes ou hebdomadaires conçues par l’IA, à domicile ou en salle de sport. Votre plan s’adapte automatiquement à vos progrès, assurant une amélioration progressive tout en évitant blessures et fatigue."
-			},
-			"aiNutrition": {
-				"title": "Suggestions nutritionnelles et diététiques basées sur l’IA",
-				"description": "Obtenez des plans de repas personnalisés avec des détails exacts sur les calories et les nutriments. Le système propose des alternatives selon vos besoins alimentaires, comme végétarien, faible en glucides ou riche en protéines, pour rester en bonne santé tout en conservant de la variété."
-			},
-			"progressTracking": {
-				"title": "Suivi des progrès & analyses",
-				"description": "Suivez votre parcours avec des graphiques interactifs montrant les changements de poids, les calories brûlées, la fréquence des entraînements et les tendances nutritionnelles. Ces informations rendent vos progrès visibles et mesurables, vous motivant constamment."
-			},
-			"goalSetting": {
-				"title": "Définition des objectifs & système de réussite",
-				"description": "Fixez des objectifs précis comme perdre 5 kg, développer vos muscles ou améliorer votre endurance. Le système surveille vos performances, ajuste votre plan et vous récompense par des badges numériques lorsque vous atteignez vos jalons."
-			},
-			"logging": {
-				"title": "Système de journalisation des entraînements et repas",
-				"description": "Enregistrez facilement vos entraînements et repas quotidiens. L’IA apprend continuellement de vos entrées et met à jour vos plans de fitness et nutrition en temps réel, les gardant pertinents pour votre style de vie et vos progrès."
-			},
-			"fitnessBot": {
-				"title": "Assistant de chat IA (Fitness Bot)",
-				"description": "Un chatbot intégré agit comme votre entraîneur personnel et nutritionniste. Posez des questions rapides comme « Que manger après un entraînement ? » ou « Combien de pompes dois-je faire aujourd’hui ? » et obtenez des conseils instantanés alimentés par l’IA."
-			},
-			"gamification": {
-				"title": "Gamification & récompenses",
-				"description": "Restez motivé grâce à des fonctionnalités ludiques comme les streaks quotidiens, les badges de réussite et les citations motivantes. L’approche gamifiée transforme le fitness en un défi engageant plutôt qu’en routine monotone."
-			},
-			"wellness": {
-				"title": "Section pleine conscience & bien-être",
-				"description": "Au-delà du fitness, concentrez-vous sur votre bien-être global avec des exercices de respiration guidés, des conseils de méditation, la gestion du stress et des conseils d’hygiène du sommeil pour un mode de vie plus sain."
-			},
-			"multiLanguage": {
-				"title": "Support multilingue",
-				"description": "Passez facilement de l’anglais aux langues régionales pour une expérience personnalisée. Cela rend l’application plus inclusive et confortable pour les utilisateurs de différents horizons."
-			}
-		},
-		"goodLife": {
-			"heading": "Conseils pour une Vie Saine",
-			"subtitle": "Habitudes quotidiennes simples pour un mode de vie plus sain.",
-			"categories": "Alimentation,Exercice,Activité",
+    "bmi": {
+      "title": "Connaissez votre IMC",
+      "subtitle": "Calculez votre Indice de Masse Corporelle (IMC) et découvrez votre catégorie de santé.",
+      "calculatorTitle": "Calculateur IMC",
+      "weight": "Poids (kg):",
+      "height": "Taille:",
+      "feet": "Pieds",
+      "inches": "Pouces",
+      "age": "Âge:",
+      "gender": "Sexe:",
+      "male": "Homme",
+      "female": "Femme",
+      "calculateBtn": "Calculer l'IMC",
+      "beforeTitle": "Votre résultat IMC apparaîtra ici",
+      "beforeDesc": "Entrez votre poids, taille et âge dans le formulaire pour calculer votre Indice de Masse Corporelle.",
+      "resultTitle": "Résultat IMC",
+      "categories": "Catégories IMC",
+      "adult": "(Adulte)",
+      "children": "(Enfants)",
+      "underweight": "Insuffisance pondérale",
+      "normal": "Poids normal",
+      "healthy": "En bonne santé",
+      "overweight": "Surpoids",
+      "obese1": "Obésité (Classe I)",
+      "obese2": "Obésité (Classe II)",
+      "obese3": "Obésité (Classe III / Sévère)",
+      "percentileUnder": "< 5e percentile",
+      "percentileHealthy": "5e–84e percentile",
+      "percentileOver": "85e–94e percentile",
+      "percentileObese": "≥ 95e percentile",
+      "rangeUnder": "< 18,5",
+      "rangeNormal": "18,5 – 24,9",
+      "rangeOver": "25 – 29,9",
+      "rangeObese1": "30 – 34,9",
+      "rangeObese2": "35 – 39,9",
+      "rangeObese3": "40+"
+    },
+    "featuresSection": {
+      "heading": "Fonctionnalités Premium",
+      "subtitle": "Tout ce dont vous avez besoin pour atteindre vos objectifs de fitness et de bien-être, réunis en un seul endroit.",
+      "userProfile": {
+        "title": "Profil utilisateur & données biométriques",
+        "description": "Créez votre profil personnel avec l’âge, le poids, la taille, le niveau d’activité et vos objectifs de fitness. Les données biométriques comme les pas, le rythme cardiaque et les calories peuvent également être synchronisées. Cela permet à l’IA de générer des plans de fitness et de bien-être adaptés uniquement pour vous."
+      },
+      "aiWorkout": {
+        "title": "Recommandations d’entraînement alimentées par l’IA",
+        "description": "Recevez des routines d’entraînement quotidiennes ou hebdomadaires conçues par l’IA, à domicile ou en salle de sport. Votre plan s’adapte automatiquement à vos progrès, assurant une amélioration progressive tout en évitant blessures et fatigue."
+      },
+      "aiNutrition": {
+        "title": "Suggestions nutritionnelles et diététiques basées sur l’IA",
+        "description": "Obtenez des plans de repas personnalisés avec des détails exacts sur les calories et les nutriments. Le système propose des alternatives selon vos besoins alimentaires, comme végétarien, faible en glucides ou riche en protéines, pour rester en bonne santé tout en conservant de la variété."
+      },
+      "progressTracking": {
+        "title": "Suivi des progrès & analyses",
+        "description": "Suivez votre parcours avec des graphiques interactifs montrant les changements de poids, les calories brûlées, la fréquence des entraînements et les tendances nutritionnelles. Ces informations rendent vos progrès visibles et mesurables, vous motivant constamment."
+      },
+      "goalSetting": {
+        "title": "Définition des objectifs & système de réussite",
+        "description": "Fixez des objectifs précis comme perdre 5 kg, développer vos muscles ou améliorer votre endurance. Le système surveille vos performances, ajuste votre plan et vous récompense par des badges numériques lorsque vous atteignez vos jalons."
+      },
+      "logging": {
+        "title": "Système de journalisation des entraînements et repas",
+        "description": "Enregistrez facilement vos entraînements et repas quotidiens. L’IA apprend continuellement de vos entrées et met à jour vos plans de fitness et nutrition en temps réel, les gardant pertinents pour votre style de vie et vos progrès."
+      },
+      "fitnessBot": {
+        "title": "Assistant de chat IA (Fitness Bot)",
+        "description": "Un chatbot intégré agit comme votre entraîneur personnel et nutritionniste. Posez des questions rapides comme « Que manger après un entraînement ? » ou « Combien de pompes dois-je faire aujourd’hui ? » et obtenez des conseils instantanés alimentés par l’IA."
+      },
+      "gamification": {
+        "title": "Gamification & récompenses",
+        "description": "Restez motivé grâce à des fonctionnalités ludiques comme les streaks quotidiens, les badges de réussite et les citations motivantes. L’approche gamifiée transforme le fitness en un défi engageant plutôt qu’en routine monotone."
+      },
+      "wellness": {
+        "title": "Section pleine conscience & bien-être",
+        "description": "Au-delà du fitness, concentrez-vous sur votre bien-être global avec des exercices de respiration guidés, des conseils de méditation, la gestion du stress et des conseils d’hygiène du sommeil pour un mode de vie plus sain."
+      },
+      "multiLanguage": {
+        "title": "Support multilingue",
+        "description": "Passez facilement de l’anglais aux langues régionales pour une expérience personnalisée. Cela rend l’application plus inclusive et confortable pour les utilisateurs de différents horizons."
+      }
+    },
+    "goodLife": {
+      "heading": "Conseils pour une Vie Saine",
+      "subtitle": "Habitudes quotidiennes simples pour un mode de vie plus sain.",
+      "categories": "Alimentation,Exercice,Activité",
 
-			"tip1_category": "Alimentation",
-			"tip1_title": "Mangez plus de légumes verts",
-			"tip1_desc": "Remplissez votre assiette de légumes verts frais pour l'énergie.",
-			"tip1_details": "✅ Renforce l'immunité, améliore la digestion\n✅ Riche en vitamines A, C, K et fibres\n✅ Épinards, brocoli, chou frisé, pois, haricots\n💡 Ajoutez des légumes verts dans les smoothies, soupes ou omelettes",
+      "tip1_category": "Alimentation",
+      "tip1_title": "Mangez plus de légumes verts",
+      "tip1_desc": "Remplissez votre assiette de légumes verts frais pour l'énergie.",
+      "tip1_details": "✅ Renforce l'immunité, améliore la digestion\n✅ Riche en vitamines A, C, K et fibres\n✅ Épinards, brocoli, chou frisé, pois, haricots\n💡 Ajoutez des légumes verts dans les smoothies, soupes ou omelettes",
 
-			"tip2_category": "Alimentation",
-			"tip2_title": "Petit-déjeuner sain",
-			"tip2_desc": "Commencez votre journée avec un bol coloré et nutritif.",
-			"tip2_details": "✅ Améliore la concentration et le métabolisme\n✅ Meilleurs choix : avoine, fruits, œufs, yaourt\n💡 Évitez les céréales sucrées, préférez les grains entiers",
+      "tip2_category": "Alimentation",
+      "tip2_title": "Petit-déjeuner sain",
+      "tip2_desc": "Commencez votre journée avec un bol coloré et nutritif.",
+      "tip2_details": "✅ Améliore la concentration et le métabolisme\n✅ Meilleurs choix : avoine, fruits, œufs, yaourt\n💡 Évitez les céréales sucrées, préférez les grains entiers",
 
-			"tip3_category": "Alimentation",
-			"tip3_title": "Restez hydraté",
-			"tip3_desc": "Buvez suffisamment d'eau chaque jour pour rester concentré et en forme.",
-			"tip3_details": "✅ Soutient les fonctions du cerveau et du corps\n✅ Minimum 8 verres par jour\n💡 Ajoutez du citron ou du concombre pour un goût naturel",
+      "tip3_category": "Alimentation",
+      "tip3_title": "Restez hydraté",
+      "tip3_desc": "Buvez suffisamment d'eau chaque jour pour rester concentré et en forme.",
+      "tip3_details": "✅ Soutient les fonctions du cerveau et du corps\n✅ Minimum 8 verres par jour\n💡 Ajoutez du citron ou du concombre pour un goût naturel",
 
-			"tip4_category": "Exercice",
-			"tip4_title": "Jogging matinal",
-			"tip4_desc": "Courir en plein air garde votre cœur en forme.",
-			"tip4_details": "✅ Améliore l'endurance et l'énergie\n✅ Améliore la santé cardiaque et pulmonaire\n💡 20–30 min de jogging suffisent",
+      "tip4_category": "Exercice",
+      "tip4_title": "Jogging matinal",
+      "tip4_desc": "Courir en plein air garde votre cœur en forme.",
+      "tip4_details": "✅ Améliore l'endurance et l'énergie\n✅ Améliore la santé cardiaque et pulmonaire\n💡 20–30 min de jogging suffisent",
 
-			"tip5_category": "Exercice",
-			"tip5_title": "Yoga & Pleine conscience",
-			"tip5_desc": "Pratiquez le yoga pour réduire le stress et rester flexible.",
-			"tip5_details": "✅ Réduit le stress et l'anxiété\n✅ Augmente la flexibilité et l'équilibre\n💡 10 minutes par jour peuvent améliorer l'humeur",
+      "tip5_category": "Exercice",
+      "tip5_title": "Yoga & Pleine conscience",
+      "tip5_desc": "Pratiquez le yoga pour réduire le stress et rester flexible.",
+      "tip5_details": "✅ Réduit le stress et l'anxiété\n✅ Augmente la flexibilité et l'équilibre\n💡 10 minutes par jour peuvent améliorer l'humeur",
 
-			"tip6_category": "Exercice",
-			"tip6_title": "Renforcement musculaire",
-			"tip6_desc": "Construisez endurance et muscles avec l'entraînement.",
-			"tip6_details": "✅ Augmente la force et le métabolisme\n✅ Améliore la posture et la densité osseuse\n💡 Utilisez le poids du corps, bandes de résistance ou haltères",
+      "tip6_category": "Exercice",
+      "tip6_title": "Renforcement musculaire",
+      "tip6_desc": "Construisez endurance et muscles avec l'entraînement.",
+      "tip6_details": "✅ Augmente la force et le métabolisme\n✅ Améliore la posture et la densité osseuse\n💡 Utilisez le poids du corps, bandes de résistance ou haltères",
 
-			"tip7_category": "Activité",
-			"tip7_title": "Étirements au bureau",
-			"tip7_desc": "Étirez-vous au travail pour une meilleure posture.",
-			"tip7_details": "✅ Soulage la raideur et améliore la circulation\n✅ Prévient les douleurs au dos/nuque\n💡 Étirez-vous 5 min chaque heure",
+      "tip7_category": "Activité",
+      "tip7_title": "Étirements au bureau",
+      "tip7_desc": "Étirez-vous au travail pour une meilleure posture.",
+      "tip7_details": "✅ Soulage la raideur et améliore la circulation\n✅ Prévient les douleurs au dos/nuque\n💡 Étirez-vous 5 min chaque heure",
 
-			"tip8_category": "Activité",
-			"tip8_title": "Cyclisme en extérieur",
-			"tip8_desc": "Le cyclisme vous garde actif et heureux.",
-			"tip8_details": "✅ Brûle des calories et tonifie les muscles\n✅ Améliore la santé cardiovasculaire\n💡 Idéal pour les trajets et réduire le stress",
+      "tip8_category": "Activité",
+      "tip8_title": "Cyclisme en extérieur",
+      "tip8_desc": "Le cyclisme vous garde actif et heureux.",
+      "tip8_details": "✅ Brûle des calories et tonifie les muscles\n✅ Améliore la santé cardiovasculaire\n💡 Idéal pour les trajets et réduire le stress",
 
-			"tip9_category": "Activité",
-			"tip9_title": "Marche du soir",
-			"tip9_desc": "Détendez votre corps et votre esprit en marchant.",
-			"tip9_details": "✅ Favorise la digestion après les repas\n✅ Réduit le stress et clarifie l'esprit\n💡 Marchez 20–30 min à un rythme tranquille"
-		},
+      "tip9_category": "Activité",
+      "tip9_title": "Marche du soir",
+      "tip9_desc": "Détendez votre corps et votre esprit en marchant.",
+      "tip9_details": "✅ Favorise la digestion après les repas\n✅ Réduit le stress et clarifie l'esprit\n💡 Marchez 20–30 min à un rythme tranquille"
+    },
 
-		"testimonials": {
-			"testimonial1": {
-				"quote": "Les plans d'entraînement alimentés par l'IA donnent l'impression d'avoir un coach personnel 24/7. Je n'ai jamais été aussi régulier dans ma routine fitness.",
-				"name": "Sophia Martinez",
-				"designation": "Passionnée de fitness"
-			},
-			"testimonial2": {
-				"quote": "Le suivi de la nutrition et les ajustements personnalisés des entraînements m'ont aidé à perdre 10 kg en seulement 3 mois. Vraiment transformant!",
-				"name": "David Johnson",
-				"designation": "Professionnel tech"
-			},
-			"testimonial3": {
-				"quote": "Le coach IA me motive chaque jour et adapte les entraînements à mon niveau d'énergie. C'est comme si mon corps était mieux compris que jamais.",
-				"name": "Aisha Khan",
-				"designation": "Athlète étudiante"
-			},
-			"testimonial4": {
-				"quote": "En tant que professionnel occupé, j'avais du mal à rester constant. Les courts entraînements AI-driven de cette application sont parfaits pour mon style de vie.",
-				"name": "Michael Lee",
-				"designation": "Entrepreneur"
-			},
-			"testimonial5": {
-				"quote": "J'adore la façon dont l'IA adapte les jours de récupération et les étirements en fonction de mes progrès. Mes performances se sont nettement améliorées!",
-				"name": "Emily Carter",
-				"designation": "Pratiquante de yoga"
-			}
-		},
+    "testimonials": {
+      "testimonial1": {
+        "quote": "Les plans d'entraînement alimentés par l'IA donnent l'impression d'avoir un coach personnel 24/7. Je n'ai jamais été aussi régulier dans ma routine fitness.",
+        "name": "Sophia Martinez",
+        "designation": "Passionnée de fitness"
+      },
+      "testimonial2": {
+        "quote": "Le suivi de la nutrition et les ajustements personnalisés des entraînements m'ont aidé à perdre 10 kg en seulement 3 mois. Vraiment transformant!",
+        "name": "David Johnson",
+        "designation": "Professionnel tech"
+      },
+      "testimonial3": {
+        "quote": "Le coach IA me motive chaque jour et adapte les entraînements à mon niveau d'énergie. C'est comme si mon corps était mieux compris que jamais.",
+        "name": "Aisha Khan",
+        "designation": "Athlète étudiante"
+      },
+      "testimonial4": {
+        "quote": "En tant que professionnel occupé, j'avais du mal à rester constant. Les courts entraînements AI-driven de cette application sont parfaits pour mon style de vie.",
+        "name": "Michael Lee",
+        "designation": "Entrepreneur"
+      },
+      "testimonial5": {
+        "quote": "J'adore la façon dont l'IA adapte les jours de récupération et les étirements en fonction de mes progrès. Mes performances se sont nettement améliorées!",
+        "name": "Emily Carter",
+        "designation": "Pratiquante de yoga"
+      }
+    },
 
-		"faq": {
-			"header": "Questions Fréquemment Posées",
-			"subheader": "Trouvez des réponses aux questions les plus courantes sur notre coach de bien-être IA.",
+    "faq": {
+      "header": "Questions Fréquemment Posées",
+      "subheader": "Trouvez des réponses aux questions les plus courantes sur notre coach de bien-être IA.",
 
-			"faq1_question": "Qu'est-ce que le Personalized Fitness & Wellness Coach ?",
-			"faq1_answer": "C'est une plateforme alimentée par l'IA qui vous aide à suivre vos entraînements, repas et activités de bien-être. Elle fournit également des suggestions personnalisées pour améliorer votre forme physique et votre mode de vie.",
+      "faq1_question": "Qu'est-ce que le Personalized Fitness & Wellness Coach ?",
+      "faq1_answer": "C'est une plateforme alimentée par l'IA qui vous aide à suivre vos entraînements, repas et activités de bien-être. Elle fournit également des suggestions personnalisées pour améliorer votre forme physique et votre mode de vie.",
 
-			"faq2_question": "Comment l'IA fournit-elle des recommandations ?",
-			"faq2_answer": "Notre IA analyse vos données quotidiennes telles que vos repas et vos entraînements. Sur cette base, elle génère des conseils personnalisés pour vous aider à rester équilibré et en bonne santé.",
+      "faq2_question": "Comment l'IA fournit-elle des recommandations ?",
+      "faq2_answer": "Notre IA analyse vos données quotidiennes telles que vos repas et vos entraînements. Sur cette base, elle génère des conseils personnalisés pour vous aider à rester équilibré et en bonne santé.",
 
-			"faq3_question": "Puis-je suivre à la fois le fitness et la nutrition ?",
-			"faq3_answer": "Oui ! La plateforme comprend des sections dédiées pour suivre vos entraînements et repas. Vous pouvez enregistrer vos exercices, surveiller votre apport calorique et obtenir des conseils nutritionnels adaptés à votre mode de vie.",
+      "faq3_question": "Puis-je suivre à la fois le fitness et la nutrition ?",
+      "faq3_answer": "Oui ! La plateforme comprend des sections dédiées pour suivre vos entraînements et repas. Vous pouvez enregistrer vos exercices, surveiller votre apport calorique et obtenir des conseils nutritionnels adaptés à votre mode de vie.",
 
-			"faq4_question": "Dois-je payer pour utiliser la plateforme ?",
-			"faq4_answer": "Actuellement, la plateforme est gratuite pendant le développement. À l'avenir, des fonctionnalités premium telles qu'un coaching IA avancé, des analyses détaillées de progression et la planification des repas pourraient être proposées.",
+      "faq4_question": "Dois-je payer pour utiliser la plateforme ?",
+      "faq4_answer": "Actuellement, la plateforme est gratuite pendant le développement. À l'avenir, des fonctionnalités premium telles qu'un coaching IA avancé, des analyses détaillées de progression et la planification des repas pourraient être proposées.",
 
-			"faq5_question": "Mes données de santé personnelles sont-elles sécurisées sur cette plateforme ?",
-			"faq5_answer": "Oui, votre vie privée et la sécurité de vos données sont des priorités absolues. Toutes les données de santé et de bien-être sont stockées en toute sécurité et nous suivons les meilleures pratiques pour garantir la confidentialité de vos informations.",
+      "faq5_question": "Mes données de santé personnelles sont-elles sécurisées sur cette plateforme ?",
+      "faq5_answer": "Oui, votre vie privée et la sécurité de vos données sont des priorités absolues. Toutes les données de santé et de bien-être sont stockées en toute sécurité et nous suivons les meilleures pratiques pour garantir la confidentialité de vos informations.",
 
-			"cta_text": "Vous avez encore des questions ? Notre équipe est là pour vous aider.",
-			"cta_button": "Contacter le support"
-		}
-	}
+      "cta_text": "Vous avez encore des questions ? Notre équipe est là pour vous aider.",
+      "cta_button": "Contacter le support"
+    }
+  },
+
+  "navbar": {
+    "myWorkouts": "Mes Entraînements",
+    "myMeals": "Mes Repas",
+    "wellness": "Bien-être",
+    "achievements": "Réalisations",
+    "aiCoach": "Coach IA",
+    "about": "À propos",
+    "dashboard": "Tableau de bord"
+  },
+
+  "footer": {
+    "about": {
+      "title": "À propos",
+      "links": [
+        "À propos",
+        "Notre histoire",
+        "Entraîneurs",
+        "Mission",
+        "Pourquoi nous"
+      ]
+    },
+    "programs": {
+      "title": "Programmes",
+      "links": [
+        "Step Avancé",
+        "Hot Yoga",
+        "Force Flexible",
+        "Exercices Routiers",
+        "Cardio Danse",
+        "Entraînement Athlétique"
+      ]
+    },
+    "quickLinks": {
+      "title": "Liens Rapides",
+      "links": ["Blog", "Lieux", "Contact", "Carrières", "FAQs"]
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Inscrivez-vous pour des lancements exclusifs, des promotions et des expériences uniques.",
+      "placeholder": "Votre e-mail...",
+      "button": "S'abonner"
+    },
+    "contact": {
+      "call": "APPELEZ-NOUS : (094) 123 - 456 88",
+      "email": "EMAIL : SUPPORT@EXAMPLE.COM"
+    },
+    "social": ["Facebook", "Instagram", "YouTube", "Twitter"],
+    "copyright": "Tous droits réservés"
+  },
+
+  "about": {
+    "aboutHero": {
+      "headline": "Bienvenue chez FitLife",
+      "subHeadline": "Suivez vos entraînements, planifiez vos repas, surveillez vos progrès et révélez le meilleur de vous-même chaque jour.",
+      "whoWeAre": "QUI NOUS SOMMES",
+      "title": "Votre parcours fitness commence ici",
+      "description": "Vous apportez l'inspiration, la motivation et la passion qui ne peuvent pas être enseignées — et nous vous donnons tout ce dont vous avez besoin pour réussir. Commencez votre voyage vers une meilleure santé et forme physique.",
+      "point1": "SAIN & EFFICACE",
+      "point2": "PLANS PERSONNALISÉS"
+    },
+
+    "features": {
+      "heading": "🚀 Nos fonctionnalités puissantes",
+      "subHeading": "Découvrez comment FitLife AI Coach vous aide à rester en forme, manger intelligemment et atteindre vos objectifs facilement.",
+      "list": [
+        {
+          "title": "Profil utilisateur et données biométriques",
+          "description": "Saisissez vos informations personnelles comme l'âge, le poids, la taille, les objectifs fitness et le niveau d'activité. L'IA génère des plans de fitness et de nutrition personnalisés."
+        },
+        {
+          "title": "Recommandations d'entraînement assistées par IA",
+          "description": "Recevez des entraînements quotidiens et hebdomadaires adaptés à la maison et à la salle de sport. Les plans évoluent au fur et à mesure que vous enregistrez vos progrès."
+        },
+        {
+          "title": "Suggestions nutritionnelles basées sur l'IA",
+          "description": "Plans de repas personnalisés avec objectifs caloriques et options comme végétarien, faible en glucides ou riche en protéines."
+        },
+        {
+          "title": "Système de fixation d'objectifs et de réussite",
+          "description": "Fixez vos objectifs fitness, suivez votre progression et célébrez les étapes importantes avec des badges numériques."
+        },
+        {
+          "title": "Système de journalisation des entraînements et repas",
+          "description": "Enregistrez vos entraînements et repas quotidiens pour obtenir des recommandations IA plus intelligentes."
+        },
+        {
+          "title": "Assistant Chat IA (Bot Fitness)",
+          "description": "Posez rapidement des questions comme 'Que manger après l'entraînement ?' ou 'Combien de pompes aujourd'hui ?' et obtenez des conseils instantanés."
+        }
+      ]
+    },
+
+    "impact": {
+      "title": "Notre Impact",
+      "subtitle": "Coaching en chiffres",
+      "stats": {
+        "activeMembers": "Membres actifs",
+        "caloriesBurnt": "Calories brûlées",
+        "hoursTrained": "Heures d'entraînement",
+        "certifiedTrainers": "Formateurs certifiés"
+      }
+    },
+
+    "team": {
+      "heading": "Rencontrez notre équipe talentueuse",
+      "roles": {
+        "fullstack": "Développeur Fullstack",
+        "uiux": "Designer UI/UX",
+        "ai": "Ingénieur IA",
+        "frontend": "Développeur Front-End"
+      }
+    }
+  }
 }
