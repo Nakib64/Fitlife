@@ -208,5 +208,67 @@
 			"cta_text": "Vous avez encore des questions ? Notre équipe est là pour vous aider.",
 			"cta_button": "Contacter le support"
 		}
+	},
+	"workout": {
+		"result": {
+			"heroTitle": "Bienvenue dans votre entraînement IA",
+			"heroSubtitle": "Générez votre programme d'entraînement personnalisé étape par étape 📝",
+			"heroStart": "Votre parcours fitness commence ici 🚀",
+			"modalTrigger": "Démarrer le programme",
+			"loadingMessage": "🔥 Création de votre plan d'entraînement IA ultime… 💪",
+			"loadingSub": "Préparez-vous à atteindre vos objectifs ! 🚀",
+			"motive1": "Restez constant ! Votre plan s'adapte à vos progrès 🏃‍♂️",
+			"motive2": "Choisissez vos horaires et suivez vos séances 💪",
+			"week": "Semaine",
+			"day": "Jour",
+			"sets": "Séries",
+			"reps": "Répétitions"
+		},
+		"modal": {
+			"generate_btn": "Générer l'entraînement 💪",
+			"dialog_title": "Votre plan d'entraînement 🏋️",
+
+			"step1_title": "Entrez votre âge",
+			"step1_emoji": "🎂",
+
+			"step2_title": "Sélectionnez votre sexe",
+			"step2_emoji": "🚻",
+			"step2_option1": "Homme 🚹",
+			"step2_option2": "Femme 🚺",
+
+			"step3_title": "Quel est votre objectif ?",
+			"step3_emoji": "🎯",
+			"step3_option1": "Prendre du muscle 💪",
+			"step3_option2": "Perdre de la graisse 🔥",
+			"step3_option3": "Maintenir ⚖️",
+
+			"step4_title": "Sélectionnez votre niveau de forme",
+			"step4_emoji": "🏋️",
+			"step4_option1": "Débutant 🐣",
+			"step4_option2": "Intermédiaire 💪",
+			"step4_option3": "Avancé 🦾",
+
+			"step5_title": "Avez-vous du matériel de gym ?",
+			"step5_emoji": "🏋️",
+			"step5_option1": "Oui 🏋️‍♂️",
+			"step5_option2": "Non 🚫",
+
+			"step6_title": "Combien de jours par semaine ?",
+			"step6_emoji": "📅",
+			"step6_option1": "1",
+			"step6_option2": "2",
+			"step6_option3": "3",
+			"step6_option4": "4",
+			"step6_option5": "5",
+			"step6_option6": "6",
+
+			"step7_title": "Combien de temps durera chaque séance ?",
+			"step7_emoji": "⏱️",
+
+			"previous_btn": "Précédent ⬅️",
+			"next_btn": "Suivant ➡️",
+			"submit_btn": "Valider ✅",
+			"step_progress": "Étape {current} sur {total}"
+		}
 	}
 }
