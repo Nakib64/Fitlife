@@ -2,14 +2,17 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import WorkoutModal from "../component/workout/WorkoutModal";
+import { useTranslations } from "next-intl";
 
-export default function Home() {
+export default function Home({params}) {
   const [workoutPlan, setWorkoutPlan] = useState([]);
   const [loading, setLoading] = useState(false);
   const [activeWeek, setActiveWeek] = useState(1);
-  const [daysPerWeek, setDaysPerWeek] = useState(3); // default, updated after form
-
+  const [daysPerWeek, setDaysPerWeek] = useState(); // default, updated after form
+  const t = useTranslations("workout.result")
+  const locale = params.locale
   const generateWorkout = async (userData) => {
+    userData.language = locale;
     setLoading(true);
     try {
       const res = await fetch("/api/AIWorkout", {
@@ -19,7 +22,7 @@ export default function Home() {
       });
       const data = await res.json();
       setWorkoutPlan(data.plan || []);
-      setDaysPerWeek(userData.days_per_week || 3);
+      setDaysPerWeek(parseInt(userData.days_per_week));
       setActiveWeek(1);
     } catch (err) {
       console.error(err);
@@ -29,13 +32,7 @@ export default function Home() {
   };
 
   // Group plan into weeks
-  const weeks = [];
-  if (workoutPlan.length > 0) {
-    for (let i = 0; i < 4; i++) {
-      weeks.push(workoutPlan.slice(i * daysPerWeek, i * daysPerWeek + daysPerWeek));
-    }
-  }
-
+ 
   // 🌈 Colorful Loading Component
   if (loading) {
     return (
@@ -53,24 +50,32 @@ export default function Home() {
           transition={{ repeat: Infinity, repeatType: "mirror", duration: 1.5 }}
           className="mt-6 text-3xl font-extrabold text-white text-center animate-pulse"
         >
-          🔥 Crafting Your Ultimate AI Workout Plan… 💪
+          {t("loadingMessage")}
         </motion.p>
-        <p className="mt-2 text-white text-lg text-center">Get ready to crush your goals! 🚀</p>
+        <p className="mt-2 text-white text-lg text-center">{t("loadingSub")}</p>
       </div>
     );
   }
+ const weeks = [];
+  if (workoutPlan?.length > 0) {
+    for (let i = 0; i < 4; i++) {
+      weeks.push(workoutPlan.slice(i * parseInt(daysPerWeek), i * parseInt(daysPerWeek) + parseInt(daysPerWeek)));
+    }
+  }
 
+
+  console.log(weeks, workoutPlan, typeof(daysPerWeek));
   return (
     <div className="p-6 max-w-5xl mx-auto">
       {/* Hero Section */}
       {workoutPlan.length === 0 && (
         <div className="flex flex-col items-center mt-12 space-y-4 text-center">
           <div className="text-7xl animate-bounce">🏋️‍♂️💪</div>
-          <h1 className="text-4xl font-extrabold">Welcome to Your AI Workout</h1>
+          <h1 className="text-4xl font-extrabold">{t("heroTitle")}</h1>
           <p className="text-gray-700 max-w-md text-lg">
-            Generate your personalized workout plan step by step 📝
+            {t("heroSubtitle")}
           </p>
-          <p className="text-gray-500">Your fitness journey starts here 🚀</p>
+          <p className="text-gray-500">{t("heroStart")}</p>
         </div>
       )}
 
@@ -84,10 +89,10 @@ export default function Home() {
         <div className="mt-12 flex flex-col items-center space-y-4 text-center">
           <div className="text-6xl">🔥⚡</div>
           <p className="text-gray-600 max-w-md">
-            Stay consistent! Your AI plan adapts as you log progress 🏃‍♂️
+           {t("motive1")}
           </p>
           <div className="text-6xl">🕒🎯</div>
-          <p className="text-gray-500">Select session times and track your workouts 💪</p>
+          <p className="text-gray-500">{t("motive2")}</p>
         </div>
       )}
 
@@ -106,7 +111,7 @@ export default function Home() {
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
-                Week {idx + 1} {activeWeek === idx + 1 && "🔥"}
+                {t("week")} {idx + 1} {activeWeek === idx + 1 && "🔥"}
               </button>
             ))}
           </div>
@@ -122,7 +127,7 @@ export default function Home() {
               className="bg-white rounded-xl shadow-md p-6 mb-4 border border-gray-100 hover:shadow-lg"
             >
               <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
-                🗓️ {day.day}
+               {t("day")} 🗓️ {day.day}
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {day.exercises.map((ex, idx) => (
@@ -131,8 +136,8 @@ export default function Home() {
                     className="flex flex-col bg-green-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow"
                   >
                     <span className="text-lg font-semibold">{ex.name} 🏋️‍♂️</span>
-                    <span className="text-gray-600 mt-1">Sets: {ex.sets}</span>
-                    <span className="text-gray-600">Reps: {ex.reps}</span>
+                    <span className="text-gray-600 mt-1">{t("sets")}: {ex.sets}</span>
+                    <span className="text-gray-600">{t("reps")}: {ex.reps}</span>
                   </div>
                 ))}
               </div>
