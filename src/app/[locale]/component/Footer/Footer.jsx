@@ -1,34 +1,40 @@
 'use client'
 import { Link } from "@/i18n/navigation";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 
-const footerLinks = [
-  {
-    title: "About",
-    links: ["About", "Our Story", "Trainers", "Mission", "Why Us"],
-  },
-  {
-    title: "Programs",
-    links: [
-      "Advanced Step",
-      "Hot Yoga",
-      "Flexible Strength",
-      "Road Drills",
-      "Body Dance Cardio",
-      "Athletic Training",
-    ],
-  },
-  {
-    title: "Quick Links",
-    links: ["Blog", "Locations", "Contact", "Careers", "FAQs"],
-  },
-];
-
-const socialLinks = ["FACEBOOK", "INSTAGRAM", "YOUTUBE", "TWITTER"];
 
 export default function Footer() {
   const headline = "FITLIFE COACH";
   const bgImage = "/about/marque.jpg";
+  const pathname = usePathname()
+  const t = useTranslations("footer")
+  
+  const hiddenPaths = ['/dashBoard']
+  
+  if(hiddenPaths.some((p) => pathname.includes(p))){
+    return <></>
+  }
+  
+  const footerLinks = [
+    {
+      title: t("about.title"),
+      links: t.raw("about.links"),
+    },
+    {
+      title: t("programs.title"),
+      links: t.raw("programs.links"),
+    },
+    {
+      title: t("quickLinks.title"),
+      links: t.raw("quickLinks.links"),
+    },
+  ];
+
+  const socialLinks = t.raw("social");
+
+  // console.log(pathname);
 
   return (
     <footer className="bg-[#1A3438] text-white font-sans">
@@ -102,31 +108,35 @@ export default function Footer() {
       </div>
 
       {/* marquee */}
-      <div
-        className="relative w-full h-[30vh] md:h-[40vh] overflow-hidden"
-        style={{
-          backgroundImage: `url(${bgImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/40" />
-        <motion.div
-          className="absolute whitespace-nowrap text-white font-extrabold text-[8vw] sm:text-[10vw] md:text-[12vw] uppercase flex"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: 16, // smoother speed
-            ease: "linear",
-          }}
-        >
-          <div>
-            {headline}&nbsp;&nbsp;&nbsp;{headline}&nbsp;&nbsp;&nbsp;{headline}
-            &nbsp;&nbsp;&nbsp;{headline}
-          </div>
-        </motion.div>
-      </div>
+     <div
+  className="relative w-full h-[30vh] md:h-[40vh] overflow-hidden"
+  style={{
+    backgroundImage: `url(${bgImage})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
+  <div className="absolute inset-0 bg-black/40" />
+
+  <motion.div
+    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+               whitespace-nowrap text-white font-extrabold 
+               text-[20vw] sm:text-[10vw] md:text-[12vw] uppercase flex"
+    animate={{ x: ["0%", "-50%"] }}
+    transition={{
+      repeat: Infinity,
+      repeatType: "loop",
+      duration: 16, // smoother speed
+      ease: "linear",
+    }}
+  >
+    <div>
+      {headline}&nbsp;&nbsp;&nbsp;{headline}&nbsp;&nbsp;&nbsp;{headline}
+      &nbsp;&nbsp;&nbsp;{headline}
+    </div>
+  </motion.div>
+</div>
+
 
       {/* copyright */}
       <div className="bg-[#1A3438] text-white text-center font-medium text-sm sm:text-lg md:text-xl py-6 px-6">

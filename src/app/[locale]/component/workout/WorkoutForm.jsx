@@ -31,7 +31,7 @@ export default function WorkoutStepForm({
 					type="number"
 					value={value}
 					onChange={(e) => onChange(e.target.value)}
-					placeholder={keyName || "Enter number"} // dynamic placeholder
+					// placeholder={keyName || "Enter number"} // dynamic placeholder
 					className="w-2/3 border p-4 rounded-lg shadow-lg text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-400 appearance-none
              [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-moz-appearance]:textfield"
 				/>

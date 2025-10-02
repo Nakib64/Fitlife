@@ -6,23 +6,25 @@ import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import UserInfo from "../userInfo/UserInfo";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const controls = useAnimation();
   const pathname = usePathname();
+  const t = useTranslations("navbar")
   const navLinks = [
-    { name: "My Workouts", href: "/myworkouts" },
-    { name: "My Meals", href: "/meals" },
-    { name: "Wellness", href: "/wellness" },
-    { name: "Achievements", href: "/achievements" },
-    { name: "AI Coach", href: "/ai-coach" },
-    { name: "About", href: "/about" },
-    {name:"Dashboard",href:"/dashBoard"}
+    { name: t("myWorkouts"), href: "/myworkouts" },
+    { name: t("myMeals"), href: "/meals" },
+    { name: t("wellness"), href: "/wellness" },
+    { name: t("achievements"), href: "/achievements" },
+    { name: t("aiCoach"), href: "/ai-coach" },
+    { name: t("about"), href: "/about" },
+    { name: t("dashboard"), href: "/dashBoard" }
   ];
 
-  const hiddenPaths = ["/signup", "/login", "/reset-password", "/verify-otp"];
+  const hiddenPaths = ["/signup", "/login", "/reset-password", "/verify-otp", "/dashBoard"];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,9 +50,6 @@ const Navbar = () => {
   }, [controls]);
 
   if (hiddenPaths.some((p) => pathname.includes(p))) {
-    return <></>
-  }
-  if(pathname.includes("/dashBoard")){
     return <></>
   }
 
