@@ -282,7 +282,7 @@ import { useRouter } from "next/navigation";
 import { io } from "socket.io-client";
 
 const SOCKET_SERVER_URL =
-  process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:4000";
+  process.env.NEXT_PUBLIC_SOCKET_URL;
 
 export default function AICoachPage() {
   const [messages, setMessages] = useState([
