@@ -1,34 +1,40 @@
 'use client'
 import { Link } from "@/i18n/navigation";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 
-const footerLinks = [
-  {
-    title: "About",
-    links: ["About", "Our Story", "Trainers", "Mission", "Why Us"],
-  },
-  {
-    title: "Programs",
-    links: [
-      "Advanced Step",
-      "Hot Yoga",
-      "Flexible Strength",
-      "Road Drills",
-      "Body Dance Cardio",
-      "Athletic Training",
-    ],
-  },
-  {
-    title: "Quick Links",
-    links: ["Blog", "Locations", "Contact", "Careers", "FAQs"],
-  },
-];
-
-const socialLinks = ["FACEBOOK", "INSTAGRAM", "YOUTUBE", "TWITTER"];
 
 export default function Footer() {
   const headline = "FITLIFE COACH";
   const bgImage = "/about/marque.jpg";
+  const pathname = usePathname()
+  const t = useTranslations("footer")
+  
+  const hiddenPaths = ['/dashBoard']
+  
+  if(hiddenPaths.some((p) => pathname.includes(p))){
+    return <></>
+  }
+  
+  const footerLinks = [
+    {
+      title: t("about.title"),
+      links: t.raw("about.links"),
+    },
+    {
+      title: t("programs.title"),
+      links: t.raw("programs.links"),
+    },
+    {
+      title: t("quickLinks.title"),
+      links: t.raw("quickLinks.links"),
+    },
+  ];
+
+  const socialLinks = t.raw("social");
+
+  // console.log(pathname);
 
   return (
     <footer className="bg-[#1A3438] text-white font-sans">
