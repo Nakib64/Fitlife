@@ -326,5 +326,67 @@
         "frontend": "Front-End Developer"
       }
     }
+	},
+	"workout": {
+		"result": {
+			"heroTitle": "Welcome to Your AI Workout",
+			"heroSubtitle": "Generate your personalized workout plan step by step 📝",
+			"heroStart": "Your fitness journey starts here 🚀",
+			"modalTrigger": "Start Your Plan",
+			"loadingMessage": "🔥 Crafting Your Ultimate AI Workout Plan… 💪",
+			"loadingSub": "Get ready to crush your goals! 🚀",
+			"motive1": "Stay consistent! Your AI plan adapts as you log progress 🏃‍♂️",
+			"motive2": "Select session times and track your workouts 💪",
+			"week": "Week",
+			"day": "Day",
+			"sets": "Sets",
+			"reps": "Reps"
+		},
+		"modal": {
+			"generate_btn": "Generate Workout 💪",
+			"dialog_title": "Your Workout Plan 🏋️",
+
+			"step1_title": "Enter your age",
+			"step1_emoji": "🎂",
+
+			"step2_title": "Select your gender",
+			"step2_emoji": "🚻",
+			"step2_option1": "Male 🚹",
+			"step2_option2": "Female 🚺",
+
+			"step3_title": "What is your goal?",
+			"step3_emoji": "🎯",
+			"step3_option1": "Build Muscle 💪",
+			"step3_option2": "Lose Fat 🔥",
+			"step3_option3": "Maintain ⚖️",
+
+			"step4_title": "Select your fitness level",
+			"step4_emoji": "🏋️",
+			"step4_option1": "Beginner 🐣",
+			"step4_option2": "Intermediate 💪",
+			"step4_option3": "Advanced 🦾",
+
+			"step5_title": "Do you have gym equipment?",
+			"step5_emoji": "🏋️",
+			"step5_option1": "Yes 🏋️‍♂️",
+			"step5_option2": "No 🚫",
+
+			"step6_title": "How many days per week?",
+			"step6_emoji": "📅",
+			"step6_option1": "1",
+			"step6_option2": "2",
+			"step6_option3": "3",
+			"step6_option4": "4",
+			"step6_option5": "5",
+			"step6_option6": "6",
+
+			"step7_title": "How long will each session be?",
+			"step7_emoji": "⏱️",
+
+			"previous_btn": "Previous ⬅️",
+			"next_btn": "Next ➡️",
+			"submit_btn": "Submit ✅",
+			"step_progress": "Step {current} of {total}"
+		}	
   }
 }

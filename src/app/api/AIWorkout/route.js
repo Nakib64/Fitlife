@@ -21,29 +21,32 @@ export async function POST(req) {
 						{
 							role: "user",
 							content: `Generate a ${userData.days_per_week}-day workout plan for 4 weeks (1 month). 
-            The intensity should gradually increase week by week. 
-            User details: 
-            - Age: ${userData.age} years old
-            - Gender: ${userData.gender}
-            - Goal: ${userData.goal}
-            - Fitness Level: ${userData.fitness_level}
-            - gym equipment: ${userData.equipment}
-            - Time per session: ${userData.time_per_session_minutes} minutes
+The intensity should gradually increase week by week. 
 
-            Use only **common exercises that most people know**, such as:
-            - Push-ups, Squats, Lunges, Plank, Sit-ups, Crunches, Mountain Climbers, Jumping Jacks, Pull-ups, Dips, Running, Walking, Burpees, Deadlifts, Bench Press, Shoulder Press, Bicep Curls.
+Translate all **values** (day labels, exercise names) into ${userData.language}, 
+but **do not change the keys** (keep "day", "exercises", "name", "sets", "reps" in English).
 
-            Do not use complex gym machine names or unusual exercises.
-			if user don't have gym equipment, use only exercises which does not need equipment.
+User details: 
+- Age: ${userData.age} years old
+- Gender: ${userData.gender}
+- Goal: ${userData.goal}
+- Fitness Level: ${userData.fitness_level}
+- Gym equipment: ${userData.equipment}
+- Time per session: ${userData.time_per_session_minutes} minutes
 
-            Respond ONLY with valid JSON in this exact structure:
-            {
-              "plan": [
-                { "day": "Day 1", "exercises": [ { "name": "Push-ups", "sets": 3, "reps": 12 } ] },
-                { "day": "Day 2", "exercises": [ { "name": "Squats", "sets": 3, "reps": 15 } ] }
-              ]
-            }
-            Do not include explanations, markdown, or extra text. Only JSON.`
+Use only **common exercises that most people know**, such as:
+Push-ups, Squats, Lunges, Plank, Sit-ups, Crunches, Mountain Climbers, Jumping Jacks, Pull-ups, Dips, Running, Walking, Burpees, Deadlifts, Bench Press, Shoulder Press, Bicep Curls.
+
+If user doesn't have gym equipment, use only exercises which don’t need equipment.
+
+Respond ONLY with valid JSON in this exact structure:
+{
+  "plan": [
+    { "day": "Day 1", "exercises": [ { "name": "Push-ups", "sets": 3, "reps": 12 } ] },
+    { "day": "Day 2", "exercises": [ { "name": "Squats", "sets": 3, "reps": 15 } ] }
+  ]
+}
+`,
 						},
 					],
 				}),
