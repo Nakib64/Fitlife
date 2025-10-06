@@ -35,7 +35,7 @@ export default function LanguageSwitcher() {
   };
 
   return (
-    <div className="fixed bottom-25 rounded-full right-6 z-50">
+    <div className="fixed bottom-25 rounded-full right-6 z-20">
       {/* Positioned just above your existing bottom button */}
       <Dialog>
         <DialogTrigger asChild>
