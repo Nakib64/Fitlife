@@ -1,14 +1,29 @@
 import dbConnect from "@/lib/dbConnect";
+import { json } from "express";
 
 export async function POST(req) {
 	try {
-		const data =await req.json();
+		const data = await req.json();
 		console.log(data);
-		const response = await dbConnect("userWorkout").insertOne(data);
-		console.log(response);
-		return new Response(JSON.stringify(response), {
-			status: 200,
-		});
+
+		if (!data.email) {
+			return new Response(JSON.stringify({ error: "Email is required" }), {
+				status: 400,
+			});
+		}
+
+		const db = await dbConnect("userWorkout");
+
+		const result = await db.updateOne(
+			{ email: data.email }, // find document by email
+			{
+				$set: data,
+				$setOnInsert: { createdAt: new Date() },
+			},
+			{ upsert: true }
+		);
+
+		return new Response(JSON.stringify({ status: 200 }), { status: 200 });
 	} catch (err) {
 		return new Response(JSON.stringify({ error: err.message }), { status: 500 });
 	}
@@ -16,8 +31,27 @@ export async function POST(req) {
 
 export async function GET(req) {
 	try {
-		const result = await dbConnect("userWorkout").findOne({ email: "nafiz2282@gmail.com" });
-		console.log(result);
+		// Get the email from the URL query parameters
+		const { searchParams } = new URL(req.url);
+		const email = searchParams.get("email");
+
+		if (!email) {
+			return new Response(JSON.stringify({ error: "Email is required" }), {
+				status: 400,
+			});
+		}
+
+		const db = await dbConnect("userWorkout");
+
+		const result = await db.findOne({ email });
+
+		if (!result) {
+			return new Response(JSON.stringify({ error: "No record found" }), {
+				status: 404,
+			});
+		}
+
+		
 		return new Response(JSON.stringify(result), {
 			status: 200,
 		});
@@ -28,7 +62,7 @@ export async function GET(req) {
 
 export async function PUT(req) {
 	try {
-		const data =await req.json();
+		const data = await req.json();
 		const filter = { email: data?.email };
 
 		const result = await dbConnect("userWorkout").findOne(filter);
