@@ -18,7 +18,6 @@ const Navbar = () => {
     { name: t("myMeals"), href: "/meals" },
     { name: t("wellness"), href: "/wellness" },
     { name: t("achievements"), href: "/achievements" },
-    { name: t("aiCoach"), href: "/ai-coach" },
     { name: t("about"), href: "/about" },
     { name: t("dashboard"), href: "/dashBoard" },
   ];
