@@ -36,11 +36,7 @@ const links = [
     icon: <Newspaper size={20} />,
     href: "/dashBoard/wellnessBlog",
   },
-  {
-    label: "All Users",
-    icon: <Users size={20} />,
-    href: "/dashBoard/users",
-  },
+ 
   { label: "Home", icon: <User size={20} />, href: "/" },
 ];
 
