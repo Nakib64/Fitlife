@@ -7,8 +7,7 @@ import {
   Activity,
   Coffee,
   Newspaper,
-  User2,
-  User2Icon,
+  Users,
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useState } from "react";
@@ -37,7 +36,7 @@ const links = [
   },
   {
     label: "All Users",
-    icon: <User2Icon size={20} />,
+    icon: <Users size={20} />,
     href: "/dashBoard/users",
   },
   { label: "Home", icon: <User size={20} />, href: "/" },

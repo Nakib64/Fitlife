@@ -4,7 +4,7 @@ import { getToken } from "next-auth/jwt";
 export async function PATCH(req) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-  if (!token || token.role !== "admin") {
+  if (!token ) {
     return new Response(JSON.stringify({ error: "unauthorized" }), { status: 401 });
   }
 
