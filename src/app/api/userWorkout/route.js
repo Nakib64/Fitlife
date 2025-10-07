@@ -73,3 +73,36 @@ export async function PUT(req) {
 		return new Response(JSON.stringify({ error: err.message }), { status: 500 });
 	}
 }
+
+
+// file: /app/api/userWorkout/progress/route.js
+
+
+
+export async function PATCH(req) {
+  try {
+    const { email, day, exerciseName, completed } = await req.json();
+    const db = await dbConnect("userWorkout");
+
+    const result = await db.updateOne(
+      { email, "data.day": day, "data.exercises.name": exerciseName },
+      {
+        $set: {
+          "data.$[dayIndex].exercises.$[exIndex].completed": completed,
+        },
+      },
+      {
+        arrayFilters: [
+          { "dayIndex.day": day },
+          { "exIndex.name": exerciseName },
+        ],
+      }
+    );
+
+    return new Response(JSON.stringify({ success: true, result }), {
+      status: 200,
+    });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: err.message }), { status: 500 });
+  }
+}

@@ -6,9 +6,16 @@ import { usePathname } from "next/navigation";
 
 
 export default function Footer() {
+  const pathname = usePathname(); // ✅ Moved inside component
+  const hiddenPath = ["/dashBoard"];
+
+  if (hiddenPath.some((p) => pathname.includes(p))) {
+    return <></>; // hides footer on specified paths
+  }
+
   const headline = "FITLIFE COACH";
   const bgImage = "/about/marque.jpg";
-  const pathname = usePathname()
+
   const t = useTranslations("footer")
   
   const hiddenPaths = ['/dashBoard']
