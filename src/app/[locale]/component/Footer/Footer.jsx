@@ -15,7 +15,7 @@ export default function Footer() {
 
   const headline = "FITLIFE COACH";
   const bgImage = "/about/marque.jpg";
-  const pathname = usePathname()
+
   const t = useTranslations("footer")
   
   const hiddenPaths = ['/dashBoard']
