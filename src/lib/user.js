@@ -1,9 +1,15 @@
 import bcrypt from "bcrypt";
 import dbConnect from "./dbConnect";
+import { ObjectId } from "mongodb";
 
 export const findUserByEmail = async (email) => {
   const users = await dbConnect("users");
   return users.findOne({ email });
+};
+
+export const findUserById = async (id) => {
+  const users = await dbConnect("users");
+  return users.findOne({ _id: new ObjectId(id) });
 };
 
 export const createUser = async ({ name, email, password }) => {
@@ -17,6 +23,8 @@ export const createUser = async ({ name, email, password }) => {
     createdAt: new Date(),
     failedLoginAttempts: 0,
     lockUntil: null,
+    role: "user",
+    isBanned: false,
   };
 
   const result = await users.insertOne(newUser);
@@ -24,9 +32,14 @@ export const createUser = async ({ name, email, password }) => {
 };
 
 //function to update user by email
-export const updateUser = async (email, updateFields) => {
+export const updateUser = async (identifier, updateFields) => {
   const users = await dbConnect("users");
-  return users.updateOne({ email }, { $set: updateFields });
+  const filter =
+    typeof identifier === "string" && identifier.includes("@")
+      ? { email: identifier }
+      : { _id: new ObjectId(identifier) };
+
+  return users.updateOne(filter, { $set: updateFields });
 };
 
 //set new otp on users login
@@ -53,10 +66,7 @@ export const verifyOtp = async (email, otp) => {
     String(user.otpCode) === String(otp) &&
     new Date(user.otpExpires).getTime() > Date.now()
   ) {
-    await users.updateOne(
-      { email },
-      { $unset: { otpCode: 1, otpExpires: 1 } }
-    );
+    await users.updateOne({ email }, { $unset: { otpCode: 1, otpExpires: 1 } });
     return true;
   }
   return false;
