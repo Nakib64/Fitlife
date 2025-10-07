@@ -2,26 +2,114 @@
 
 import React, { useState } from "react";
 import { FaBell, FaMoon, FaSun, FaSearch } from "react-icons/fa";
+import {
+  Home,
+  User,
+  BarChart2,
+  Activity,
+  Coffee,
+  Newspaper,
+  Menu,
+  Users,
+} from "lucide-react";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
+import { Link } from "@/i18n/navigation"; // use your localized Link
 
 export default function DashboardNavbar() {
   const [darkMode, setDarkMode] = useState(false);
   const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
     document.documentElement.classList.toggle("dark");
   };
 
+  const links = [
+    { label: "Dashboard", icon: <Home size={20} />, href: "/dashBoard" },
+      { label: "All Users", icon: <Users size={20} />, href: "/dashBoard/users" },
+    {
+      label: "My Workouts",
+      icon: <Activity size={20} />,
+      href: "/dashBoard/myworkouts",
+    },
+    {
+      label: "My Meals",
+      icon: <Coffee size={20} />,
+      href: "/dashBoard/meals",
+    },
+    {
+      label: "Progress Tracker",
+      icon: <BarChart2 size={20} />,
+      href: "/dashBoard/progressTracker",
+    },
+    {
+      label: "Wellness Blog",
+      icon: <Newspaper size={20} />,
+      href: "/dashBoard/wellnessBlog",
+    },
+    { label: "Home", icon: <User size={20} />, href: "/" },
+  ];
+
   return (
     <header className="sticky top-0 z-50 flex items-center justify-between bg-white dark:bg-neutral-800 p-4 shadow-md transition-colors duration-300">
-      {/* Left: Title & Breadcrumbs */}
-      <div className="flex flex-col">
-        <h1 className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-          Dashboard
-        </h1>
-        <nav className="text-sm text-gray-500 dark:text-gray-400">
-          Home / Dashboard
-        </nav>
+      {/* Left: Menu (for mobile) + Title */}
+      <div className="flex items-center gap-3">
+        {/* Mobile Drawer Button */}
+        <div className="lg:hidden">
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <button className="p-2 rounded-md bg-indigo-600 text-white">
+                <Menu size={22} />
+              </button>
+            </SheetTrigger>
+
+            {/* Drawer Sidebar */}
+            <SheetContent side="left" className="p-0 w-64 dark:bg-neutral-900">
+              <SheetHeader className="p-4 border-b dark:border-neutral-700">
+                <SheetTitle className="text-indigo-600 dark:text-indigo-400">
+                  FitLife
+                </SheetTitle>
+                <SheetDescription className="text-gray-500 dark:text-gray-400">
+                  Navigate your dashboard
+                </SheetDescription>
+              </SheetHeader>
+
+              <nav className="flex flex-col p-3 space-y-2">
+                {links.map((link, i) => (
+                  <Link
+                    key={i}
+                    href={link.href}
+                    onClick={() => setOpen(false)} // close drawer on navigation
+                    className="flex items-center gap-3 p-3 rounded-md text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-neutral-800 transition"
+                  >
+                    <span className="text-indigo-600 dark:text-indigo-400">
+                      {link.icon}
+                    </span>
+                    <span>{link.label}</span>
+                  </Link>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+
+        {/* Page Title */}
+        <div className="flex flex-col">
+          <h1 className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+            Dashboard
+          </h1>
+          <nav className="text-sm text-gray-500 dark:text-gray-400">
+            Home / Dashboard
+          </nav>
+        </div>
       </div>
 
       {/* Middle: Search Bar */}
@@ -72,7 +160,6 @@ export default function DashboardNavbar() {
             A
           </button>
 
-          {/* Avatar Dropdown */}
           {avatarMenuOpen && (
             <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-neutral-800 shadow-lg rounded-md overflow-hidden z-50">
               <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-neutral-700">

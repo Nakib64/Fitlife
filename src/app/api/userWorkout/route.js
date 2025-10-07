@@ -4,7 +4,7 @@ import { json } from "express";
 export async function POST(req) {
 	try {
 		const data = await req.json();
-		console.log(data);
+			
 
 		if (!data.email) {
 			return new Response(JSON.stringify({ error: "Email is required" }), {
