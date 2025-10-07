@@ -2,6 +2,7 @@ import {
   clearUserOtp,
   createUser,
   findUserByEmail,
+  findUserById,
   setUserOtp,
   updateUser,
 } from "@/lib/user";
@@ -10,7 +11,6 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import { sendOtpEmail } from "@/lib/mailer";
-
 
 const handler = NextAuth({
   providers: [
@@ -37,6 +37,10 @@ const handler = NextAuth({
 
         if (user.lockUntil && user.lockUntil > Date.now()) {
           throw new Error("Account locked. Try again later.");
+        }
+
+        if (user.isBanned) {
+          throw new Error("USER_BANNED");
         }
 
         const isValid = await bcrypt.compare(password, user.password);
@@ -78,7 +82,13 @@ const handler = NextAuth({
 
         await clearUserOtp(email);
 
-        return { id: user._id, name: user.name, email: user.email };
+        return {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          isBanned: user.isBanned,
+        };
       },
     }),
 
@@ -102,6 +112,19 @@ const handler = NextAuth({
       }
       return true;
     },
+
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = user.role;
+        token.isBanned = user.isBanned;
+      } else {
+        const dbUser = await findUserById(token.sub);
+        token.role = dbUser?.role;
+        token.isBanned = dbUser?.isBanned;
+      }
+      return token;
+    },
+
     async session({ session, token }) {
       session.user.id = token.sub;
       return session;
