@@ -1,7 +1,11 @@
+"use client";
 import Image from "next/image";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 const Hero = () => {
+  const t = useTranslations("about.aboutHero");
+
   return (
     <section className="relative">
       {/* Hero Section */}
@@ -22,12 +26,10 @@ const Hero = () => {
         {/* Hero Content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white drop-shadow-lg leading-snug md:leading-tight lg:leading-tight">
-            Welcome to <span className="text-green-400">Fit</span>
-            <span className="text-blue-400">Life</span>
+            {t("headline")}
           </h1>
           <p className="mt-4 sm:mt-6 max-w-3xl text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-200 font-semibold drop-shadow-md">
-            Track your workouts, plan your meals, monitor progress, and unlock your
-            best self every day.
+            {t("subHeadline")}
           </p>
         </div>
       </section>
@@ -44,34 +46,31 @@ const Hero = () => {
         <div className="flex justify-between flex-col py-8 md:py-12 lg:py-16">
           <div className="flex gap-2 sm:gap-4 items-center">
             <span className="h-2 w-2 sm:h-3 sm:w-3 rounded-full bg-lime-400"></span>
-            <p className="text-sm sm:text-base md:text-lg font-bold">WHO WE ARE</p>
+            <p className="text-sm sm:text-base md:text-lg font-bold">
+              {t("whoWeAre")}
+            </p>
           </div>
 
           {/* title */}
           <h1 className="font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mt-4 md:mt-6 leading-snug sm:leading-tight md:leading-tight">
-            Your fitness <br /> journey starts here
+            {t("title")}
           </h1>
 
           {/* description */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 mt-6">
             <div className="flex flex-col gap-6 md:gap-8">
               <h3 className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 font-semibold">
-                You bring the{" "}
-                <span className="text-lime-400 font-bold">
-                  inspiration, motivation & passion
-                </span>{" "}
-                that can’t be taught — and we give you everything you need to make a
-                success of it. Start your journey to better health and fitness.
+                {t("description")}
               </h3>
               <div className="space-y-2 md:space-y-4 text-base sm:text-lg md:text-xl font-extrabold">
                 <h3 className="flex gap-2 sm:gap-4">
                   <span className="text-lime-400">01.</span>
-                  <p>HEALTHY & EFFECTIVE</p>
+                  <p>{t("point1")}</p>
                 </h3>
                 <hr />
                 <h3 className="flex gap-2 sm:gap-4">
                   <span className="text-lime-400">02.</span>
-                  <p>PERSONALIZED PLANS</p>
+                  <p>{t("point2")}</p>
                 </h3>
                 <hr />
               </div>

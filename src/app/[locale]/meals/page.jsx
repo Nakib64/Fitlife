@@ -285,7 +285,7 @@ export default function MyMealsPage() {
             <button
               onClick={handleGenerate}
               disabled={loading}
-              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-4 rounded-full font-bold text-lg shadow-xl transition transform hover:-translate-y-0.5 disabled:opacity-60 flex justify-center items-center gap-3 cursor-pointer"
+              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-4 rounded-full font-bold sm:text-lg shadow-xl transition transform hover:-translate-y-0.5 disabled:opacity-60 flex justify-center items-center gap-3 cursor-pointer"
             >
               <FaSyncAlt className={loading ? "animate-spin" : ""} />
               {loading ? "Generating…" : "Generate Macro Plan"}
@@ -440,14 +440,14 @@ function AdvancedForm({ form, setField, updateTarget, toggleAllergy, allergyOpti
         </div>
 
         {/* Custom allergy input */}
-        <div className="flex gap-2 items-center mt-2">
+        <div className="flex  sm:gap-2 gap-1 items-center mt-2">
         <input
             type="text"
             value={customAllergy}
             onChange={(e) => handleTyping(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && addCustomAllergy()}
             placeholder="Add other allergy..."
-            className={`flex-1 px-4 py-2 rounded-xl border ${
+            className={`flex-1 sm:px-4 px-1 py-2 rounded-xl text-sm border ${
               typing
                 ? "border-green-400 shadow-md animate-pulse"
                 : "border-gray-200 focus:ring-2 focus:ring-green-200 focus:border-green-400"
@@ -456,7 +456,7 @@ function AdvancedForm({ form, setField, updateTarget, toggleAllergy, allergyOpti
 
           <button
             onClick={addCustomAllergy}
-            className="px-4 py-2 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition"
+            className="sm:px-4 px-2 py-2 bg-green-600 text-white  text-sm rounded-xl font-semibold hover:bg-green-700 transition"
           >
             Add
           </button>

@@ -4,12 +4,12 @@ import { verifyOtp } from "@/lib/user";
 export async function POST(req) {
   try {
     const body = await req.json();
-    console.log("Received body:", body);
+    // console.log("Received body:", body);
 
     const { email, otp} = body;
 
     const ok = await verifyOtp(email, otp);
-    console.log("OTP verification result:", ok);
+    // console.log("OTP verification result:", ok);
 
     if (ok) {
       return NextResponse.json({ ok: true });

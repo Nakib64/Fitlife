@@ -1,132 +1,157 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
-import { use } from "react";
+import { motion } from "framer-motion";
 
-const blogs = {
-  1: {
-    title: "5 Morning Habits to Boost Your Energy",
-    content: `
-Mornings set the tone for the entire day. Here are 5 habits to energize your mornings:
+export default function BlogDetails() {
+  const { id } = useParams();
+  const [blog, setBlog] = useState(null);
 
-1. Drink water after waking up.
-2. Do 5 minutes of stretching or yoga.
-3. Avoid checking your phone immediately.
-4. Eat a protein-rich breakfast.
-5. Spend a moment practicing gratitude.
-    `,
-    image: "/blogs-images/image1.jpg",
-    date: "Sept 15, 2025",
-    author: "Wellness Coach",
-  },
-  2: {
-    title: "The Importance of Quality Sleep",
-    content: `
-Sleep is essential for recovery, focus, and overall health.
-
-- Aim for 7–8 hours each night.
-- Avoid caffeine late in the evening.
-- Create a relaxing bedtime routine.
-- Keep your bedroom cool and dark.
-    `,
-    image: "/blogs-images/image2.jpg",
-    date: "Sept 14, 2025",
-    author: "Health Expert",
-  },
-  3: {
-    title: "Healthy Eating on a Busy Schedule",
-    content: `
-Busy lifestyle? No problem! Here are tips:
-
-- Prep meals on weekends.
-- Carry healthy snacks like nuts or fruits.
-- Avoid skipping breakfast.
-- Choose water over sugary drinks.
-    `,
-    image: "/blogs-images/image3.jpg",
-    date: "Sept 10, 2025",
-    author: "Nutritionist",
-  },
-};
-
-export default function BlogDetails({ params }) {
-  const { id } = use(params);
-  const blog = blogs[id];
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const res = await fetch(`/api/blogs/${id}`);
+        const data = await res.json();
+        setBlog(data);
+      } catch (err) {
+        console.error("Error fetching blog:", err);
+      }
+    };
+    if (id) fetchBlog();
+  }, [id]);
 
   if (!blog) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-gray-600">
-        Blog not found.
+      <div className="min-h-screen flex items-center justify-center">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="text-gray-500 text-lg"
+        >
+          Loading article...
+        </motion.p>
       </div>
     );
   }
 
   return (
-    <section className="min-h-screen bg-gray-50 py-16">
-      <div className="max-w-4xl mx-auto px-6">
-        {/* Hero Image with overlay */}
-        <div className="relative w-full h-72 md:h-96 mb-8 rounded-3xl overflow-hidden shadow-lg">
+    <section className="min-h-screen bg-gray-100 pb-20">
+      {/* Header / Hero */}
+      <div className="relative w-full h-[400px] md:h-[600px]">
+        {blog.coverImage && (
           <Image
-            src={blog.image}
-            alt={blog.title}
+            src={blog.coverImage}
+            alt={blog.title || "Blog cover"}
             fill
-            className="object-cover"
+            className="object-cover rounded-b-3xl shadow-lg"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-        </div>
-
-        {/* Title and meta */}
-        <motion.h1
-          className="text-3xl md:text-5xl font-bold text-gray-900 mb-4"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          {blog.title}
-        </motion.h1>
-
-        <motion.div
-          className="flex flex-col md:flex-row md:items-center md:justify-between text-gray-500 mb-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          <p className="text-sm md:text-base">
-            {blog.date} • {blog.author}
-          </p>
-          <div className="hidden md:block border-b border-gray-300 w-full mx-4"></div>
-        </motion.div>
-
-        {/* Content card */}
-        <motion.div
-          className="bg-[#e1f0e5] p-8 rounded-2xl shadow-lg  max-w-full mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          {blog.content.split("\n").map((para, i) => (
-            <p key={i} className="leading-relaxed">
-              {para}
-            </p>
-          ))}
-        </motion.div>
-
-        {/* Back button */}
-        <motion.div
-          className="mt-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          <Link
-            href="/wellness"
-            className="inline-block px-6 py-3 bg-green-500 text-white font-semibold rounded-xl shadow-md hover:bg-green-600 transition-colors duration-300"
+        )}
+        <div className="absolute inset-0 bg-black/70 rounded-b-3xl flex items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center px-8"
           >
-            ← Back to Articles
-          </Link>
+            <h1 className="text-4xl md:text-7xl  font-bold text-white drop-shadow-lg">
+              {blog.title}
+            </h1>
+            <p className="text-gray-200 mt-3 text-lg">
+              {new Date(blog.createdAt).toLocaleDateString()} •{" "}
+              {blog.author || "Admin"}
+            </p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-6 mt-12 flex flex-col md:flex-row gap-10">
+        {/* Blog Content */}
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="md:w-3/4"
+        >
+          {/* Summary */}
+          {blog.summary && (
+            <p className="text-lg text-gray-700 mt-4 leading-relaxed whitespace-pre-line  mb-12">
+              {blog.summary}
+            </p>
+          )}
+
+          {/* Sections */}
+          <div className="space-y-16">
+            {blog.sections?.map((section, i) => (
+              <motion.div
+                key={i}
+                id={`section-${i}`}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                className="scroll-mt-24"
+              >
+                <h2 className="text-3xl md:text-5xl font-bold text-green-700 mb-6">
+                  {section.heading}
+                </h2>
+
+                {section.image && (
+                  <div className="relative w-full h-[300px] md:h-[400px] mb-6">
+                    <Image
+                      src={section.image}
+                      alt={section.title || "Section image"}
+                      fill
+                      className=" object-cover shadow-lg"
+                    />
+                  </div>
+                )}
+
+                <p className="text-gray-700 leading-relaxed text-lg whitespace-pre-line">
+                  {section.content}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
+
+        {/* Scroll Navigation */}
+<motion.aside     
+  initial={{ opacity: 0, }}
+  whileInView={{ opacity: 1,  }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.8, ease: "easeOut" }}
+  className="md:w-1/4 bg-white shadow-xl pl-8  p-6 h-fit sticky top-24 border border-gray-100 overflow-hidden"
+>
+  <h3 className="text-xl font-bold text-gray-800 mb-6">
+    In This Article
+  </h3>
+  <ul className="space-y-4">
+    {blog.sections?.map((section, i) => (
+      <motion.li
+        key={i}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: i * 0.1 }}
+        className="cursor-pointer text-gray-600 hover:text-green-600 transition-colors duration-200 list-disc "
+        onClick={() => {
+          document
+            .getElementById(`section-${i}`)
+            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }}
+      >
+        <span className="inline-block border-l-4 border-transparent pl-2 hover:border-green-500 transition-all underline mt-3">
+          {section.heading}
+        </span>
+      </motion.li>
+    ))}
+  </ul>
+</motion.aside>
+
       </div>
     </section>
   );
