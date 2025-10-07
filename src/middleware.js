@@ -11,6 +11,7 @@ export default async function middleware(req) {
   if (intlResponse) return intlResponse;
 
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  
 
   // banned users
   if (token?.isBanned) {

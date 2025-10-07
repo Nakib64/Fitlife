@@ -30,7 +30,7 @@ const Users = () => {
   // Ban/unban handler
   const toggleBan = async (userId, currentStatus) => {
     try {
-      const res = await fetch(`/api/users/${userId}`, {
+      const res = await fetch(`/api/users/ban/${userId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isBanned: !currentStatus }),
