@@ -29,7 +29,7 @@ export const metadata = {
 const queryClient = new QueryClient();
 
 export default async function RootLayout({ children, params }) {
-	const { locale } = await params;
+	const { locale } = params;
 	if (!hasLocale(routing.locales, locale)) {
 		notFound();
 	}
