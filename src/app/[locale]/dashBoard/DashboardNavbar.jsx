@@ -10,6 +10,7 @@ import {
   Coffee,
   Newspaper,
   Menu,
+  Users,
 } from "lucide-react";
 import {
   Sheet,
@@ -33,6 +34,7 @@ export default function DashboardNavbar() {
 
   const links = [
     { label: "Dashboard", icon: <Home size={20} />, href: "/dashBoard" },
+      { label: "All Users", icon: <Users size={20} />, href: "/dashBoard/users" },
     {
       label: "My Workouts",
       icon: <Activity size={20} />,

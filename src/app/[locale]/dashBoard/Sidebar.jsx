@@ -8,13 +8,14 @@ import {
   Coffee,
   Newspaper,
   Users,
+  User2,
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useState } from "react";
 
 const links = [
   { label: "Dashboard", icon: <Home size={20} />, href: "/dashBoard" },
-  { label: "All Users", icon: <Home size={20} />, href: "/dashBoard/" },
+  { label: "All Users", icon: <User2 size={20} />, href: "/dashBoard/users" },
   {
     label: "My Workouts",
     icon: <Activity size={20} />,
