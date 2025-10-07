@@ -58,7 +58,8 @@ Respond in this format:
 
 		// --- Step 2: Parse AI Response ---
 		try {
-			console.log(data.choices?.[0]?.message?.content);
+			
+			
 			if (data?.choices?.[0]?.message?.content) {
 				let content = data.choices[0].message.content;
 

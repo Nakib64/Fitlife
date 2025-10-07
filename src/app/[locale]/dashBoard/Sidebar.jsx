@@ -13,6 +13,7 @@ import { useState } from "react";
 
 const links = [
   { label: "Dashboard", icon: <Home size={20} />, href: "/dashBoard" },
+  { label: "All Users", icon: <Home size={20} />, href: "/dashBoard/" },
   {
     label: "My Workouts",
     icon: <Activity size={20} />,
@@ -44,7 +45,7 @@ export default function Sidebar() {
     <aside
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`relative flex flex-col overflow-hidden bg-gradient-to-b from-gray-50 to-gray-100 dark:from-neutral-800 dark:to-neutral-900 shadow-lg group`}
+      className={`relative hidden lg:flex flex-col overflow-hidden bg-gradient-to-b from-gray-50 to-gray-100 dark:from-neutral-800 dark:to-neutral-900 shadow-lg group`}
       style={{
         transition: "width 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         width: hovered ? "260px" : "64px",
