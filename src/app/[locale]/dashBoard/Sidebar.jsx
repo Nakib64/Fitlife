@@ -7,6 +7,7 @@ import {
   Activity,
   Coffee,
   Newspaper,
+  Users,
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useState } from "react";
@@ -28,11 +29,16 @@ const links = [
     icon: <BarChart2 size={20} />,
     href: "/dashBoard/progressTracker",
   },
-    {
-  label: "Wellness Blog",
-  icon: <Newspaper size={20} />,   
-  href: "/dashBoard/wellnessBlog",
-},
+  {
+    label: "Wellness Blog",
+    icon: <Newspaper size={20} />,
+    href: "/dashBoard/wellnessBlog",
+  },
+  {
+    label: "All Users",
+    icon: <Users size={20} />,
+    href: "/dashBoard/users",
+  },
   { label: "Home", icon: <User size={20} />, href: "/" },
 ];
 

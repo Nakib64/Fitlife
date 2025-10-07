@@ -1,320 +1,325 @@
 "use client";
-
-import React from "react";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import { toast } from "sonner";
 import { motion } from "framer-motion";
+import { Doughnut, Line } from "react-chartjs-2";
 import {
-  FaUser,
-  FaWeight,
-  FaRunning,
-  FaAppleAlt,
-  FaWater,
-  FaBed,
-  FaTrophy,
-  FaChartLine,
-} from "react-icons/fa";
-import {
-  LineChart,
-  Line,
-  BarChart,
-  Bar,
-  PieChart,
-  Pie,
-  Cell,
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  ArcElement,
+  PointElement,
+  LineElement,
+  Title,
   Tooltip,
-  ResponsiveContainer,
   Legend,
-  CartesianGrid,
-} from "recharts";
+} from "chart.js";
 
-export default function Page() {
-  // Animation variants
-  const cardVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.95 },
-    visible: { opacity: 1, y: 0, scale: 1 },
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  ArcElement,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+export default function ProgressTracker() {
+  const { data: session } = useSession();
+  const [workoutPlan, setWorkoutPlan] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!session?.user) return;
+    axios
+      .get(`/api/userWorkout?email=${session.user.email}`)
+      .then((res) => setWorkoutPlan(res.data.data || []))
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  }, [session]);
+
+  const handleToggleComplete = async (day, exerciseName, currentStatus) => {
+    try {
+      await axios.patch("/api/userWorkout", {
+        email: session.user.email,
+        day,
+        exerciseName,
+        completed: !currentStatus,
+      });
+
+      setWorkoutPlan((prev) =>
+        prev.map((d) =>
+          d.day === day
+            ? {
+                ...d,
+                exercises: d.exercises.map((ex) =>
+                  ex.name === exerciseName
+                    ? { ...ex, completed: !currentStatus }
+                    : ex
+                ),
+              }
+            : d
+        )
+      );
+
+      toast.success("Workout updated successfully!");
+    } catch (err) {
+      toast.error("Error updating progress");
+      console.error(err);
+    }
   };
 
-  // Dummy Data
-  const weightData = [
-    { week: "Week 1", weight: 72 },
-    { week: "Week 2", weight: 71.5 },
-    { week: "Week 3", weight: 70.8 },
-    { week: "Week 4", weight: 70.2 },
-  ];
+  if (loading)
+    return (
+      <p className="text-center mt-10 text-lg font-semibold text-gray-700 dark:text-gray-300">
+        Loading your progress...
+      </p>
+    );
 
-  const workoutData = [
-    { day: "Mon", workouts: 2 },
-    { day: "Tue", workouts: 1 },
-    { day: "Wed", workouts: 3 },
-    { day: "Thu", workouts: 1 },
-    { day: "Fri", workouts: 2 },
-    { day: "Sat", workouts: 1 },
-    { day: "Sun", workouts: 0 },
-  ];
+  if (workoutPlan.length === 0)
+    return (
+      <div className="text-center mt-20 text-gray-600 dark:text-gray-400">
+        <p>❌ No workout found!</p>
+        <p>Generate your workout first.</p>
+      </div>
+    );
 
-  const calorieData = [
-    { day: "Mon", intake: 1800, burned: 500 },
-    { day: "Tue", intake: 2000, burned: 600 },
-    { day: "Wed", intake: 1750, burned: 700 },
-    { day: "Thu", intake: 1900, burned: 550 },
-    { day: "Fri", intake: 2100, burned: 800 },
-    { day: "Sat", intake: 2200, burned: 900 },
-    { day: "Sun", intake: 2000, burned: 400 },
-  ];
+  const totalExercises = workoutPlan.reduce(
+    (acc, d) => acc + d.exercises.length,
+    0
+  );
+  const completedExercises = workoutPlan.reduce(
+    (acc, d) => acc + d.exercises.filter((ex) => ex.completed).length,
+    0
+  );
+  const progressPercentage =
+    totalExercises > 0
+      ? Math.round((completedExercises / totalExercises) * 100)
+      : 0;
 
-  const macroData = [
-    { name: "Protein", value: 120 },
-    { name: "Carbs", value: 200 },
-    { name: "Fat", value: 70 },
-  ];
-  const COLORS = ["#22c55e", "#3b82f6", "#f97316", "#e11d48", "#a855f7"];
+  const activeWorkouts = workoutPlan.map((d) => ({
+    day: d.day,
+    exercises: d.exercises.filter((ex) => !ex.completed),
+  }));
+  const completedWorkouts = workoutPlan.map((d) => ({
+    day: d.day,
+    exercises: d.exercises.filter((ex) => ex.completed),
+  }));
 
-  const sleepData = [
-    { day: "Mon", hours: 7 },
-    { day: "Tue", hours: 6.5 },
-    { day: "Wed", hours: 8 },
-    { day: "Thu", hours: 6 },
-    { day: "Fri", hours: 7.5 },
-    { day: "Sat", hours: 8.2 },
-    { day: "Sun", hours: 7 },
-  ];
+  // 🍩 Doughnut Chart
+  const doughnutData = {
+    labels: ["Completed", "Remaining"],
+    datasets: [
+      {
+        data: [progressPercentage, 100 - progressPercentage],
+        backgroundColor: [
+          "rgba(34,197,94,0.9)",
+          "rgba(156,163,175,0.2)",
+        ],
+        borderWidth: 0,
+        cutout: "75%",
+      },
+    ],
+  };
+
+  const doughnutOptions = {
+    plugins: {
+      tooltip: { enabled: false },
+      legend: { display: false },
+    },
+    elements: {
+      arc: {
+        borderRadius: 12,
+      },
+    },
+  };
+
+  // 📈 Line Chart (Progress per day)
+  const lineData = {
+    labels: workoutPlan.map((d) => d.day),
+    datasets: [
+      {
+        label: "Completed Exercises",
+        data: workoutPlan.map(
+          (d) => d.exercises.filter((ex) => ex.completed).length
+        ),
+        borderColor: "#22c55e",
+        backgroundColor: "rgba(34,197,94,0.3)",
+        tension: 0.4,
+        fill: true,
+      },
+    ],
+  };
 
   return (
-    <div className="px-6 py-12 max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 dark:from-gray-900 dark:to-gray-800 p-8 text-gray-900 dark:text-gray-100 transition-colors duration-500">
       {/* Header */}
-      <motion.h1
-        className="text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent"
-        initial={{ opacity: 0, y: -40 }}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
+        className="text-center mb-10"
       >
-        Progress Tracker
-      </motion.h1>
+        <h1 className="text-4xl pb-5 font-extrabold bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text mb-3">
+          🏋️ Fitness Progress Dashboard
+        </h1>
+        <p className="text-gray-600 dark:text-gray-400">
+          Track your daily progress, stay consistent, and grow stronger!
+        </p>
+      </motion.div>
 
-      {/* Grid Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {/* Profile Overview */}
-        <motion.div
-          className="p-6 rounded-2xl shadow-xl border bg-gradient-to-br from-blue-100 to-blue-50 backdrop-blur-lg flex flex-col items-center hover:shadow-2xl transition-all"
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ duration: 0.5 }}
-        >
-          <FaUser className="text-4xl mb-3 text-blue-500" />
-          <h2 className="text-xl font-semibold">Profile Overview</h2>
-          <p className="mt-2 text-center text-gray-600">
-            Abid Hasan <br /> Goal: Lose 5kg in 2 months
+      {/* Summary Cards */}
+      <div className="grid md:grid-cols-3 gap-6 mb-10">
+        <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg rounded-2xl shadow-lg p-6 text-center">
+          <h3 className="text-lg font-semibold mb-2">Total Exercises</h3>
+          <p className="text-3xl font-bold">{totalExercises}</p>
+        </div>
+        <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg rounded-2xl shadow-lg p-6 text-center">
+          <h3 className="text-lg font-semibold mb-2">Completed</h3>
+          <p className="text-3xl font-bold text-green-500">
+            {completedExercises}
           </p>
+        </div>
+        <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg rounded-2xl shadow-lg p-6 text-center">
+          <h3 className="text-lg font-semibold mb-2">Progress</h3>
+          <p className="text-3xl font-bold text-blue-500">
+            {progressPercentage}%
+          </p>
+        </div>
+      </div>
+
+      {/* Main Grid */}
+      <div className="grid lg:grid-cols-3 gap-8">
+        {/* Active Workouts */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6"
+        >
+          <h2 className="text-2xl font-bold mb-4">📝 Active Workouts</h2>
+          <div className="space-y-3 overflow-y-auto max-h-[600px]">
+            {activeWorkouts.map(
+              (day, idx) =>
+                day.exercises.length > 0 && (
+                  <div key={idx}>
+                    <h3 className="font-semibold mb-2">{day.day}</h3>
+                    {day.exercises.map((ex, i) => (
+                      <motion.div
+                        key={i}
+                        whileHover={{ scale: 1.02 }}
+                        className="flex justify-between items-center bg-gray-50 dark:bg-gray-700 p-3 rounded-lg border-l-4 border-blue-400"
+                      >
+                        <div>
+                          <p className="font-semibold">{ex.name}</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            {ex.sets} sets × {ex.reps} reps
+                          </p>
+                        </div>
+                        <input
+                          type="checkbox"
+                          checked={ex.completed}
+                          onChange={() =>
+                            handleToggleComplete(day.day, ex.name, ex.completed)
+                          }
+                          className="w-6 h-6 accent-green-500 cursor-pointer"
+                        />
+                      </motion.div>
+                    ))}
+                  </div>
+                )
+            )}
+          </div>
         </motion.div>
 
-        {/* Body Metrics */}
+        {/* New Chart Section */}
         <motion.div
-          className="p-6 rounded-2xl shadow-xl border bg-gradient-to-br from-green-50 to-emerald-100 backdrop-blur-lg hover:shadow-2xl transition-all"
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ duration: 0.6, delay: 0.2 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center"
         >
-          <div className="flex items-center gap-3 mb-4">
-            <FaWeight className="text-2xl text-green-600" />
-            <h2 className="text-xl font-semibold">Body Metrics</h2>
+          <h2 className="text-2xl font-bold mb-6 text-center">
+            🌀 Overall Progress
+          </h2>
+          <div className="relative w-56 h-56 flex items-center justify-center">
+            <Doughnut data={doughnutData} options={doughnutOptions} />
+            <div className="absolute text-center">
+              <p className="text-4xl font-extrabold text-green-500">
+                {progressPercentage}%
+              </p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Completed
+              </p>
+            </div>
           </div>
-          <ul className="space-y-2 text-gray-700">
-            <li>Weight: 72kg → 70.2kg</li>
-            <li>BMI: 23.5</li>
-            <li>Body Fat: 18%</li>
-          </ul>
+
+          <div className="mt-10 w-full">
+            <Line
+              data={lineData}
+              options={{
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true } },
+              }}
+            />
+          </div>
         </motion.div>
 
-        {/* Workout Progress */}
+        {/* Completed Workouts */}
         <motion.div
-          className="p-6 rounded-2xl shadow-xl border bg-gradient-to-br from-orange-50 to-yellow-50 backdrop-blur-lg hover:shadow-2xl transition-all"
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ duration: 0.6, delay: 0.3 }}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6"
         >
-          <div className="flex items-center gap-3 mb-4">
-            <FaRunning className="text-2xl text-orange-500" />
-            <h2 className="text-xl font-semibold">Workout Progress</h2>
+          <h2 className="text-2xl font-bold mb-4 text-green-500">
+            ✅ Completed Workouts
+          </h2>
+          <div className="space-y-3 overflow-y-auto max-h-[600px]">
+            {completedWorkouts.map(
+              (day, idx) =>
+                day.exercises.length > 0 && (
+                  <div key={idx}>
+                    <h3 className="font-semibold mb-2">{day.day}</h3>
+                    {day.exercises.map((ex, i) => (
+                      <motion.div
+                        key={i}
+                        whileHover={{ scale: 1.02 }}
+                        className="flex justify-between items-center bg-green-50 dark:bg-green-900/30 p-3 rounded-lg border-l-4 border-green-500"
+                      >
+                        <div>
+                          <p className="font-semibold">{ex.name}</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            {ex.sets} sets × {ex.reps} reps
+                          </p>
+                        </div>
+                        <input
+                          type="checkbox"
+                          checked={ex.completed}
+                          onChange={() =>
+                            handleToggleComplete(day.day, ex.name, ex.completed)
+                          }
+                          className="w-6 h-6 accent-red-500 cursor-pointer"
+                        />
+                      </motion.div>
+                    ))}
+                  </div>
+                )
+            )}
           </div>
-          <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={workoutData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="workouts" radius={[8, 8, 0, 0]}>
-                {workoutData.map((entry, index) => (
-                  <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </motion.div>
-
-        {/* Nutrition Tracking */}
-        <motion.div
-          className="p-6 rounded-2xl shadow-xl border bg-gradient-to-br from-red-50 to-pink-100 backdrop-blur-lg hover:shadow-2xl transition-all"
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <FaAppleAlt className="text-2xl text-red-500" />
-            <h2 className="text-xl font-semibold">Nutrition</h2>
-          </div>
-          <ResponsiveContainer width="100%" height={220}>
-            <PieChart>
-              <Pie
-                data={macroData}
-                cx="50%"
-                cy="50%"
-                outerRadius={90}
-                fill="#8884d8"
-                dataKey="value"
-                label
-              >
-                {macroData.map((entry, index) => (
-                  <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend />
-            </PieChart>
-          </ResponsiveContainer>
-        </motion.div>
-
-        {/* Habits */}
-        <motion.div
-          className="p-6 rounded-2xl shadow-xl border bg-gradient-to-br from-sky-50 to-indigo-100 backdrop-blur-lg hover:shadow-2xl transition-all"
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ duration: 0.6, delay: 0.5 }}
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <FaWater className="text-2xl text-blue-500" />
-            <h2 className="text-xl font-semibold">Habits</h2>
-          </div>
-          <ul className="space-y-2 text-gray-700">
-            <li>💧 Water: 2.5L / 3L</li>
-            <li>
-              <FaBed className="inline mr-2 text-purple-400" /> Sleep Avg: 7h
-            </li>
-          </ul>
-        </motion.div>
-
-        {/* Achievements */}
-        <motion.div
-          className="p-6 rounded-2xl shadow-xl border bg-gradient-to-br from-yellow-50 to-orange-100 backdrop-blur-lg hover:shadow-2xl transition-all"
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <FaTrophy className="text-2xl text-yellow-500" />
-            <h2 className="text-xl font-semibold">Achievements</h2>
-          </div>
-          <ul className="space-y-2 text-gray-700">
-            <li>🏅 5-Day Workout Streak</li>
-            <li>🔥 Burned 10,000 Calories</li>
-            <li>⚡ Fastest 5K Run</li>
-          </ul>
         </motion.div>
       </div>
 
-      {/* Full Width Sections */}
-      <div className="mt-10 space-y-10">
-        {/* Sleep Pattern */}
-        <motion.div
-          className="p-6 rounded-2xl shadow-xl border bg-gradient-to-br from-purple-50 to-pink-50 backdrop-blur-lg hover:shadow-2xl transition-all"
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ duration: 0.7, delay: 0.2 }}
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <FaBed className="text-2xl text-purple-500" />
-            <h2 className="text-xl font-semibold">Sleep Pattern</h2>
-          </div>
-          <ResponsiveContainer width="100%" height={250}>
-            <AreaChart data={sleepData}>
-              <defs>
-                <linearGradient id="colorSleep" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="#c084fc" stopOpacity={0.2} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" />
-              <YAxis />
-              <Tooltip />
-              <Area
-                type="monotone"
-                dataKey="hours"
-                stroke="#8b5cf6"
-                fill="url(#colorSleep)"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </motion.div>
-
-        {/* Calorie Intake vs Burned */}
-        <motion.div
-          className="p-6 rounded-2xl shadow-xl border bg-gradient-to-br from-pink-50 to-rose-100 backdrop-blur-lg hover:shadow-2xl transition-all"
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ duration: 0.7, delay: 0.3 }}
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <FaChartLine className="text-2xl text-pink-500" />
-            <h2 className="text-xl font-semibold">Calories Intake vs Burned</h2>
-          </div>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={calorieData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="intake" stroke="#3b82f6" strokeWidth={3} dot={{ r: 5 }} />
-              <Line type="monotone" dataKey="burned" stroke="#ef4444" strokeWidth={3} dot={{ r: 5 }} />
-            </LineChart>
-          </ResponsiveContainer>
-        </motion.div>
-
-        {/* Weight Progress */}
-        <motion.div
-          className="p-6 rounded-2xl shadow-xl border bg-gradient-to-br from-green-50 to-emerald-100 backdrop-blur-lg hover:shadow-2xl transition-all"
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ duration: 0.7, delay: 0.4 }}
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <FaChartLine className="text-2xl text-green-500" />
-            <h2 className="text-xl font-semibold">Weight Progress</h2>
-          </div>
-          <ResponsiveContainer width="100%" height={280}>
-            <LineChart data={weightData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="week" />
-              <YAxis />
-              <Tooltip />
-              <Line type="monotone" dataKey="weight" stroke="#22c55e" strokeWidth={3} dot={{ r: 6, fill: "#16a34a" }} />
-            </LineChart>
-          </ResponsiveContainer>
-        </motion.div>
-      </div>
+      {/* Footer */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="mt-12 text-center text-gray-600 dark:text-gray-400"
+      >
+        <p className="italic">
+          “Discipline is choosing between what you want now and what you want most.” 💪
+        </p>
+      </motion.div>
     </div>
   );
 }
