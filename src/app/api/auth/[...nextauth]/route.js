@@ -16,78 +16,61 @@ const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: "Credentials",
-
       credentials: {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
         otpVerified: { label: "OTP Verified", type: "text" },
       },
-      async authorize(credentials, req) {
-        // console.log("credentials", credentials);
-        const email = credentials.email;
-        const password = credentials.password;
+      async authorize(credentials) {
+        const { email, password } = credentials;
         const otpVerified =
           credentials.otpVerified === true ||
           credentials.otpVerified === "true";
 
         const user = await findUserByEmail(email);
-        if (!user) {
-          return null;
-        }
+        if (!user) throw new Error("USER NOT FOUND");
 
         if (user.lockUntil && user.lockUntil > Date.now()) {
-          throw new Error("Account locked. Try again later.");
+          throw new Error("ACCOUNT LOCKED");
         }
 
         if (user.isBanned) {
-          throw new Error("USER_BANNED");
+          throw new Error("USER BANNED");
         }
 
         const isValid = await bcrypt.compare(password, user.password);
-
         if (!isValid) {
-          // Increment failed attempts
           const attempts = (user.failedLoginAttempts || 0) + 1;
-
           if (attempts >= 5) {
-            // Lock account for 15 minutes
-            await updateUser(user.email, {
+            await updateUser(email, {
               failedLoginAttempts: attempts,
               lockUntil: Date.now() + 15 * 60 * 1000,
             });
-            throw new Error(
-              "Account locked for 15 minutes due to too many failed attempts."
-            );
+            throw new Error("ACCOUNT LOCKED");
           } else {
-            await updateUser(user.email, { failedLoginAttempts: attempts });
-            throw new Error(`Invalid password. ${5 - attempts} attempts left.`);
+            await updateUser(email, { failedLoginAttempts: attempts });
+            throw new Error("INVALID PASSWORD");
           }
         }
 
-        // if password is correct then send otp
+        // If password correct, send OTP first
         if (!otpVerified) {
-          // generate OTP, save and email it
           const otp = Math.floor(100000 + Math.random() * 900000).toString();
-          await setUserOtp(email, otp); // stores otpCode and otpExpires
+          await setUserOtp(email, otp);
           await sendOtpEmail(email, otp);
-
-          throw new Error("OTP_SENT");
+          throw new Error("OTP SENT");
         }
 
-        // 3. Reset on success
-        await updateUser(user.email, {
-          failedLoginAttempts: 0,
-          lockUntil: null,
-        });
-
+        // Reset failed attempts & clear OTP
+        await updateUser(email, { failedLoginAttempts: 0, lockUntil: null });
         await clearUserOtp(email);
 
         return {
-          id: user._id,
+          id: user._id.toString(),
           name: user.name,
           email: user.email,
-          role: user.role,
-          isBanned: user.isBanned,
+          role: user.role || "user",
+          isBanned: user.isBanned || false,
         };
       },
     }),
@@ -100,7 +83,8 @@ const handler = NextAuth({
 
   callbacks: {
     async signIn({ user, account }) {
-      if (account.provider === "google") {
+      // Create new user on first Google login
+      if (account?.provider === "google") {
         const existingUser = await findUserByEmail(user.email);
         if (!existingUser) {
           await createUser({
@@ -114,24 +98,46 @@ const handler = NextAuth({
     },
 
     async jwt({ token, user }) {
+      // On first login, attach fields
       if (user) {
         token.role = user.role;
         token.isBanned = user.isBanned;
       } else {
-        const dbUser = await findUserById(token.sub);
-        token.role = dbUser?.role;
-        token.isBanned = dbUser?.isBanned;
+        // On subsequent requests, fetch fresh data from DB
+        let dbUser = null;
+        try {
+          // only try if sub is valid Mongo ObjectId
+          if (/^[a-fA-F0-9]{24}$/.test(token.sub)) {
+            dbUser = await findUserById(token.sub);
+          } else if (token.email) {
+            dbUser = await findUserByEmail(token.email);
+          }
+        } catch (err) {
+          console.error("Error fetching user in JWT callback:", err);
+        }
+
+        if (dbUser) {
+          token.role = dbUser.role;
+          token.isBanned = dbUser.isBanned;
+        }
       }
       return token;
     },
 
     async session({ session, token }) {
-      session.user.id = token.sub;
+      // Expose these fields in the session for client-side use
+      if (session?.user) {
+        session.user.id = token.sub;
+        session.user.role = token.role;
+        session.user.isBanned = token.isBanned;
+      }
       return session;
     },
   },
 
   secret: process.env.NEXTAUTH_SECRET,
+  session: { strategy: "jwt" },
+  pages: { signIn: "/login" },
 });
 
 export { handler as GET, handler as POST };

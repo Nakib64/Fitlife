@@ -16,12 +16,27 @@ export default function Home({ params }) {
 	const [activeWeek, setActiveWeek] = useState(1);
 	const [daysPerWeek, setDaysPerWeek] = useState();
 	const [isSaved, setIsSaved] = useState(false);
-	const [Disable, setDisable] = useState(false)
+	const [Disable, setDisable] = useState(false);
 	const t = useTranslations("workout.result");
 	const { locale } = use(params);
 	const { data: session, status } = useSession();
 	const router = useRouter();
 
+	useEffect(() => {
+		if (!session?.user) return;
+
+		setLoading(true);
+
+		axios
+			.get(`/api/userWorkout?email=${session.user.email}`)
+			.then((res) => {
+				console.log(res.data?.data);
+				setWorkoutPlan(res?.data?.data || []); // safe fallback
+				setIsSaved(res?.data.data || []);
+			})
+			.catch((err) => console.error(err))
+			.finally(() => setLoading(false));
+	}, [session]);
 	const generateWorkout = async (userData) => {
 		userData.language = locale;
 		setLoading(true);
@@ -42,29 +57,16 @@ export default function Home({ params }) {
 		}
 	};
 
-	useEffect(() => {
-	if (!session?.user) return;
-
-	setLoading(true);
-
-	axios.get(`/api/userWorkout?email=${session.user.email}`)
-		.then((res) => {
-			setWorkoutPlan(res?.data?.data || []); // safe fallback
-			setIsSaved(res?.data.data || []);
-		})
-		.catch((err) => console.error(err))
-		.finally(() => setLoading(false));
-}, [session]);
-
-
 	const handleSave = () => {
 		if (session?.user) {
-			axios.post("/api/userWorkout", {
-				email: session?.user?.email,
-				data: [...workoutPlan],
-			}).then(()=>{
-				toast("Saved Successfully!")
-			})
+			axios
+				.post("/api/userWorkout", {
+					email: session?.user?.email,
+					data: [...workoutPlan],
+				})
+				.then(() => {
+					toast("Saved Successfully!");
+				});
 		} else {
 			toast("⚡ You must login first to save your workout!");
 			router.push(
@@ -95,11 +97,9 @@ export default function Home({ params }) {
 		);
 	}
 
-	
-
 	const weeks = [];
 	if (workoutPlan?.length > 0) {
-		const daysInWeek = workoutPlan.length/4;
+		const daysInWeek = workoutPlan.length / 4;
 		for (let i = 0; i < 4; i++) {
 			weeks.push(
 				workoutPlan.slice(
@@ -141,8 +141,12 @@ export default function Home({ params }) {
 				<div className="mt-12">
 					{/* save button */}
 					<div>
-						<Button className={``} disabled= {isSaved == workoutPlan}  onClick={handleSave}>
-							{isSaved == workoutPlan ? "Already saved" : "Save"}	
+						<Button
+							className={``}
+							disabled={isSaved == workoutPlan}
+							onClick={handleSave}
+						>
+							{isSaved == workoutPlan ? "Already saved" : "Save"}
 						</Button>
 					</div>
 
