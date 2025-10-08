@@ -6,7 +6,7 @@ export async function PATCH(req) {
 
   // Only admins can update roles
   if (!token || token.role !== "admin") {
-    return new Response(JSON.stringify({ error: "unauthorized" }), { status: 401 });
+    return new Response(JSON.stringify({ error: "unauthorized access" }), { status: 401 });
   }
 
   try {
