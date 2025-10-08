@@ -1,8 +1,23 @@
 import dbConnect from "@/lib/dbConnect";
+import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
+
+const SECRET = process.env.NEXTAUTH_SECRET;
 
 // Create a new blog
 export const POST = async (req) => {
+  const token = await getToken({ req, secret: SECRET });
+
+  if (!token) {
+    return NextResponse.json({ error: "Unauthorized access" }, { status: 401 });
+  }
+
+  if (token.role !== "admin") {
+    return NextResponse.json(
+      { error: "Only admins can create blogs" },
+      { status: 403 }
+    );
+  }
   try {
     const body = await req.json();
     const blogsCollection = await dbConnect("blogs");
@@ -12,7 +27,7 @@ export const POST = async (req) => {
       category: body.category,
       coverImage: body.coverImage || "",
       summary: body.summary,
-      sections: body.sections || [], 
+      sections: body.sections || [],
       createdAt: new Date(),
     });
 
@@ -35,7 +50,7 @@ export const GET = async () => {
     const blogsCollection = await dbConnect("blogs");
     const blogs = await blogsCollection
       .find({})
-      .sort({ createdAt: -1 }) 
+      .sort({ createdAt: -1 })
       .toArray();
 
     return NextResponse.json(blogs, { status: 200 });

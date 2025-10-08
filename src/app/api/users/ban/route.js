@@ -5,7 +5,7 @@ export async function PATCH(req) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
   if (!token ) {
-    return new Response(JSON.stringify({ error: "unauthorized" }), { status: 401 });
+    return new Response(JSON.stringify({ error: "unauthorized access" }), { status: 401 });
   }
 
   try {

@@ -28,14 +28,14 @@ const handler = NextAuth({
           credentials.otpVerified === "true";
 
         const user = await findUserByEmail(email);
-        if (!user) throw new Error("USER_NOT_FOUND");
+        if (!user) throw new Error("USER NOT FOUND");
 
         if (user.lockUntil && user.lockUntil > Date.now()) {
-          throw new Error("ACCOUNT_LOCKED");
+          throw new Error("ACCOUNT LOCKED");
         }
 
         if (user.isBanned) {
-          throw new Error("USER_BANNED");
+          throw new Error("USER BANNED");
         }
 
         const isValid = await bcrypt.compare(password, user.password);
@@ -46,10 +46,10 @@ const handler = NextAuth({
               failedLoginAttempts: attempts,
               lockUntil: Date.now() + 15 * 60 * 1000,
             });
-            throw new Error("ACCOUNT_LOCKED");
+            throw new Error("ACCOUNT LOCKED");
           } else {
             await updateUser(email, { failedLoginAttempts: attempts });
-            throw new Error("INVALID_PASSWORD");
+            throw new Error("INVALID PASSWORD");
           }
         }
 
@@ -58,7 +58,7 @@ const handler = NextAuth({
           const otp = Math.floor(100000 + Math.random() * 900000).toString();
           await setUserOtp(email, otp);
           await sendOtpEmail(email, otp);
-          throw new Error("OTP_SENT");
+          throw new Error("OTP SENT");
         }
 
         // Reset failed attempts & clear OTP
@@ -100,25 +100,25 @@ const handler = NextAuth({
     async jwt({ token, user }) {
       // On first login, attach fields
       if (user) {
-        token.role = user.role || "user";
-        token.isBanned = user.isBanned || false;
+        token.role = user.role;
+        token.isBanned = user.isBanned;
       } else {
         // On subsequent requests, fetch fresh data from DB
-       let dbUser = null;
-try {
-  // only try if sub is valid Mongo ObjectId
-  if (/^[a-fA-F0-9]{24}$/.test(token.sub)) {
-    dbUser = await findUserById(token.sub);
-  } else if (token.email) {
-    dbUser = await findUserByEmail(token.email);
-  }
-} catch (err) {
-  console.error("Error fetching user in JWT callback:", err);
-}
+        let dbUser = null;
+        try {
+          // only try if sub is valid Mongo ObjectId
+          if (/^[a-fA-F0-9]{24}$/.test(token.sub)) {
+            dbUser = await findUserById(token.sub);
+          } else if (token.email) {
+            dbUser = await findUserByEmail(token.email);
+          }
+        } catch (err) {
+          console.error("Error fetching user in JWT callback:", err);
+        }
 
         if (dbUser) {
-          token.role = dbUser.role || "user";
-          token.isBanned = dbUser.isBanned || false;
+          token.role = dbUser.role;
+          token.isBanned = dbUser.isBanned;
         }
       }
       return token;

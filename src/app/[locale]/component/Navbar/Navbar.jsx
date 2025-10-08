@@ -6,12 +6,19 @@ import React, { useState, useEffect } from "react";
 import UserInfo from "../userInfo/UserInfo";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useSession } from "next-auth/react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const t = useTranslations("navbar");
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    setIsClient(true)
+  }, []);
 
   const navLinks = [
     { name: t("myWorkouts"), href: "/myworkouts" },
@@ -19,8 +26,11 @@ const Navbar = () => {
     { name: t("wellness"), href: "/wellness" },
     { name: t("achievements"), href: "/achievements" },
     { name: t("about"), href: "/about" },
-    { name: t("dashboard"), href: "/dashBoard" },
   ];
+
+  if (session && isClient) {
+    navLinks.push({ name: t("dashboard"), href: "/dashBoard" });
+  }
 
   const hiddenPaths = [
     "/signup",
@@ -45,9 +55,7 @@ const Navbar = () => {
   return (
     <div
       className={`w-full bg-white z-50 ${
-        scrolled
-          ? "fixed top-0 left-0 border-b border-gray-200"
-          : "relative"
+        scrolled ? "fixed top-0 left-0 border-b border-gray-200" : "relative"
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 h-20 lg:h-16">

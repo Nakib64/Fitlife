@@ -6,7 +6,7 @@ export async function PATCH(req) {
 
   // Only admins can update roles
   if (!token || token.role !== "admin") {
-    return new Response(JSON.stringify({ error: "unauthorized" }), { status: 401 });
+    return new Response(JSON.stringify({ error: "unauthorized access" }), { status: 401 });
   }
 
   try {
@@ -17,7 +17,7 @@ export async function PATCH(req) {
       return new Response(JSON.stringify({ error: "Missing fields" }), { status: 400 });
     }
 
-    const validRoles = ["user", "admin", "coach"];
+    const validRoles = ["user", "premium-user", "controller", "coach"];
     if (!validRoles.includes(role)) {
       return new Response(JSON.stringify({ error: "Invalid role" }), { status: 400 });
     }
