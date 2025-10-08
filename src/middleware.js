@@ -5,12 +5,17 @@ import { getToken } from "next-auth/jwt";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
+const protectedRoutes = [
+  { prefix: "/dashBoard/users", roles: ["admin"] },
+  { prefix: "/dashBoard/wellnessBlog", roles: ["admin"] },
+];
+
 export async function middleware(req) {
   const res = intlMiddleware(req);
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   const { pathname } = req.nextUrl;
 
-  // Detect locale (e.g., /bn/dashboard → locale = 'bn')
+  // Detect locale
   const localeMatch = pathname.match(/^\/(en|bn|fr)(\/|$)/);
   const locale = localeMatch ? localeMatch[1] : "en";
 
@@ -19,21 +24,24 @@ export async function middleware(req) {
     ? pathname.replace(`/${locale}`, "")
     : pathname;
 
-  // 🔒 Handle banned users
+  // Role-based protection
+  const route = protectedRoutes.find((r) =>
+    pathWithoutLocale.startsWith(r.prefix)
+  );
+  if (route) {
+    if (!token || !route.roles.includes(token.role)) {
+      return NextResponse.redirect(new URL(`/${locale}/forbidden`, req.url));
+    }
+  }
+
+  // Handle banned users
   if (token?.isBanned && !pathWithoutLocale.startsWith("/banned")) {
     const bannedUrl = req.nextUrl.clone();
     bannedUrl.pathname = `/${locale}/banned`;
     return NextResponse.redirect(bannedUrl);
   }
 
-  // 🔒 Protect admin routes (only require login)
-  if (pathWithoutLocale.startsWith("/admin") && !token) {
-    const loginUrl = req.nextUrl.clone();
-    loginUrl.pathname = `/${locale}/login`;
-    return NextResponse.redirect(loginUrl);
-  }
-
-  // 🔒 Protect dashboard routes (locale-aware)
+  // Protect dashboard routes (login required for all roles)
   if (pathWithoutLocale.startsWith("/dashBoard") && !token) {
     const loginUrl = req.nextUrl.clone();
     loginUrl.pathname = `/${locale}/login`;

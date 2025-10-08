@@ -6,7 +6,7 @@ import { toast } from "sonner";
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  
   const roles = ["user", "premium-user", "controller", "coach"];
 
   // Fetch all users

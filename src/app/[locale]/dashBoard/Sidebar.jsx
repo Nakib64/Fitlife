@@ -7,42 +7,55 @@ import {
   Activity,
   Coffee,
   Newspaper,
-  Users,
   User2,
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { useState } from "react";
-
-const links = [
-  { label: "Dashboard", icon: <Home size={20} />, href: "/dashBoard" },
-  { label: "All Users", icon: <User2 size={20} />, href: "/dashBoard/users" },
-  {
-    label: "My Workouts",
-    icon: <Activity size={20} />,
-    href: "/dashBoard/myworkouts",
-  },
-  {
-    label: "My Meals",
-    icon: <Coffee size={20} />,
-    href: "/dashBoard/meals",
-  },
-  {
-    label: "Progress Tracker",
-    icon: <BarChart2 size={20} />,
-    href: "/dashBoard/progressTracker",
-  },
-  {
-    label: "Wellness Blog",
-    icon: <Newspaper size={20} />,
-    href: "/dashBoard/wellnessBlog",
-  },
- 
-  { label: "Home", icon: <User size={20} />, href: "/" },
-];
+import { useMemo, useState } from "react";
+import { useSession } from "next-auth/react";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const [hovered, setHovered] = useState(false);
+  const { data: session } = useSession();
+
+  const role = session?.user?.role || "user";
+
+  const links = useMemo(() => {
+    const baseLinks = [
+      { label: "Dashboard", icon: <Home size={20} />, href: "/dashBoard" },
+      {
+        label: "My Workouts",
+        icon: <Activity size={20} />,
+        href: "/dashBoard/myworkouts",
+      },
+      {
+        label: "My Meals",
+        icon: <Coffee size={20} />,
+        href: "/dashBoard/meals",
+      },
+      {
+        label: "Progress Tracker",
+        icon: <BarChart2 size={20} />,
+        href: "/dashBoard/progressTracker",
+      },
+      { label: "Home", icon: <User size={20} />, href: "/" },
+    ];
+
+    if (role === "admin") {
+      baseLinks.splice(1, 0, {
+        label: "All Users",
+        icon: <User2 size={20} />,
+        href: "/dashBoard/users",
+      });
+      baseLinks.splice(1, 0, {
+        label: "Wellness Blog",
+        icon: <Newspaper size={20} />,
+        href: "/dashBoard/wellnessBlog",
+      });
+    }
+
+    return baseLinks;
+  }, [role]);
 
   return (
     <aside
