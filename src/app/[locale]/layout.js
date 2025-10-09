@@ -10,6 +10,7 @@ import { routing } from "@/i18n/routing";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Providers from "./component/Provider/Provider";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
+import { notFound } from "next/navigation";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
