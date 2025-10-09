@@ -28,9 +28,7 @@ const Navbar = () => {
     { name: t("about"), href: "/about" },
   ];
 
-  if (session && isClient) {
-    navLinks.push({ name: t("dashboard"), href: "/dashBoard" });
-  }
+  
 
   const hiddenPaths = [
     "/signup",

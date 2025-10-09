@@ -9,7 +9,7 @@ export async function POST(req) {
         Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`, 
       },
       body: JSON.stringify({
-        model: "deepseek/deepseek-chat-v3.1:free", 
+        model: "microsoft/mai-ds-r1:free", 
         messages: [
           {
             role: "system",

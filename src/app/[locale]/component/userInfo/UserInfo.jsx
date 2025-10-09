@@ -28,21 +28,11 @@ const UserInfo = () => {
 
 	return (
 		<div className="flex items-center">
-			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<Button variant="outline" className="capitalize">
+			<Link href={'/dashBoard'}>
+				<Button variant="outline" className="capitalize">
 						{session.user?.name || "User"}
 					</Button>
-				</DropdownMenuTrigger>
-				<DropdownMenuContent className="w-40">
-					<DropdownMenuItem
-						onClick={() => signOut({ callbackUrl: "/" })}
-						className="cursor-pointer text-red-500"
-					>
-						Logout
-					</DropdownMenuItem>
-				</DropdownMenuContent>
-			</DropdownMenu>
+			</Link>
 		</div>
 	);
 };
