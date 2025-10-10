@@ -9,7 +9,7 @@ export async function POST(req) {
         Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`, 
       },
       body: JSON.stringify({
-        model: "microsoft/mai-ds-r1:free", 
+        model: "openai/gpt-4o-mini", 
         messages: [
           {
             role: "system",
