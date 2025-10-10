@@ -164,7 +164,7 @@ export default function Description() {
               className="bg-white rounded-3xl shadow-2xl border border-gray-200 p-5"
             >
               <motion.img
-                src="https://i.ibb.co.com/99WCQ6D6/m1t.png"
+                src="https://i.ibb.co.com/PGM3MRGz/m2t-1.png"
                 alt="FitLife workout"
                 className="w-80 md:w-96 rounded-2xl"
                 whileHover={{ scale: 1.04 }}
@@ -178,7 +178,7 @@ export default function Description() {
               className="bg-white rounded-3xl shadow-2xl border border-gray-200 p-5 absolute top-14 -right-6 hidden md:block"
             >
               <motion.img
-                src="https://i.ibb.co.com/twpVrfkj/m2t.png"
+                src="https://i.ibb.co.com/mrdvvcRT/m1t-1-1.png"
                 alt="FitLife meals"
                 className="w-64 md:w-80 rounded-2xl"
                 whileHover={{ scale: 1.04 }}
