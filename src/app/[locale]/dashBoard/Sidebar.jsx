@@ -7,6 +7,7 @@ import {
   Activity,
   Coffee,
   Newspaper,
+  Award,
   User2,
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
@@ -37,6 +38,11 @@ export default function Sidebar() {
         label: "Progress Tracker",
         icon: <BarChart2 size={20} />,
         href: "/dashBoard/progressTracker",
+      },
+      {
+        label: "Acievements",
+         icon: <Award size={20} />, 
+        href: "/dashBoard/achievements",
       },
       { label: "Home", icon: <User size={20} />, href: "/" },
     ];
