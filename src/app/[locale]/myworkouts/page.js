@@ -23,20 +23,22 @@ export default function Home({ params }) {
 	const router = useRouter();
 
 	useEffect(() => {
-		if (!session?.user) return;
+	if (!session?.user) return;
+	setLoading(true);
 
-		setLoading(true);
+	axios
+		.get(`/api/userWorkout?email=${session.user.email}`)
+		.then((res) => {
+			console.log(res.data?.data);
+			setWorkoutPlan(res?.data?.data || []);
+			setIsSaved(res?.data.data || []);
+		})
+		.catch((err) => console.error(err))
+		.finally(() => setLoading(false));
 
-		axios
-			.get(`/api/userWorkout?email=${session.user.email}`)
-			.then((res) => {
-				console.log(res.data?.data);
-				setWorkoutPlan(res?.data?.data || []); // safe fallback
-				setIsSaved(res?.data.data || []);
-			})
-			.catch((err) => console.error(err))
-			.finally(() => setLoading(false));
-	}, [session]);
+	return;
+}, [session]);
+
 	const generateWorkout = async (userData) => {
 		userData.language = locale;
 		setLoading(true);
