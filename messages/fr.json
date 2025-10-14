@@ -399,6 +399,7 @@
 			"loading": "Chargement...",
 			"noUsers": "Aucun utilisateur trouvé",
 			"banned": "Banni",
+			"unbanned": "Unbanni",
 			"active": "Actif",
 			"ban": "Bannir",
 			"unban": "Débannir",

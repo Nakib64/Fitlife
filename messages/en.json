@@ -403,6 +403,7 @@
 			"loading": "Loading...",
 			"noUsers": "No users found",
 			"banned": "Banned",
+			"unbanned": "Unbanned",
 			"active": "Active",
 			"ban": "Ban",
 			"unban": "Unban",
