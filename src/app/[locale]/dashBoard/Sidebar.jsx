@@ -25,16 +25,6 @@ export default function Sidebar() {
     const baseLinks = [
       { label: "Dashboard", icon: <Home size={20} />, href: "/dashBoard" },
       {
-        label: "My Workouts",
-        icon: <Activity size={20} />,
-        href: "/dashBoard/myworkouts",
-      },
-      {
-        label: "My Meals",
-        icon: <Coffee size={20} />,
-        href: "/dashBoard/meals",
-      },
-      {
         label: "Progress Tracker",
         icon: <BarChart2 size={20} />,
         href: "/dashBoard/progressTracker",
