@@ -65,11 +65,11 @@ export default function FAQSection() {
 
         {/* CTA */}
         <div className="mt-20 text-center">
-          <p className="text-gray-700 text-lg mb-4">{t("cta_text")}</p>
-          <button className="px-8 py-3 rounded-full bg-[#C8FF58] text-gray-900 font-semibold shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5">
-            {t("cta_button")}
-          </button>
-        </div>
+  <p className="text-gray-700 text-lg mb-4">{t("cta_text")}</p>
+  <button className="px-8 py-3 rounded-full bg-[#7CCF00] hover:bg-[#6ABA00] text-gray-900 font-semibold shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5">
+    {t("cta_button")}
+  </button>
+</div>
       </div>
     </section>
   );
