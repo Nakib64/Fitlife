@@ -16,6 +16,8 @@ import {
 	Tooltip,
 	Legend,
 } from "chart.js";
+import Loading from "../../component/loading/Loading";
+import Noworkout from "../../component/errorProgress/NoWorkout";
 
 ChartJS.register(
 	CategoryScale,
@@ -74,17 +76,12 @@ export default function ProgressTracker() {
 
 	if (loading)
 		return (
-			<p className="text-center mt-10 text-lg font-semibold text-gray-700 dark:text-gray-300">
-				Loading your progress...
-			</p>
+			<Loading></Loading>
 		);
 
 	if (workoutPlan.length === 0)
 		return (
-			<div className="text-center mt-20 text-gray-600 dark:text-gray-400">
-				<p>❌ No workout found!</p>
-				<p>Generate your workout first.</p>
-			</div>
+			<Noworkout></Noworkout>
 		);
 
 	const totalExercises = workoutPlan.reduce(
@@ -159,14 +156,14 @@ export default function ProgressTracker() {
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 dark:from-gray-900 dark:to-gray-800 p-8 md:p-12 text-gray-900 dark:text-gray-100 transition-colors duration-500">
+		<div className="min-h-screen p-8 md:p-12 text-gray-900 dark:text-gray-100 transition-colors duration-500">
 			{/* Header */}
 			<motion.div
 				initial={{ opacity: 0, y: -20 }}
 				animate={{ opacity: 1, y: 0 }}
 				className="text-center mb-12"
 			>
-				<h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text mb-4">
+				<h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-lime-400 to-green-500 text-transparent bg-clip-text mb-4 py-2">
 					🏋️ Fitness Progress Dashboard
 				</h1>
 				<p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl">

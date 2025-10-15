@@ -76,12 +76,12 @@ export default function GamificationPage() {
   const cardShadow = "shadow-[0_10px_25px_rgba(0,0,0,0.05)]";
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0B0F19] text-gray-900 dark:text-gray-100 px-4 md:px-10 py-10 transition-all duration-700">
+    <div className="min-h-screen text-gray-900 dark:text-gray-100 px-4 md:px-10 py-10 transition-all duration-700">
       <div className="max-w-7xl mx-auto space-y-12">
 
         {/* HEADER */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-          <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 text-transparent bg-clip-text mb-4 drop-shadow-md">
+          <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-lime-500  to-green-600 text-transparent bg-clip-text mb-2 py-2 drop-shadow-md">
             Gamify Your Fitness Journey
           </h1>
           <p className="text-gray-700 dark:text-gray-300 md:text-lg">
