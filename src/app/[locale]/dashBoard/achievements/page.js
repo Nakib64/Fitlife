@@ -45,6 +45,7 @@ export default function GamificationPage() {
           xp: data.reward.xp,
           nextLevelXP: data.reward.nextLevelXP,
           streak: data.reward.streak,
+          totalCompleted: data.reward.totalCompleted || 0,
           avatarColor: "#10b981",
           badges: data.reward.badges || [],
         });
@@ -81,15 +82,61 @@ export default function GamificationPage() {
     { day: "Sun", xp: 1000 },
   ];
 
-  const badgesList = [
-    { id: 1, name: "Ten 10", color: "from-red-400 to-red-600", icon: <FaFireAlt /> },
-    { id: 2, name: "Twenty 20", color: "from-purple-400 to-purple-700", icon: <FaMedal /> },
-    { id: 3, name: "Quarter Century", color: "from-blue-400 to-blue-700", icon: <FaTrophy /> },
-    { id: 4, name: "Half Century", color: "from-yellow-400 to-yellow-600", icon: <FaStar /> },
-    { id: 5, name: "3 Quarter Century", color: "from-indigo-400 to-indigo-700", icon: <FaCrown /> },
-    { id: 6, name: "Super Century", color: "from-pink-400 to-pink-700", icon: <FaGem /> },
-    { id: 7, name: "Time Master", color: "from-sky-400 to-sky-700", icon: <FaClock /> },
-  ];
+  // const badgesList = [
+  //   { id: 1, name: "Ten 10", color: "from-red-400 to-red-600", icon: <FaFireAlt /> },
+  //   { id: 2, name: "Twenty 20", color: "from-purple-400 to-purple-700", icon: <FaMedal /> },
+  //   { id: 3, name: "Quarter Century", color: "from-blue-400 to-blue-700", icon: <FaTrophy /> },
+  //   { id: 4, name: "Half Century", color: "from-yellow-400 to-yellow-600", icon: <FaStar /> },
+  //   { id: 5, name: "3 Quarter Century", color: "from-indigo-400 to-indigo-700", icon: <FaCrown /> },
+  //   { id: 6, name: "Super Century", color: "from-pink-400 to-pink-700", icon: <FaGem /> },
+  //   { id: 7, name: "Time Master", color: "from-sky-400 to-sky-700", icon: <FaClock /> },
+  // ];
+
+  // Define all possible badges and conditions
+const allBadges = [
+  {
+    id: 1,
+    name: "🔥 3-Day Streak",
+    icon: <FaFireAlt />,
+    description:
+      "Earned when you complete your workouts three days in a row without missing a day. This badge marks the start of your consistency journey!",
+    check: (user) => user.streak >= 3,
+    progress: (user) => Math.min(user.streak / 3, 1),
+    color: "from-red-400 to-red-600",
+  },
+  {
+    id: 2,
+    name: "🏅 Weekly Warrior",
+    icon: <FaMedal />,
+    description:
+      "Achieved by maintaining a perfect 7-day workout streak. It’s proof of your discipline and strong commitment to your fitness goals.",
+    check: (user) => user.streak >= 7,
+    progress: (user) => Math.min(user.streak / 7, 1),
+    color: "from-purple-400 to-purple-700",
+  },
+  {
+    id: 3,
+    name: "💪 Fitness Pro",
+    icon: <FaDumbbell />,
+    description:
+      "Unlocked when you reach Level 5. It reflects your growing strength and dedication — keep pushing to reach even higher levels!",
+    check: (user) => user.level >= 5,
+    progress: (user) => Math.min(user.level / 5, 1),
+    color: "from-blue-400 to-blue-700",
+  },
+  {
+    id: 4,
+    name: "⚡ Power Starter",
+    icon: <FaBolt />,
+    description:
+      "Awarded after completing 100 total exercises. This badge celebrates your endurance, effort, and consistency across all workouts.",
+    check: (user) => user.totalCompleted >= 100,
+    progress: (user) => Math.min(user.totalCompleted / 100, 1),
+    color: "from-yellow-400 to-yellow-600",
+  },
+];
+
+
 
   const cardShadow = "shadow-[0_10px_25px_rgba(0,0,0,0.05)]";
 
@@ -148,7 +195,7 @@ export default function GamificationPage() {
               </p>
             </div>
           </div>
-          <div className="flex gap-3 text-3xl">
+          <div className="flex gap-3 ">
             {user.badges?.length ? (
               user.badges.map((b, i) => <span key={i}>{b}</span>)
             ) : (
@@ -168,10 +215,18 @@ export default function GamificationPage() {
             <h3 className="text-2xl font-bold flex justify-center items-center gap-2">
               <FaSun className="text-yellow-500 dark:text-yellow-400" /> Daily Streak: {user.streak} Days
             </h3>
-            <p className="text-sm text-gray-700 dark:text-gray-300">
-              Complete {Math.max(10 - user.streak, 0)} more days to earn your{" "}
-              <span className="font-semibold text-amber-600 dark:text-amber-400">Ten 10 Badge</span>
-            </p>
+           <p className="text-sm text-gray-700 dark:text-gray-300">
+  {user.streak < 3 && (
+    <>Complete {3 - user.streak} more day{3 - user.streak > 1 ? "s" : ""} to earn the <span className="font-semibold text-amber-600 dark:text-amber-400">🔥 3-Day Streak</span> badge.</>
+  )}
+  {user.streak >= 3 && user.streak < 7 && (
+    <>Complete {7 - user.streak} more day{7 - user.streak > 1 ? "s" : ""} to earn the <span className="font-semibold text-purple-500 dark:text-purple-400">🏅 Weekly Warrior</span> badge.</>
+  )}
+  {user.streak >= 7 && (
+    <>Keep up your streak to unlock upcoming badges!</>
+  )}
+</p>
+
             <div className="flex justify-center gap-3 pt-3">
               {[...Array(10)].map((_, i) => (
                 <div
@@ -189,27 +244,104 @@ export default function GamificationPage() {
           </div>
         </motion.div>
 
-        {/* BADGES */}
+        
+{/* BADGES */}
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  className="bg-white dark:bg-[#111827] p-10 rounded-3xl border border-gray-200 dark:border-gray-700 text-center"
+>
+  <h3 className="text-3xl font-semibold mb-8 flex items-center justify-center gap-2 text-emerald-600 dark:text-emerald-400">
+    <FaAward className="text-yellow-500 animate-pulse" /> Achievement Badges
+  </h3>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    {allBadges.map((badge) => {
+      const achieved = badge.check(user);
+      const progressPercent = Math.floor(badge.progress(user) * 100);
+
+      return (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="bg-white dark:bg-[#111827] p-8 rounded-3xl border border-gray-200 dark:border-gray-700 text-center"
+          key={badge.id}
+          whileHover={{ scale: 1.07 }}
+          transition={{ type: "spring", stiffness: 180, damping: 14 }}
+          className={`relative group flex flex-col items-center justify-center text-center p-8 rounded-3xl shadow-xl transition-all duration-300 bg-gradient-to-br ${badge.color} text-white cursor-pointer overflow-hidden`}
         >
-          <h3 className="text-2xl font-semibold mb-6 flex items-center justify-center gap-2">
-            <FaAward className="text-yellow-500" /> Badges
-          </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6">
-            {badgesList.map((badge) => (
-              <div
-                key={badge.id}
-                className={`relative h-36 w-full flex flex-col items-center justify-center rounded-2xl bg-gradient-to-br ${badge.color} text-white shadow-lg`}
-              >
-                <div className="text-3xl mb-2 drop-shadow-md">{badge.icon}</div>
-                <p className="font-semibold text-sm tracking-wide">{badge.name}</p>
-              </div>
-            ))}
-          </div>
+          {/* 🌟 Glow for achieved badges */}
+          {achieved && (
+            <motion.div
+              className="absolute inset-0 bg-white/20 blur-lg rounded-3xl"
+              animate={{ opacity: [0.3, 0.6, 0.3] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
+          )}
+
+          {/* 🔥 Animated Icon */}
+          <motion.div
+            animate={
+              achieved
+                ? { y: [0, -6, 0], scale: [1, 1.1, 1] }
+                : { y: [0, -3, 0] }
+            }
+            transition={{
+              duration: achieved ? 2 : 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="text-6xl mb-3 relative z-10 flex justify-center"
+          >
+            {badge.icon}
+          </motion.div>
+
+          {/* Badge Title */}
+          <h4 className="text-lg font-bold tracking-wide relative z-10 text-center">
+            {badge.name}
+          </h4>
+
+          {/* Progress or Achieved Text */}
+          <p className="font-medium text-emerald-100 relative z-10 mt-1 text-center">
+            {achieved ? "✅ Achieved 🎉" : `Progress: ${progressPercent}%`}
+          </p>
+
+          {/* Progress bar */}
+          {!achieved && (
+            <div className="mt-3 w-full bg-gray-300/60 dark:bg-gray-700 h-2 rounded-full overflow-hidden relative z-10">
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${progressPercent}%` }}
+                transition={{ duration: 0.8 }}
+                className="h-full bg-gradient-to-r from-emerald-400 to-lime-400 rounded-full"
+              ></motion.div>
+            </div>
+          )}
+
+          {/* 🧠 Hover Overlay Description */}
+          <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  whileHover={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4, ease: "easeOut" }}
+  className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 backdrop-blur-md text-center px-6 py-4 opacity-0 group-hover:opacity-100 z-20 rounded-3xl"
+>
+  {/* Badge Title */}
+  <h4 className="text-xl font-extrabold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-lime-300 drop-shadow-lg">
+    {badge.name}
+  </h4>
+
+  {/* Badge Description */}
+  <p className="text-sm text-gray-200 leading-relaxed max-w-[90%]">
+    {badge.description}
+  </p>
+</motion.div>
+
         </motion.div>
+      );
+    })}
+  </div>
+</motion.div>
+
+
+
+
 
         {/* WEEKLY XP CHART */}
         <motion.div
