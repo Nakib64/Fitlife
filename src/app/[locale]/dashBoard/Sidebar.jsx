@@ -4,10 +4,8 @@ import {
   Home,
   User,
   BarChart2,
-  Activity,
-  Coffee,
-  Newspaper,
   Award,
+  Newspaper,
   User2,
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
@@ -30,8 +28,8 @@ export default function Sidebar() {
         href: "/dashBoard/progressTracker",
       },
       {
-        label: "Acievements",
-         icon: <Award size={20} />, 
+        label: "Achievements",
+        icon: <Award size={20} />,
         href: "/dashBoard/achievements",
       },
       { label: "Home", icon: <User size={20} />, href: "/" },
@@ -57,22 +55,25 @@ export default function Sidebar() {
     <aside
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`relative hidden lg:flex flex-col overflow-hidden bg-gradient-to-b from-gray-50 to-gray-100 dark:from-neutral-800 dark:to-neutral-900 shadow-lg group`}
+      className={`relative hidden lg:flex flex-col overflow-hidden 
+        bg-gradient-to-b from-lime-50 to-lime-50 
+        dark:from-neutral-900 dark:to-neutral-950 
+        shadow-lg group`}
       style={{
         transition: "width 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         width: hovered ? "260px" : "64px",
       }}
     >
       {/* Sidebar Header */}
-      <div className="p-4 flex items-center gap-3 border-b border-gray-200 dark:border-neutral-700">
+      <div className="p-4 flex items-center gap-3 border-b border-lime-200 dark:border-neutral-700">
         <Home
           size={28}
           className={`transition-colors duration-400 ease-in-out ${
-            hovered ? "text-indigo-600" : "text-indigo-500"
+            hovered ? "text-lime-600" : "text-lime-500"
           }`}
         />
         <span
-          className="text-xl font-bold text-indigo-600 whitespace-nowrap tracking-wide transition-all duration-400 ease-in-out"
+          className="text-xl font-bold text-lime-600 whitespace-nowrap tracking-wide transition-all duration-400 ease-in-out"
           style={{
             opacity: hovered ? 1 : 0,
             transform: hovered ? "translateX(0)" : "translateX(-20px)",
@@ -94,11 +95,13 @@ export default function Sidebar() {
               className={`flex items-center gap-3 p-3 rounded-lg transition-all duration-400 ease-in-out group`}
               style={{
                 background: active
-                  ? "#4f46e5" // Indigo-600
+                  ? "#65a30d" // lime-600
                   : hovered
-                  ? "rgba(79, 70, 229, 0.08)"
+                  ? "rgba(132, 204, 22, 0.08)" // lime-400 with opacity
                   : "transparent",
-                color: active ? "#ffffff" : "#374151", // Gray-700
+                color: active
+                  ? "#ffffff"
+                  : "var(--text-color, #374151)", // dark gray text
                 fontWeight: active ? 600 : 500,
                 fontSize: "0.95rem",
               }}
@@ -106,7 +109,11 @@ export default function Sidebar() {
               <span
                 className="transition-colors duration-400 ease-in-out"
                 style={{
-                  color: active ? "#ffffff" : hovered ? "#4f46e5" : "#6b7280",
+                  color: active
+                    ? "#ffffff"
+                    : hovered
+                    ? "#65a30d" // lime-600
+                    : "#6b7280",
                   transition: "color 0.4s ease",
                 }}
               >
@@ -129,7 +136,7 @@ export default function Sidebar() {
 
       {/* Tooltip for collapsed state */}
       {!hovered && (
-        <div className="absolute top-0 left-full ml-2 hidden group-hover:flex flex-col bg-black text-white text-sm rounded py-1 px-2 shadow-lg animate-fade-in">
+        <div className="absolute top-0 left-full ml-2 hidden group-hover:flex flex-col bg-black/80 text-white text-sm rounded py-1 px-2 shadow-lg animate-fade-in">
           {links.map((link, i) => (
             <div
               key={i}
@@ -154,6 +161,14 @@ export default function Sidebar() {
         }
         .animate-fade-in {
           animation: fade-in 0.3s ease forwards;
+        }
+
+        /* Dynamic color theme */
+        :global(html.dark) {
+          --text-color: #d1d5db; /* gray-300 */
+        }
+        :global(html:not(.dark)) {
+          --text-color: #374151; /* gray-700 */
         }
       `}</style>
     </aside>

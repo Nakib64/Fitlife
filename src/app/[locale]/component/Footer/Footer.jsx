@@ -6,10 +6,10 @@ import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const pathname = usePathname();
-  const hiddenPath = ["/dashBoard"];
+  
 
-  if (hiddenPath.some((p) => pathname.includes(p))) {
-    return null;
+  if (pathname.includes("dashBoard")) {
+    return ;
   }
 
   const headline = "FITLIFE COACH";

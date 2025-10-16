@@ -108,7 +108,7 @@ export default function WorkoutModal({ onGenerate }) {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <button className="px-6 py-3 bg-[#7CCF00] hover:bg-[#6ABA00] text-[#1A3438] rounded-xl shadow-lg hover:shadow-xl text-lg font-bold transition-all hover:-translate-y-0.5">
+        <button className="px-6 py-3 bg-lime-400 text-[#1A3438] rounded-xl shadow-lg hover:shadow-xl text-lg font-bold transition-all hover:-translate-y-0.5">
           {t("generate_btn")}
         </button>
       </Dialog.Trigger>
@@ -173,7 +173,7 @@ export default function WorkoutModal({ onGenerate }) {
                 !formData[steps[currentStep].key] ||
                 formData[steps[currentStep].key].toString().trim() === ""
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-green-500 hover:bg-green-600"
+                  : "bg-lime-400 hover:bg-lime-400"
               }`}
             >
               {currentStep === steps.length - 1

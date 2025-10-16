@@ -30,34 +30,37 @@ export async function POST(req) {
 }
 
 export async function GET(req) {
-	try {
-		// Get the email from the URL query parameters
-		const { searchParams } = new URL(req.url);
-		const email = searchParams.get("email");
+  try {
+    const { searchParams } = new URL(req.url);
+    const email = searchParams.get("email");
 
-		if (!email) {
-			return new Response(JSON.stringify({ error: "Email is required" }), {
-				status: 400,
-			});
-		}
+    if (!email) {
+      return new Response(JSON.stringify({ error: "Email is required" }), {
+        status: 400,
+      });
+    }
 
-		const db = await dbConnect("userWorkout");
+    const db = await dbConnect("userWorkout");
+    let result = await db.findOne({ email });
 
-		const result = await db.findOne({ email });
+    // If no record exists, return default empty structure
+    if (!result) {
+      result = {
+        email,
+        data: [], // empty workout data
+      };
+      // Optional: insert into DB so user has a document
+      await db.insertOne({
+        email,
+        data: [],
+        createdAt: new Date(),
+      });
+    }
 
-		if (!result) {
-			return new Response(JSON.stringify({ error: "No record found" }), {
-				status: 404,
-			});
-		}
-
-		
-		return new Response(JSON.stringify(result), {
-			status: 200,
-		});
-	} catch (err) {
-		return new Response(JSON.stringify({ error: err.message }), { status: 500 });
-	}
+    return new Response(JSON.stringify(result), { status: 200 });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: err.message }), { status: 500 });
+  }
 }
 
 export async function PUT(req) {
@@ -82,6 +85,7 @@ export async function PUT(req) {
 export async function PATCH(req) {
   try {
     const { email, day, exerciseName, completed } = await req.json();
+	  console.log("PATCH payload =>", { email, day, exerciseName, completed });
     const db = await dbConnect("userWorkout");
 
     const result = await db.updateOne(
@@ -98,11 +102,12 @@ export async function PATCH(req) {
         ],
       }
     );
-
+console.log(result.matchedCount, result.modifiedCount);
     return new Response(JSON.stringify({ success: true, result }), {
       status: 200,
     });
   } catch (err) {
     return new Response(JSON.stringify({ error: err.message }), { status: 500 });
   }
+  
 }

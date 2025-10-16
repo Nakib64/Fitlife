@@ -43,7 +43,7 @@ export default function WorkoutStepForm({
 							onClick={() => onChange(t)}
 							className={`px-4 py-3 rounded-full shadow-lg font-bold text-lg transition-all ${
 								value === t
-									? "bg-green-500 text-white scale-110"
+									? "bg-lime-400 text-white scale-110"
 									: "bg-gray-200 hover:bg-gray-300"
 							}`}
 						>
@@ -59,7 +59,7 @@ export default function WorkoutStepForm({
 							onClick={() => onChange(opt.value)}
 							className={`px-4 py-3 rounded-xl shadow-lg text-lg font-bold transition-all ${
 								value === opt.value
-									? "bg-green-500 text-white scale-105"
+									? "bg-lime-400 text-white scale-105"
 									: "bg-gray-200 hover:bg-gray-300"
 							}`}
 						>

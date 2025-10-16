@@ -36,7 +36,7 @@ export default async function RootLayout({ children, params }) {
 		notFound();
 	}
 	return (
-		<html lang={locale}>
+		<html lang={locale} data-theme="light">
 			<NextAuthSessionProvider>
 				<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 					<NextIntlClientProvider>
