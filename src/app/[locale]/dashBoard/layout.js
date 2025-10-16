@@ -2,15 +2,29 @@
 import React from "react";
 import Sidebar from "./Sidebar";
 import DashboardNavbar from "./DashboardNavbar";
+import { DashboardThemeProvider, useDashboardTheme } from "@/context/DashboardThemeContext";
+
+// Inner wrapper that applies dark/light classes
+function DashboardContent({ children }) {
+  const { darkMode } = useDashboardTheme();
+
+  return (
+    <div className={darkMode ? "dark" : ""}>
+      <div className="flex min-h-screen bg-gray-100 dark:bg-neutral-950 transition-colors duration-300">
+        <Sidebar />
+        <div className="flex-1 flex flex-col overflow-auto">
+          <DashboardNavbar />
+          <main className="flex-1 p-2 lg:p-4">{children}</main>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function DashboardLayout({ children }) {
   return (
-    <div className="flex min-h-screen bg-gray-100 dark:bg-neutral-950 max-h-screen">
-      <Sidebar />
-      <div className="flex-1 flex flex-col overflow-auto">
-        <DashboardNavbar />
-        <main className="flex-1 p-2 lg:p-4">{children}</main>
-      </div>
-    </div>
+    <DashboardThemeProvider>
+      <DashboardContent>{children}</DashboardContent>
+    </DashboardThemeProvider>
   );
 }
