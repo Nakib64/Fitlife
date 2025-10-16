@@ -1,6 +1,7 @@
 "use client";
+import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -23,17 +24,52 @@ import {
   FaAward,
   FaSun,
 } from "react-icons/fa";
+import Loading from "../../component/loading/Loading";
 
 export default function GamificationPage() {
-  const [user, setUser] = useState({
-    name: "Alex Carter",
-    level: 8,
-    xp: 7200,
-    nextLevelXP: 10000,
-    streak: 1,
-    avatarColor: "#10b981",
-    badges: ["🔥"],
-  });
+  const { data: session, status } = useSession();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const userEmail = session?.user?.email || "";
+
+  const fetchUserRewards = async () => {
+    if (!userEmail) return;
+    try {
+      const res = await fetch(`/api/rewards/getReward/${userEmail}`);
+      const data = await res.json();
+      if (res.ok) {
+        setUser({
+          name: session?.user?.name || "User",
+          level: data.reward.level,
+          xp: data.reward.xp,
+          nextLevelXP: data.reward.nextLevelXP,
+          streak: data.reward.streak,
+          avatarColor: "#10b981",
+          badges: data.reward.badges || [],
+        });
+      } else {
+        // user has no reward data yet
+        setUser({
+          name: session?.user?.name || "User",
+          level: 1,
+          xp: 0,
+          nextLevelXP: 1000,
+          streak: 0,
+          avatarColor: "#10b981",
+          badges: [],
+        });
+      }
+    } catch (err) {
+      console.error("Error fetching rewards:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (status === "authenticated") fetchUserRewards();
+  }, [status, session]);
 
   const xpData = [
     { day: "Mon", xp: 400 },
@@ -44,24 +80,6 @@ export default function GamificationPage() {
     { day: "Sat", xp: 700 },
     { day: "Sun", xp: 1000 },
   ];
-
-  const challenges = [
-    { id: 1, title: "Complete 3 Workouts", xp: 500, icon: <FaDumbbell /> },
-    { id: 2, title: "Generate Meal Plan", xp: 300, icon: <FaBolt /> },
-    { id: 3, title: "Hit 10k Steps", xp: 400, icon: <FaRunning /> },
-  ];
-
-  const handleChallengeComplete = (xp) => {
-    const newXP = user.xp + xp;
-    const levelUp = newXP >= user.nextLevelXP;
-    setUser({
-      ...user,
-      xp: levelUp ? newXP - user.nextLevelXP : newXP,
-      level: levelUp ? user.level + 1 : user.level,
-      streak: user.streak + 1,
-      badges: levelUp ? [...user.badges, "🏅"] : user.badges,
-    });
-  };
 
   const badgesList = [
     { id: 1, name: "Ten 10", color: "from-red-400 to-red-600", icon: <FaFireAlt /> },
@@ -75,13 +93,22 @@ export default function GamificationPage() {
 
   const cardShadow = "shadow-[0_10px_25px_rgba(0,0,0,0.05)]";
 
+   if (loading) return <Loading />;
+
+  if (!user)
+    return (
+      <div className="min-h-screen flex justify-center items-center text-lg font-semibold text-gray-500">
+        No user data available.
+      </div>
+    );
+
   return (
     <div className="min-h-screen text-gray-900 dark:text-gray-100 px-4 md:px-10 py-10 transition-all duration-700">
       <div className="max-w-7xl mx-auto space-y-12">
 
         {/* HEADER */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-          <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-lime-500  to-green-600 text-transparent bg-clip-text mb-2 py-2 drop-shadow-md">
+          <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-lime-500 to-green-600 text-transparent bg-clip-text mb-2 py-2 drop-shadow-md">
             Gamify Your Fitness Journey
           </h1>
           <p className="text-gray-700 dark:text-gray-300 md:text-lg">
@@ -121,7 +148,13 @@ export default function GamificationPage() {
               </p>
             </div>
           </div>
-          <div className="flex gap-3 text-3xl">{user.badges.map((b, i) => <span key={i}>{b}</span>)}</div>
+          <div className="flex gap-3 text-3xl">
+            {user.badges?.length ? (
+              user.badges.map((b, i) => <span key={i}>{b}</span>)
+            ) : (
+              <p className="text-gray-400 text-sm">No badges yet</p>
+            )}
+          </div>
         </motion.div>
 
         {/* DAILY STREAK */}
@@ -131,16 +164,14 @@ export default function GamificationPage() {
           className={`relative p-8 rounded-3xl overflow-hidden text-gray-900 dark:text-white ${cardShadow}`}
         >
           <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-100 dark:from-[#1e1b4b] dark:via-[#312e81] dark:to-[#1e1b4b] opacity-95 rounded-3xl"></div>
-
           <div className="relative text-center space-y-3">
             <h3 className="text-2xl font-bold flex justify-center items-center gap-2">
               <FaSun className="text-yellow-500 dark:text-yellow-400" /> Daily Streak: {user.streak} Days
             </h3>
             <p className="text-sm text-gray-700 dark:text-gray-300">
-              Complete {10 - user.streak} more days to earn your{" "}
+              Complete {Math.max(10 - user.streak, 0)} more days to earn your{" "}
               <span className="font-semibold text-amber-600 dark:text-amber-400">Ten 10 Badge</span>
             </p>
-
             <div className="flex justify-center gap-3 pt-3">
               {[...Array(10)].map((_, i) => (
                 <div
@@ -178,28 +209,6 @@ export default function GamificationPage() {
               </div>
             ))}
           </div>
-        </motion.div>
-
-        {/* CHALLENGES */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="grid md:grid-cols-3 gap-5">
-          {challenges.map((ch) => (
-            <div
-              key={ch.id}
-              className={`bg-white dark:bg-[#111827] p-6 rounded-2xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all ${cardShadow}`}
-            >
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="font-semibold text-lg">{ch.title}</h3>
-                <span className="text-2xl text-emerald-500">{ch.icon}</span>
-              </div>
-              <p className="text-gray-700 dark:text-gray-300 mb-3">+{ch.xp} XP</p>
-              <button
-                onClick={() => handleChallengeComplete(ch.xp)}
-                className="py-2.5 px-8 bg-gradient-to-r from-lime-400 via-green-400 to-emerald-500 text-gray-900 rounded-full hover:opacity-90 font-semibold transition"
-              >
-                Complete
-              </button>
-            </div>
-          ))}
         </motion.div>
 
         {/* WEEKLY XP CHART */}
