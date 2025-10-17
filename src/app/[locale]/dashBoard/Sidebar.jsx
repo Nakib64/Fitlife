@@ -11,6 +11,7 @@ import {
 import { Link } from "@/i18n/navigation";
 import { useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
+import { IoMdStopwatch } from "react-icons/io";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -26,6 +27,11 @@ export default function Sidebar() {
         label: "Progress Tracker",
         icon: <BarChart2 size={20} />,
         href: "/dashBoard/progressTracker",
+      },
+      {
+        label: "Tools",
+        icon: <IoMdStopwatch size={25}/>,
+        href: "/dashBoard/tools",
       },
       {
         label: "Achievements",

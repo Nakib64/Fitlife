@@ -122,7 +122,7 @@ export async function POST(req) {
       badges,
       totalCompleted: completedCount,
     };
-
+console.log(totalCompleted);
     return NextResponse.json(
       { message: "Rewards updated successfully", reward },
       { status: 200 }

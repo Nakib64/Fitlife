@@ -290,7 +290,8 @@
 		"achievements": "অর্জনসমূহ",
 		"aiCoach": "এআই কোচ",
 		"about": "আমাদের সম্পর্কে",
-		"dashboard": "ড্যাশবোর্ড"
+		"dashboard": "ড্যাশবোর্ড",
+		"Health":"স্বাস্থ্য নিরীক্ষক"
 	},
 
 	"footer": {
@@ -430,5 +431,60 @@
 				"admin": "অ্যাডমিন"
 			}
 		}
+	},
+		
+  "healthAdvisor": {
+    "pageTitle": "এআই স্বাস্থ্য ঝুঁকি ড্যাশবোর্ড",
+    "description": "আপনার মেট্রিক্স ইনপুট করুন এবং এআই দ্বারা তৈরি ব্যক্তিগত পুনরুদ্ধার পরিকল্পনা পান।",
+    "sleepMetricsTitle": "ঘুমের মেট্রিক্স",
+    "workoutCognitiveTitle": "ওয়ার্কআউট ও মানসিক মেট্রিক্স",
+    "analyzeBtn": "বিশ্লেষণ করুন",
+    "resetBtn": "রিসেট করুন",
+    "riskLevel": "ঝুঁকির স্তর",
+    "physiological": "শারীরবৃত্তীয়",
+    "cognitive": "মানসিক",
+    "aiSummary": "এআই সারসংক্ষেপ",
+    "actionProtocols": "প্রস্তাবিত কর্মপদ্ধতি",
+    "units": {
+      "hours": "ঘন্টা",
+      "percent": "%",
+      "bpm": "BPM",
+      "min": "মিনিট",
+      "rpe": "/10"
+    },
+    "sleepMetrics": {
+      "sleepHours": "ঘুমের সময়",
+      "sleepEfficiency": "ঘুমের দক্ষতা",
+      "hrvScore": "হৃদস্পন্দন বৈচিত্র্য (HRV)",
+      "RHRateDrop": "পুনরুদ্ধারের হার কমে যাওয়া"
+    },
+    "workoutCognitiveMetrics": {
+      "rpe": "RPE (শক্তি অনুভব)",
+      "workoutDuration": "ওয়ার্কআউট সময়কাল",
+      "cognitiveFatigue": "মানসিক ক্লান্তি"
+    },
+    "riskLevels": {
+      "LOW": "কম",
+      "MODERATE": "মধ্যম",
+      "HIGH": "উচ্চ",
+      "CRITICAL": "গুরুতর"
+    },
+    "placeholders": {
+      "numberInput": "মান লিখুন..."
+    },
+    "messages": {
+      "loading": "লোড হচ্ছে...",
+      "analyzing": "বিশ্লেষণ করা হচ্ছে..."
+    },
+    "errors": {
+      "validation": "সঠিকভাবে সব ক্ষেত্র পূরণ করুন!",
+      "connection": "সংযোগ ব্যর্থ হয়েছে।",
+      "fetch": "এআই তথ্য আনতে ব্যর্থ হয়েছে।"
+    }
+  
+
+
 	}
+	
+	
 }

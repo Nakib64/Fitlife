@@ -227,7 +227,8 @@
 		"achievements": "Achievements",
 		"aiCoach": "AI Coach",
 		"about": "About",
-		"dashboard": "Dashboard"
+		"dashboard": "Dashboard",
+		"Health":"Health Tracker"
 	},
 
 	"footer": {
@@ -423,5 +424,57 @@
 				"admin": "Admin"
 			}
 		}
-	}
+	},
+	
+  "healthAdvisor": {
+    "pageTitle": "AI Health Risk Dashboard",
+    "description": "Input your metrics to get AI-powered analysis and personalized recovery plan.",
+    "sleepMetricsTitle": "Sleep Metrics",
+    "workoutCognitiveTitle": "Workout & Cognitive Metrics",
+    "analyzeBtn": "Analyze",
+    "resetBtn": "Reset",
+    "riskLevel": "Risk Level",
+    "physiological": "Physiological",
+    "cognitive": "Cognitive",
+    "aiSummary": "AI Summary",
+    "actionProtocols": "Recommended Action Protocols",
+    "units": {
+      "hours": "hours",
+      "percent": "%",
+      "bpm": "BPM",
+      "min": "min",
+      "rpe": "/10"
+    },
+    "sleepMetrics": {
+      "sleepHours": "Sleep Hours",
+      "sleepEfficiency": "Sleep Efficiency",
+      "hrvScore": "Heart Rate Variability (HRV)",
+      "RHRateDrop": "Recovery HR Drop"
+    },
+    "workoutCognitiveMetrics": {
+      "rpe": "RPE (Rate of Perceived Exertion)",
+      "workoutDuration": "Workout Duration",
+      "cognitiveFatigue": "Cognitive Fatigue"
+    },
+    "riskLevels": {
+      "LOW": "Low",
+      "MODERATE": "Moderate",
+      "HIGH": "High",
+      "CRITICAL": "Critical"
+    },
+    "placeholders": {
+      "numberInput": "Enter value..."
+    },
+    "messages": {
+      "loading": "Loading...",
+      "analyzing": "Analyzing..."
+    },
+    "errors": {
+      "validation": "Please fill all fields correctly!",
+      "connection": "Connection failed.",
+      "fetch": "Failed to fetch AI data."
+    }
+  }
+
+
 }

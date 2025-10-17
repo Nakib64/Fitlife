@@ -279,7 +279,8 @@
 		"achievements": "Réalisations",
 		"aiCoach": "Coach IA",
 		"about": "À propos",
-		"dashboard": "Tableau de bord"
+		"dashboard": "Tableau de bord",
+		"Health":"Traqueur de Santé"
 	},
 
 	"footer": {
@@ -419,5 +420,57 @@
 				"admin": "Admin"
 			}
 		}
-	}
+	},
+	
+  "healthAdvisor": {
+    "pageTitle": "Tableau de bord des risques de santé IA",
+    "description": "Saisissez vos mesures pour obtenir une analyse alimentée par l'IA et un plan de récupération personnalisé.",
+    "sleepMetricsTitle": "Mesures de sommeil",
+    "workoutCognitiveTitle": "Mesures d'entraînement et cognitives",
+    "analyzeBtn": "Analyser",
+    "resetBtn": "Réinitialiser",
+    "riskLevel": "Niveau de risque",
+    "physiological": "Physiologique",
+    "cognitive": "Cognitif",
+    "aiSummary": "Résumé IA",
+    "actionProtocols": "Protocoles d'action recommandés",
+    "units": {
+      "hours": "heures",
+      "percent": "%",
+      "bpm": "BPM",
+      "min": "min",
+      "rpe": "/10"
+    },
+    "sleepMetrics": {
+      "sleepHours": "Heures de sommeil",
+      "sleepEfficiency": "Efficacité du sommeil",
+      "hrvScore": "Variabilité de la fréquence cardiaque (HRV)",
+      "RHRateDrop": "Baisse de la fréquence cardiaque de récupération"
+    },
+    "workoutCognitiveMetrics": {
+      "rpe": "RPE (Échelle de perception de l'effort)",
+      "workoutDuration": "Durée de l'entraînement",
+      "cognitiveFatigue": "Fatigue cognitive"
+    },
+    "riskLevels": {
+      "LOW": "Faible",
+      "MODERATE": "Modéré",
+      "HIGH": "Élevé",
+      "CRITICAL": "Critique"
+    },
+    "placeholders": {
+      "numberInput": "Entrez une valeur..."
+    },
+    "messages": {
+      "loading": "Chargement...",
+      "analyzing": "Analyse en cours..."
+    },
+    "errors": {
+      "validation": "Veuillez remplir correctement tous les champs !",
+      "connection": "Connexion échouée.",
+      "fetch": "Impossible de récupérer les données de l'IA."
+    }
+  
+}
+
 }
