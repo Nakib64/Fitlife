@@ -18,6 +18,7 @@ const Navbar = () => {
   const navLinks = [
     { name: t("myWorkouts"), href: "/myworkouts" },
     { name: t("myMeals"), href: "/meals" },
+    { name: t("Health"), href: "/health-advisor" },
     { name: t("wellness"), href: "/wellness" },
     { name: t("about"), href: "/about" },
   ];
