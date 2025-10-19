@@ -1,180 +1,153 @@
 "use client";
-
-import React, { useState } from "react";
-import { FaBell, FaMoon, FaSun, FaSearch } from "react-icons/fa";
+import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import {
-  Home,
-  User,
-  BarChart2,
-  Activity,
-  Coffee,
-  Newspaper,
-  Menu,
-  Users,
-} from "lucide-react";
-import {
-  Sheet,
-  SheetTrigger,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-} from "@/components/ui/sheet";
-import { Link } from "@/i18n/navigation"; // use your localized Link
+	FaBars,
+	FaBell,
+	FaEnvelope,
+	FaUserCircle,
+	FaSun,
+	FaMoon,
+	FaSearch,
+} from "react-icons/fa";
+import { useSession } from "next-auth/react";
+import { useDashboardTheme } from "@/context/DashboardThemeContext";
+import { usePathname } from "@/i18n/navigation";
 
-export default function DashboardNavbar() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
-  const [open, setOpen] = useState(false);
+export default function DashboardNavbar({ onMenuClick }) {
+	const { data: session } = useSession();
+	const pathname = usePathname();
+	const [dropdownOpen, setDropdownOpen] = useState(false);
+	const { darkMode, setDarkMode } = useDashboardTheme();
+	const [breadcrumbs, setBreadcrumbs] = useState([]);
+	useEffect(() => {
+		const paths = pathname.split("/").filter(Boolean);
+		const crumbs = paths.map((p, idx) => ({
+			label: p.charAt(0).toUpperCase() + p.slice(1),
+			href: "/" + paths.slice(0, idx + 1).join("/"),
+		}));
+		setBreadcrumbs(crumbs);
+	}, [pathname]);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle("dark");
-  };
+	const dropdownRef = useRef(null);
 
-  const links = [
-    { label: "Dashboard", icon: <Home size={20} />, href: "/dashBoard" },
-      { label: "All Users", icon: <Users size={20} />, href: "/dashBoard/users" },
-    {
-      label: "My Workouts",
-      icon: <Activity size={20} />,
-      href: "/dashBoard/myworkouts",
-    },
-    {
-      label: "My Meals",
-      icon: <Coffee size={20} />,
-      href: "/dashBoard/meals",
-    },
-    {
-      label: "Progress Tracker",
-      icon: <BarChart2 size={20} />,
-      href: "/dashBoard/progressTracker",
-    },
-    {
-      label: "Wellness Blog",
-      icon: <Newspaper size={20} />,
-      href: "/dashBoard/wellnessBlog",
-    },
-    { label: "Home", icon: <User size={20} />, href: "/" },
-  ];
+	// Close dropdown when clicked outside
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+				setDropdownOpen(false);
+			}
+		};
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
 
-  return (
-    <header className="sticky top-0 z-50 flex items-center justify-between bg-white dark:bg-neutral-800 p-4 shadow-md transition-colors duration-300">
-      {/* Left: Menu (for mobile) + Title */}
-      <div className="flex items-center gap-3">
-        {/* Mobile Drawer Button */}
-        <div className="lg:hidden">
-          <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
-              <button className="p-2 rounded-md bg-indigo-600 text-white">
-                <Menu size={22} />
-              </button>
-            </SheetTrigger>
+	const toggleDarkMode = () => setDarkMode(!darkMode);
 
-            {/* Drawer Sidebar */}
-            <SheetContent side="left" className="p-0 w-64 dark:bg-neutral-900">
-              <SheetHeader className="p-4 border-b dark:border-neutral-700">
-                <SheetTitle className="text-indigo-600 dark:text-indigo-400">
-                  FitLife
-                </SheetTitle>
-                <SheetDescription className="text-gray-500 dark:text-gray-400">
-                  Navigate your dashboard
-                </SheetDescription>
-              </SheetHeader>
+	return (
+		<motion.header
+			initial={{ opacity: 0, y: -10 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ duration: 0.3 }}
+			className={`sticky top-0 z-50 flex items-center justify-between px-4 lg:px-8 py-3 shadow-md border-b transition-all duration-300 ${
+				darkMode
+					? "bg-neutral-950 text-gray-200 border-neutral-800"
+					: "bg-white text-gray-800 border-gray-200"
+			}`}
+		>
+			{/* --- Left Section: Menu + Search --- */}
+			<div className="flex items-center gap-4">
+				<button
+					onClick={onMenuClick}
+					className="p-2 text-gray-500 hover:text-gray-800 dark:hover:text-gray-300 lg:hidden"
+				>
+					<FaBars size={20} />
+				</button>
 
-              <nav className="flex flex-col p-3 space-y-2">
-                {links.map((link, i) => (
-                  <Link
-                    key={i}
-                    href={link.href}
-                    onClick={() => setOpen(false)} // close drawer on navigation
-                    className="flex items-center gap-3 p-3 rounded-md text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-neutral-800 transition"
-                  >
-                    <span className="text-indigo-600 dark:text-indigo-400">
-                      {link.icon}
-                    </span>
-                    <span>{link.label}</span>
-                  </Link>
-                ))}
-              </nav>
-            </SheetContent>
-          </Sheet>
-        </div>
+				{/* Page Title + Breadcrumb */}
+				<div className="flex flex-col">
+			
+						<nav className="text-sm text-gray-500 dark:text-gray-400 flex gap-2">
+							{breadcrumbs.map((crumb, idx) => (
+								<span
+									key={idx}
+									onClick={() => router.push(crumb.href)}
+									className="cursor-pointer hover:underline hover:text-lime-600 dark:hover:text-lime-400 transition"
+								>
+									{crumb.label}
+									{idx < breadcrumbs.length - 1 && " /"}
+								</span>
+							))}
+						</nav>
+					</div>
+				</div>
 
-        {/* Page Title */}
-        <div className="flex flex-col">
-          <h1 className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-            Dashboard
-          </h1>
-          <nav className="text-sm text-gray-500 dark:text-gray-400">
-            Home / Dashboard
-          </nav>
-        </div>
-      </div>
+			{/* --- Right Section: Icons + Profile --- */}
+			<div className="flex items-center gap-5">
+				{/* Notifications */}
+				<button className="relative text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+					<FaBell size={20} />
+					<span className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full"></span>
+				</button>
 
-      {/* Middle: Search Bar */}
-      <div className="flex-1 mx-4 hidden sm:flex items-center">
-        <div className="relative w-full max-w-md">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">
-            <FaSearch />
-          </span>
-          <input
-            type="text"
-            aria-label="Search"
-            placeholder="Search..."
-            className="w-full pl-10 pr-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-neutral-700 text-sm text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-          />
-        </div>
-      </div>
+				{/* Messages */}
+				<button className="relative text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+					<FaEnvelope size={20} />
+					<span className="absolute top-0 right-0 w-2.5 h-2.5 bg-blue-500 rounded-full"></span>
+				</button>
 
-      {/* Right: Icons & Avatar */}
-      <div className="flex items-center gap-4">
-        {/* Notifications */}
-        <button
-          aria-label="Notifications"
-          className="relative p-2 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 transition"
-        >
-          <FaBell className="text-gray-600 dark:text-gray-300" />
-          <span className="absolute top-1 right-1 inline-block w-2 h-2 bg-red-500 rounded-full"></span>
-        </button>
+				{/* Dark Mode Toggle */}
+				<button
+					onClick={toggleDarkMode}
+					className="text-gray-500 hover:text-yellow-400 dark:hover:text-yellow-300 transition"
+				>
+					{darkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
+				</button>
 
-        {/* Theme Toggle */}
-        <button
-          aria-label="Toggle Theme"
-          onClick={toggleDarkMode}
-          className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 transition"
-        >
-          {darkMode ? (
-            <FaSun className="text-yellow-400" />
-          ) : (
-            <FaMoon className="text-gray-600" />
-          )}
-        </button>
+				{/* User Profile Dropdown */}
+				<div className="relative" ref={dropdownRef}>
+					<button
+						onClick={() => setDropdownOpen((prev) => !prev)}
+						className="flex items-center gap-2 focus:outline-none"
+					>
+						{session?.user?.image ? (
+							<img
+								src={session.user.image}
+								alt="User"
+								className="w-8 h-8 rounded-full border border-gray-300"
+							/>
+						) : (
+							<FaUserCircle size={28} className="text-gray-500" />
+						)}
+					</button>
 
-        {/* Avatar */}
-        <div className="relative">
-          <button
-            onClick={() => setAvatarMenuOpen(!avatarMenuOpen)}
-            className="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          >
-            A
-          </button>
-
-          {avatarMenuOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-neutral-800 shadow-lg rounded-md overflow-hidden z-50">
-              <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-neutral-700">
-                Profile
-              </button>
-              <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-neutral-700">
-                Settings
-              </button>
-              <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-neutral-700">
-                Logout
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-    </header>
-  );
+					{dropdownOpen && (
+						<motion.div
+							initial={{ opacity: 0, y: -5 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: -5 }}
+							transition={{ duration: 0.2 }}
+							className={`absolute right-0 mt-2 w-48 rounded-lg shadow-lg border z-50 ${
+								darkMode
+									? "bg-neutral-900 border-neutral-800 text-gray-200"
+									: "bg-white border-gray-200 text-gray-800"
+							}`}
+						>
+							<ul className="py-2">
+								<li className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">
+									Profile
+								</li>
+								<li className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer">
+									Settings
+								</li>
+								<li className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-neutral-800 cursor-pointer text-red-500">
+									Logout
+								</li>
+							</ul>
+						</motion.div>
+					)}
+				</div>
+			</div>
+		</motion.header>
+	);
 }

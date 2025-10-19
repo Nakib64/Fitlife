@@ -10,6 +10,8 @@ import { routing } from "@/i18n/routing";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Providers from "./component/Provider/Provider";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
+import { notFound } from "next/navigation";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -34,25 +36,22 @@ export default async function RootLayout({ children, params }) {
 		notFound();
 	}
 	return (
-		<html lang={locale}>
-			
-				<NextAuthSessionProvider>
-					<body
-						className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-					>
-
-						<NextIntlClientProvider>
-							<Providers>
+		<html lang={locale} data-theme="light">
+			<NextAuthSessionProvider>
+				<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+					<NextIntlClientProvider>
+						<Providers>
 							<Navbar></Navbar>
+							<SpeedInsights />
 							<Toaster richColors closeButton />
 							{children}
 							<ChatButton />
 							<LanguageSwitcher></LanguageSwitcher>
 							<Footer></Footer>
-							</Providers>
-						</NextIntlClientProvider>
-					</body>
-				</NextAuthSessionProvider>
+						</Providers>
+					</NextIntlClientProvider>
+				</body>
+			</NextAuthSessionProvider>
 		</html>
 	);
 }

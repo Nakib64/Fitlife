@@ -57,16 +57,17 @@ function SelectInput({ icon, label, value, onChange, options = [] }) {
 /* ---------- Tab Button ---------- */
 function TabButton({ label, active, onClick }) {
   return (
-    <button
-      onClick={onClick}
-      className={`px-4 py-2 rounded-full font-semibold transition-all ${
-        active
-          ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg"
-          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-      }`}
-    >
-      {label}
-    </button>
+   <button
+  onClick={onClick}
+  className={`px-4 py-2 rounded-full font-semibold transition-all ${
+    active
+      ? "bg-[#7CCF00] text-[#1A3438] shadow-lg hover:bg-[#6ABA00]"
+      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+  }`}
+>
+  {label}
+</button>
+
   );
 }
 
@@ -283,13 +284,14 @@ export default function MyMealsPage() {
           {/* Generate Button */}
           <div className="mt-8">
             <button
-              onClick={handleGenerate}
-              disabled={loading}
-              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-4 rounded-full font-bold text-lg shadow-xl transition transform hover:-translate-y-0.5 disabled:opacity-60 flex justify-center items-center gap-3 cursor-pointer"
-            >
-              <FaSyncAlt className={loading ? "animate-spin" : ""} />
-              {loading ? "Generating…" : "Generate Macro Plan"}
-            </button>
+  onClick={handleGenerate}
+  disabled={loading}
+  className="w-full bg-[#7CCF00] hover:bg-[#6ABA00] text-[#1A3438] py-4 rounded-full font-bold text-lg shadow-xl transition-all transform hover:-translate-y-0.5 disabled:opacity-60 flex justify-center items-center gap-3 cursor-pointer"
+>
+  <FaSyncAlt className={loading ? "animate-spin" : ""} />
+  {loading ? "Generating…" : "Generate Macro Plan"}
+</button>
+
           </div>
 
           {/* Loading Overlay */}
@@ -363,17 +365,18 @@ function BasicForm({ form, setField, toggleMealType }) {
           {["Breakfast","Lunch","Dinner","Snack"].map((m) => {
             const active = form.meals.includes(m);
             return (
-              <button
-                key={m}
-                onClick={() => toggleMealType(m)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition ${
-                  active
-                    ? "bg-green-600 text-white shadow-md"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                {m}
-              </button>
+           <button
+  key={m}
+  onClick={() => toggleMealType(m)}
+  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+    active
+      ? "bg-[#7CCF00] text-[#1A3438] shadow-md hover:bg-[#6ABA00]"
+      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+  }`}
+>
+  {m}
+</button>
+
             );
           })}
         </div>
@@ -454,12 +457,13 @@ function AdvancedForm({ form, setField, updateTarget, toggleAllergy, allergyOpti
             } focus:outline-none transition`}
           />
 
-          <button
-            onClick={addCustomAllergy}
-            className="px-4 py-2 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition"
-          >
-            Add
-          </button>
+         <button
+  onClick={addCustomAllergy}
+  className="px-4 py-2 bg-[#7CCF00] hover:bg-[#6ABA00] text-[#1A3438] rounded-xl font-semibold transition-all shadow hover:shadow-lg"
+>
+  Add
+</button>
+
         </div>
 
         {/* Display custom allergies */}
@@ -473,17 +477,18 @@ function AdvancedForm({ form, setField, updateTarget, toggleAllergy, allergyOpti
               className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm flex items-center gap-1"
             >
               {a}
-              <button
-                onClick={() =>
-                  setField(
-                    "allergies",
-                    form.allergies.filter((al) => al !== a)
-                  )
-                }
-                className="text-green-700 font-bold text-xs ml-1"
-              >
-                ×
-              </button>
+             <button
+  onClick={() =>
+    setField(
+      "allergies",
+      form.allergies.filter((al) => al !== a)
+    )
+  }
+  className="text-[#7CCF00] font-bold text-xs ml-1 hover:text-[#6ABA00] transition-colors"
+>
+  ×
+</button>
+
     </motion.div>
           ))}
         </div>

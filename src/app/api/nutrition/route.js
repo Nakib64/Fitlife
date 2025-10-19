@@ -35,14 +35,53 @@ function sampleDishForMeal(mealName, dietType) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function generateFallbackPlan(form) {
+  const targetCalories = Number(form.calories) || 2000;
+  const distribution = {
+    Breakfast: Math.round(targetCalories * 0.25),
+    Lunch: Math.round(targetCalories * 0.3),
+    Dinner: Math.round(targetCalories * 0.3),
+    Snack: Math.round(targetCalories * 0.15),
+  };
+
+  const meals = (form.meals || ["Breakfast", "Lunch", "Dinner", "Snack"]).map((m) => {
+    const cals = distribution[m] || Math.round(targetCalories / 3);
+    const proteinG = Math.round((cals * 0.3) / 4);
+    const carbsG = Math.round((cals * 0.45) / 4);
+    const fatG = Math.round((cals * 0.25) / 9);
+    return {
+      name: m,
+      calories: cals,
+      protein: proteinG,
+      carbs: carbsG,
+      fat: fatG,
+      sample: sampleDishForMeal(m, form.dietType || "Anything"),
+      notes: "",
+    };
+  });
+
+  return {
+    generatedAt: new Date().toISOString(),
+    summary: `Auto-generated fallback plan ~${targetCalories} kcal`,
+    meals,
+    source: "Fallback",
+  };
+}
+
 export async function POST(req) {
   try {
     const body = await req.json();
     const form = body.form || {};
+    const apiKey = process.env.OPENROUTER_API_KEY_MEAL;
 
-    // AI prompt
+    if (!apiKey) {
+      console.warn("⚠️ No OpenRouter API key found — using fallback data.");
+      return NextResponse.json({ plan: generateFallbackPlan(form) });
+    }
+
+    // Build prompt
     const prompt = `
-You are a professional registered dietitian. Given the user JSON below, generate a ONE-DAY meal plan (or up to the selected meal types) that meets the user's calorie & macro targets if provided. Return ONLY valid JSON, nothing else.
+You are a registered dietitian. Given the user JSON below, generate a realistic one-day meal plan as JSON only.
 
 USER:
 ${JSON.stringify(form)}
@@ -50,99 +89,52 @@ ${JSON.stringify(form)}
 OUTPUT FORMAT (JSON):
 {
   "generatedAt": "<ISO timestamp>",
-  "summary": "short single-line summary",
+  "summary": "short summary",
   "meals": [
-    {
-      "name": "Breakfast",
-      "calories": 0,
-      "protein": 0,
-      "carbs": 0,
-      "fat": 0,
-      "sample": "Short dish name / 1-line description",
-      "notes": "optional notes e.g. substitutions"
-    }
+    { "name": "Breakfast", "calories": 0, "protein": 0, "carbs": 0, "fat": 0, "sample": "short dish name" }
   ]
 }
-
-If the user provided targets (calories/protein/carbs/fat), try to honour them approximately. Avoid ingredients based on dietType/allergies. Include only the meal types present in form.meals. Keep numbers realistic.
 `;
 
-    const OPENROUTER_API_KEY_MEAL = process.env.OPENROUTER_API_KEY_MEAL;
+    const resp = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: "openai/gpt-3.5-turbo",
+        messages: [
+          { role: "system", content: "You are a helpful dietitian and respond only in JSON." },
+          { role: "user", content: prompt },
+        ],
+        max_tokens: 1000,
+        temperature: 0.2,
+      }),
+    });
 
-    if (OPENROUTER_API_KEY_MEAL) {
-      console.log("Using OpenRouter AI");
+    const data = await resp.json();
 
-      const resp = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${OPENROUTER_API_KEY_MEAL}`,
-        },
-        body: JSON.stringify({
-          model: "openai/gpt-3.5-turbo",
-          messages: [
-            { role: "system", content: "You are a helpful dietitian and respond only in JSON as requested." },
-            { role: "user", content: prompt },
-          ],
-          max_tokens: 1000,
-          temperature: 0.2,
-        }),
-      });
+    const text =
+      data?.choices?.[0]?.message?.content?.trim() ||
+      data?.output?.[0]?.content?.trim() ||
+      "";
 
-      const data = await resp.json();
-
-      // Extract text from response
-      const text = data?.choices?.[0]?.message?.content ?? data?.output?.[0]?.content ?? "";
-
-      // Try parsing AI JSON safely
-      try {
-        const plan = JSON.parse(text);
-        plan.source = "AI"; // mark as AI-generated
-        return NextResponse.json({ plan });
-      } catch (err) {
-        console.warn("Failed to parse AI JSON, returning raw text.", err);
-        return NextResponse.json({ planText: text, source: "AI" });
-      }
-
-    } else {
-      console.log("Using local fallback dummy data");
-
-      const targetCalories = Number(form.calories) || 2000;
-      const distribution = {
-        Breakfast: Math.round(targetCalories * 0.25),
-        Lunch: Math.round(targetCalories * 0.3),
-        Dinner: Math.round(targetCalories * 0.3),
-        Snack: Math.round(targetCalories * 0.15),
-      };
-
-      const meals = (form.meals || ["Breakfast", "Lunch", "Dinner", "Snack"]).map((m) => {
-        const cals = distribution[m] || Math.round(targetCalories / 3);
-        const proteinG = Math.round((cals * 0.3) / 4);
-        const carbsG = Math.round((cals * 0.45) / 4);
-        const fatG = Math.round((cals * 0.25) / 9);
-        return {
-          name: m,
-          calories: cals,
-          protein: proteinG,
-          carbs: carbsG,
-          fat: fatG,
-          sample: sampleDishForMeal(m, form.dietType || "Anything"),
-          notes: "",
-        };
-      });
-
-      const plan = {
-        generatedAt: new Date().toISOString(),
-        summary: `Auto-generated fallback plan ~${targetCalories} kcal`,
-        meals,
-        source: "Dummy",
-      };
-
-      return NextResponse.json({ plan });
+    if (!text) {
+      console.warn("Empty response from AI, using fallback plan.");
+      return NextResponse.json({ plan: generateFallbackPlan(form) });
     }
 
+    try {
+      const plan = JSON.parse(text);
+      plan.source = "AI";
+      return NextResponse.json({ plan });
+    } catch (err) {
+      console.warn("⚠️ Failed to parse AI JSON, using fallback plan.");
+      return NextResponse.json({ plan: generateFallbackPlan(form) });
+    }
   } catch (err) {
-    console.error("Error in /api/nutrition:", err);
-    return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
+    console.error("❌ Error in /api/nutrition:", err);
+    return NextResponse.json({ plan: generateFallbackPlan({}) });
   }
 }

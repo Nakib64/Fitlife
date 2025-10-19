@@ -7,38 +7,55 @@ import { useTranslations } from "next-intl";
 import WorkoutStepForm from "./WorkoutForm";
 
 const steps = [
-  { key: "age", emojiKey: "step1_emoji", titleKey: "step1_title", isNumber: true },
-  { 
-    key: "gender", 
-    emojiKey: "step2_emoji", 
-    titleKey: "step2_title", 
-    optionsKeys: ["step2_option1","step2_option2"] 
+  {
+    key: "age",
+    emojiKey: "step1_emoji",
+    titleKey: "step1_title",
+    isNumber: true,
   },
-  { 
-    key: "goal", 
-    emojiKey: "step3_emoji", 
-    titleKey: "step3_title", 
-    optionsKeys: ["step3_option1","step3_option2","step3_option3"] 
+  {
+    key: "gender",
+    emojiKey: "step2_emoji",
+    titleKey: "step2_title",
+    optionsKeys: ["step2_option1", "step2_option2"],
   },
-  { 
-    key: "fitness_level", 
-    emojiKey: "step4_emoji", 
-    titleKey: "step4_title", 
-    optionsKeys: ["step4_option1","step4_option2","step4_option3"] 
+  {
+    key: "goal",
+    emojiKey: "step3_emoji",
+    titleKey: "step3_title",
+    optionsKeys: ["step3_option1", "step3_option2", "step3_option3"],
   },
-  { 
-    key: "equipment", 
-    emojiKey: "step5_emoji", 
-    titleKey: "step5_title", 
-    optionsKeys: ["step5_option1","step5_option2"] 
+  {
+    key: "fitness_level",
+    emojiKey: "step4_emoji",
+    titleKey: "step4_title",
+    optionsKeys: ["step4_option1", "step4_option2", "step4_option3"],
   },
-  { 
-    key: "days_per_week", 
-    emojiKey: "step6_emoji", 
-    titleKey: "step6_title", 
-    optionsKeys: ["step6_option1","step6_option2", "step6_option3","step6_option4","step6_option5", "step6_option6"] 
+  {
+    key: "equipment",
+    emojiKey: "step5_emoji",
+    titleKey: "step5_title",
+    optionsKeys: ["step5_option1", "step5_option2"],
   },
-  { key: "time_per_session_minutes", emojiKey: "step7_emoji", titleKey: "step7_title", isClock: true },
+  {
+    key: "days_per_week",
+    emojiKey: "step6_emoji",
+    titleKey: "step6_title",
+    optionsKeys: [
+      "step6_option1",
+      "step6_option2",
+      "step6_option3",
+      "step6_option4",
+      "step6_option5",
+      "step6_option6",
+    ],
+  },
+  {
+    key: "time_per_session_minutes",
+    emojiKey: "step7_emoji",
+    titleKey: "step7_title",
+    isClock: true,
+  },
 ];
 
 export default function WorkoutModal({ onGenerate }) {
@@ -91,7 +108,7 @@ export default function WorkoutModal({ onGenerate }) {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <button className="px-6 py-3 bg-blue-600 text-white rounded-xl shadow-lg hover:bg-blue-700 text-lg font-bold">
+        <button className="px-6 py-3 bg-lime-400 text-[#1A3438] rounded-xl shadow-lg hover:shadow-xl text-lg font-bold transition-all hover:-translate-y-0.5">
           {t("generate_btn")}
         </button>
       </Dialog.Trigger>
@@ -156,7 +173,7 @@ export default function WorkoutModal({ onGenerate }) {
                 !formData[steps[currentStep].key] ||
                 formData[steps[currentStep].key].toString().trim() === ""
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-green-500 hover:bg-green-600"
+                  : "bg-lime-400 hover:bg-lime-400"
               }`}
             >
               {currentStep === steps.length - 1
@@ -166,7 +183,10 @@ export default function WorkoutModal({ onGenerate }) {
           </div>
 
           <div className="mt-4 text-center text-gray-500 text-sm">
-            {t("step_progress", { current: currentStep + 1, total: steps.length })}
+            {t("step_progress", {
+              current: currentStep + 1,
+              total: steps.length,
+            })}
           </div>
         </Dialog.Content>
       </Dialog.Portal>

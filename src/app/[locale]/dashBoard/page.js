@@ -24,7 +24,7 @@ const data = [
 
 export default function Page() {
   return (
-    <div className="space-y-10 p-8 bg-gray-50 dark:bg-neutral-900 min-h-screen">
+    <div className="space-y-10  min-h-screen">
       {/* Title */}
       <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
         📊 Fitness Dashboard
@@ -79,7 +79,8 @@ export default function Page() {
       </div>
 
       {/* Chart */}
-      <div className="p-6 bg-white dark:bg-neutral-800 rounded-xl shadow-md">
+      <div className="p-6 bg-white dark:bg-neutral-800 rounded-xl shadow-md overflow-auto">
+        <div className="w-full min-w-[900px]">
         <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">
           Calories Burned This Week
         </h2>
@@ -113,6 +114,7 @@ export default function Page() {
             />
           </LineChart>
         </ResponsiveContainer>
+      </div>
       </div>
     </div>
   );

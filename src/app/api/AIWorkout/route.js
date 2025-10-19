@@ -12,7 +12,7 @@ export async function POST(req) {
 					Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
 				},
 				body: JSON.stringify({
-					model: "deepseek/deepseek-chat-v3.1:free", // ⚡ Faster model
+					model: "openai/gpt-oss-20b:free", // ⚡ Faster model
 					messages: [
 						{
 							role: "system",
@@ -53,16 +53,13 @@ Respond in this format:
 		);
 
 		const data = await response.json();
-
+		if(data)console.log(data);
 		let plan = [];
 
 		// --- Step 2: Parse AI Response ---
 		try {
-			
-			
 			if (data?.choices?.[0]?.message?.content) {
 				let content = data.choices[0].message.content;
-
 				// Remove markdown fences
 				content = content.replace(/```json|```/g, "");
 

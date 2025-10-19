@@ -10,27 +10,18 @@ import { useSession } from "next-auth/react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isClient, setIsClient] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const t = useTranslations("navbar");
   const { data: session } = useSession();
 
-  useEffect(() => {
-    setIsClient(true)
-  }, []);
-
   const navLinks = [
     { name: t("myWorkouts"), href: "/myworkouts" },
     { name: t("myMeals"), href: "/meals" },
+    { name: t("Health"), href: "/health-advisor" },
     { name: t("wellness"), href: "/wellness" },
-    { name: t("achievements"), href: "/achievements" },
     { name: t("about"), href: "/about" },
   ];
-
-  if (session && isClient) {
-    navLinks.push({ name: t("dashboard"), href: "/dashBoard" });
-  }
 
   const hiddenPaths = [
     "/signup",
@@ -41,79 +32,107 @@ const Navbar = () => {
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (hiddenPaths.some((p) => pathname.includes(p))) {
-    return <></>;
-  }
+  if (hiddenPaths.some((p) => pathname.includes(p))) return null;
 
   return (
-    <div
-      className={`w-full bg-white z-50 ${
-        scrolled ? "fixed top-0 left-0 border-b border-gray-200" : "relative"
+    <nav
+      className={`w-full bg-white z-50 transition-all duration-300 ${
+        scrolled
+          ? "fixed top-0 left-0 shadow-sm border-b border-gray-200"
+          : "relative"
       }`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 h-20 lg:h-16">
-        {/* Logo */}
-        <Link href={"/"}>
-          <Image
-            src="/Logo/logo.png"
-            height={80}
-            width={160}
-            alt="Logo"
-            className="object-contain h-12 sm:h-14 md:h-16 lg:h-20 w-auto"
-          />
-        </Link>
-
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-6 lg:space-x-10">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-gray-800 hover:text-green-500 text-sm lg:text-base xl:text-lg"
-            >
-              {link.name}
-            </Link>
-          ))}
-          <UserInfo />
-        </div>
-
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-2  h-16">
+        {/* Left Section: Menu + Logo */}
+        <div className="flex items-center gap-3">
+          {/* Mobile Menu Button */}
           <button
-            className="focus:outline-none"
+            className="md:hidden text-gray-700 focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+            {isOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
+
+          {/* Logo */}
+          <Link href="/">
+            <Image
+              src="/Logo/logo.png"
+              height={50}
+              width={120}
+              alt="Logo"
+              className="object-contain  sm:h-12 md:h-26 w-auto"
+            />
+          </Link>
+        </div>
+
+        {/* Center: Desktop Navigation */}
+        <div className="hidden md:flex items-center space-x-8">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="relative text-gray-800 font-medium transition group"
+              >
+                <span
+                  className={`${
+                    isActive ? "text-lime-600" : "group-hover:text-lime-500"
+                  } transition-colors duration-300`}
+                >
+                  {link.name}
+                </span>
+                {/* Underline Animation */}
+                <span
+                  className={`absolute left-0 -bottom-1 h-[2px] bg-lime-400 transition-all duration-300 ease-out ${
+                    isActive
+                      ? "w-full"
+                      : "w-0 group-hover:w-full"
+                  }`}
+                ></span>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Right: User Info */}
+        <div className="flex items-center">
+          <UserInfo />
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Dropdown Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white shadow-md">
-          <div className="flex flex-col items-center space-y-4 py-6">
+        <div className="md:hidden bg-white shadow-md border-t border-gray-100">
+          <div className="flex flex-col items-center space-y-4 py-5">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="text-gray-700 hover:text-blue-600 text-base sm:text-lg"
+                className={`relative text-gray-700 text-base font-medium transition group ${
+                  pathname === link.href ? "text-lime-600" : "hover:text-lime-500"
+                }`}
               >
                 {link.name}
+                <span
+                  className={`absolute left-0 -bottom-1 h-[2px] bg-lime-400 transition-all duration-300 ease-out ${
+                    pathname === link.href
+                      ? "w-full"
+                      : "w-0 group-hover:w-full"
+                  }`}
+                ></span>
               </Link>
             ))}
-            <UserInfo />
           </div>
         </div>
       )}
-    </div>
+    </nav>
   );
 };
 
