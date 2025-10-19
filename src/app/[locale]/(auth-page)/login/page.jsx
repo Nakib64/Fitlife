@@ -43,7 +43,7 @@ export default function Login() {
 					setIsLocked(true);
 				}
 
-				if (res.error === "OTP_SENT") {
+				if (res.error === "OTP SENT") {
 					// store email/password temporarily in session storage so verify page can finalize login
 					sessionStorage.setItem("otpEmail", loginData.email);
 					sessionStorage.setItem("otpPassword", loginData.password);
@@ -51,7 +51,7 @@ export default function Login() {
 					sessionStorage.setItem("otpCreatedAt", Date.now().toString());
 
 					// redirect to verify page
-					router.push(`/verify-otp?email=${encodeURIComponent(loginData.email)}`);
+					router.push(`/verify-otp?email=${(loginData?.email)}`);
 				} else {
 					toast.error(res.error || "Invalid credentials, please try again.");
 				}
