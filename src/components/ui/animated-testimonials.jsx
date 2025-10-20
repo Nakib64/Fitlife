@@ -39,7 +39,7 @@ export const AnimatedTestimonials = ({ testimonials, autoplay = false }) => {
       <div className="mx-auto max-w-6xl px-4 font-sans antialiased md:px-8 lg:px-12">
         {/* --- Section Heading --- */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-wide bg-gradient-to-r from-gray-800 via-slate-700 to-blue-600 text-transparent bg-clip-text animate-gradient">
             What Our Clients Say
           </h2>
           <p className="mt-2 text-gray-600">
