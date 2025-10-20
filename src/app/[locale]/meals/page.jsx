@@ -275,7 +275,7 @@ export default function MyMealsPage() {
 
 	return (
 		<div className="min-h-screen  text-gray-900 py-12 px-6">
-			<div className="max-w-7xl mx-auto">
+			<div className="max-w-7xl mx-auto ">
 				{/* Header */}
 				<motion.div
 					initial={{ opacity: 0, y: -20 }}
@@ -339,7 +339,7 @@ export default function MyMealsPage() {
 						<button
 							onClick={handleGenerate}
 							disabled={loading}
-							className="w-full bg-[#7CCF00] hover:bg-[#6ABA00] text-[#1A3438] py-4 rounded-full font-bold text-lg shadow-xl transition-all transform hover:-translate-y-0.5 disabled:opacity-60 flex justify-center items-center gap-3 cursor-pointer"
+							className="w-full bg-[#7CCF00] hover:bg-[#6ABA00] text-[#1A3438] p-4 rounded-full font-bold text-lg shadow-xl transition-all transform hover:-translate-y-0.5 disabled:opacity-60 flex justify-center items-center gap-3 cursor-pointer"
 						>
 							<FaSyncAlt className={loading ? "animate-spin" : ""} />
 							{loading ? "Generating…" : "Generate Macro Plan"}
@@ -593,14 +593,14 @@ function AdvancedForm({
 				</div>
 
 				{/* Custom allergy input */}
-				<div className="flex gap-2 items-center mt-2">
+				<div className="flex flex-wrap gap-2 sm:items-center mt-2">
 					<input
 						type="text"
 						value={customAllergy}
 						onChange={(e) => handleTyping(e.target.value)}
 						onKeyDown={(e) => e.key === "Enter" && addCustomAllergy()}
 						placeholder="Add other allergy..."
-						className={`flex-1 px-4 py-2 rounded-xl border ${
+						className={`flex-1 sm:px-4 px-2 py-2 text-sm rounded-xl border  ${
 							typing
 								? "border-green-400 shadow-md animate-pulse"
 								: "border-gray-200 focus:ring-2 focus:ring-green-200 focus:border-green-400"
