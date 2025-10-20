@@ -13,7 +13,7 @@ export default function AICoachChat({ onClose }) {
       sender: "ai",
       text: "Hi! I’m your AI Coach. Ask me anything about workouts, nutrition, or motivation!",
     },
-  ]);
+  ]); 
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
