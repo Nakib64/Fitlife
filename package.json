@@ -8,12 +8,6 @@
     "start": "next start"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@headlessui/react": "^2.2.9",
-    "@radix-ui/react-accordion": "^1.2.12",
-    "@radix-ui/react-dialog": "^1.1.15",
-=======
->>>>>>> 83680186996bf099298b74cf7f94944eea62dd7c
     "@radix-ui/react-dropdown-menu": "^2.1.16",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-select": "^2.2.6",
@@ -55,14 +49,6 @@
     "react-markdown": "^10.1.0",
     "react-slick": "^0.31.0",
     "recharts": "^3.2.1",
-<<<<<<< HEAD
-    "rehype-highlight": "^7.0.2",
-    "remark-gfm": "^4.0.1",
-    "slick-carousel": "^1.8.1",
-    "socket.io": "^4.8.1",
-    "socket.io-client": "^4.8.1",
-=======
->>>>>>> 83680186996bf099298b74cf7f94944eea62dd7c
     "sonner": "^2.0.7",
     "swiper": "^12.0.2",
     "tailwind-merge": "^3.3.1",
