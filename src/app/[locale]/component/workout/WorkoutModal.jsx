@@ -115,12 +115,12 @@ export default function WorkoutModal({ onGenerate }) {
 
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/50" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-xl shadow-2xl w-[90%] max-w-md h-[400px]">
+        <Dialog.Content className="fixed z-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-xl shadow-2xl w-[90%] max-w-md h-[500px] lg:h-[450px]">
           <Dialog.Title className="text-2xl font-bold mb-4 text-center">
             {t("dialog_title")}
           </Dialog.Title>
 
-          <div className="relative w-full h-[180px] md:h-[220px]">
+          <div className="relative w-full h-3/5">
             <AnimatePresence mode="wait">
               <motion.div
                 key={steps[currentStep].key}

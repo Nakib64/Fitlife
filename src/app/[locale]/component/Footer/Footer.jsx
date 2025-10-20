@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const pathname = usePathname();
-  
+  const t = useTranslations("footer");
 
   if (pathname.includes("dashBoard")) {
     return ;
@@ -15,7 +15,7 @@ export default function Footer() {
   const headline = "FITLIFE COACH";
   const bgImage = "/about/marque.jpg";
 
-  const t = useTranslations("footer");
+  
 
   const footerLinks = [
     {
@@ -109,7 +109,7 @@ export default function Footer() {
 
       {/* marquee */}
       <div
-        className="relative w-full h-[30vh] md:h-[40vh] overflow-hidden"
+        className="relative w-full h-[20vh] xl:h-[40vh] overflow-hidden"
         style={{
           backgroundImage: `url(${bgImage})`,
           backgroundSize: "cover",
