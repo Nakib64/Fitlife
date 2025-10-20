@@ -24,14 +24,14 @@ const data = [
 
 export default function Page() {
   return (
-    <div className="space-y-10  min-h-screen">
+    <div className="space-y-10 min-h-screen px-4 sm:px-6 lg:px-8">
       {/* Title */}
-      <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+      <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight text-center sm:text-left">
         📊 Fitness Dashboard
       </h1>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {/* Card 1 */}
         <div className="p-6 bg-white dark:bg-neutral-800 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
           <div className="flex items-center gap-4">
@@ -79,42 +79,42 @@ export default function Page() {
       </div>
 
       {/* Chart */}
-      <div className="p-6 bg-white dark:bg-neutral-800 rounded-xl shadow-md overflow-auto">
-        <div className="w-full min-w-[900px]">
+      <div className="p-6 bg-white dark:bg-neutral-800 rounded-xl shadow-md overflow-x-auto">
         <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">
           Calories Burned This Week
         </h2>
-        <ResponsiveContainer width="100%" height={400}>
-          <LineChart data={data}>
-            <defs>
-              <linearGradient id="colorCal" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4} />
-                <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <Line
-              type="monotone"
-              dataKey="calories"
-              stroke="#6366f1"
-              strokeWidth={3}
-              dot={{ r: 4, strokeWidth: 2, fill: "#fff" }}
-              activeDot={{ r: 6 }}
-            />
-            <CartesianGrid stroke="#e0e0e0" strokeDasharray="5 5" />
-            <XAxis dataKey="day" tick={{ fill: "#555", fontWeight: "bold" }} />
-            <YAxis tick={{ fill: "#555", fontWeight: "bold" }} />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "#1f2937",
-                borderRadius: "8px",
-                border: "none",
-                color: "#fff",
-                padding: "10px",
-              }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+        <div className="w-full">
+          <ResponsiveContainer width="100%" height={400}>
+            <LineChart data={data}>
+              <defs>
+                <linearGradient id="colorCal" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <Line
+                type="monotone"
+                dataKey="calories"
+                stroke="#6366f1"
+                strokeWidth={3}
+                dot={{ r: 4, strokeWidth: 2, fill: "#fff" }}
+                activeDot={{ r: 6 }}
+              />
+              <CartesianGrid stroke="#e0e0e0" strokeDasharray="5 5" />
+              <XAxis dataKey="day" tick={{ fill: "#555", fontWeight: "bold" }} />
+              <YAxis tick={{ fill: "#555", fontWeight: "bold" }} />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "#1f2937",
+                  borderRadius: "8px",
+                  border: "none",
+                  color: "#fff",
+                  padding: "10px",
+                }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );
