@@ -1,20 +1,12 @@
 "use client";
 import { usePathname } from "next/navigation";
-import {
-  Home,
-  User,
-  BarChart2,
-  Award,
-  Newspaper,
-  User2,
-} from "lucide-react";
+import { Home, User, BarChart2, Award, Newspaper, User2 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useMemo, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { IoMdStopwatch } from "react-icons/io";
-import { FiX } from "react-icons/fi";
 
-export default function Sidebar({ mobileOpen, setMobileOpen }) {
+export default function Sidebar() {
   const pathname = usePathname();
   const { data: session } = useSession();
   const role = session?.user?.role || "user";
@@ -22,7 +14,6 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
   const [hovered, setHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Detect mobile
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
     handleResize();
@@ -46,8 +37,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
   }, [role]);
 
   const sidebarContent = (
-    <>
-      {/* Sidebar Header */}
+    <div className="flex flex-col h-full">
       <div className="p-4 flex items-center gap-3 border-b border-lime-200 dark:border-neutral-700">
         <Home size={28} className={`transition-colors duration-300 ${hovered ? "text-lime-600" : "text-lime-500"}`} />
         <span
@@ -61,7 +51,6 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
         </span>
       </div>
 
-      {/* Navigation Links */}
       <nav className="flex-1 px-2 py-4 space-y-1">
         {links.map((link, i) => {
           const active = pathname === link.href;
@@ -95,7 +84,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
           );
         })}
       </nav>
-    </>
+    </div>
   );
 
   return (
@@ -113,29 +102,6 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
         {sidebarContent}
       </aside>
 
-      {/* Mobile Sidebar Drawer */}
-      <div className={`fixed inset-0 z-50 lg:hidden`}>
-        {/* Overlay */}
-        <div
-          className={`absolute inset-0 bg-black/40 transition-opacity ${mobileOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-          onClick={() => setMobileOpen(false)}
-        ></div>
-
-        {/* Sidebar */}
-        <div
-          className={`fixed top-0 left-0 h-full w-64 bg-lime-50 dark:bg-neutral-900 shadow-lg transform transition-transform duration-300 ease-in-out ${
-            mobileOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
-        >
-          <button
-            className="absolute top-4 right-4 p-2 text-gray-700 dark:text-gray-300"
-            onClick={() => setMobileOpen(false)}
-          >
-            <FiX size={24} />
-          </button>
-          {sidebarContent}
-        </div>
-      </div>
     </>
   );
 }
