@@ -82,15 +82,7 @@ export default function GamificationPage() {
     { day: "Sun", xp: 1000 },
   ];
 
-  // const badgesList = [
-  //   { id: 1, name: "Ten 10", color: "from-red-400 to-red-600", icon: <FaFireAlt /> },
-  //   { id: 2, name: "Twenty 20", color: "from-purple-400 to-purple-700", icon: <FaMedal /> },
-  //   { id: 3, name: "Quarter Century", color: "from-blue-400 to-blue-700", icon: <FaTrophy /> },
-  //   { id: 4, name: "Half Century", color: "from-yellow-400 to-yellow-600", icon: <FaStar /> },
-  //   { id: 5, name: "3 Quarter Century", color: "from-indigo-400 to-indigo-700", icon: <FaCrown /> },
-  //   { id: 6, name: "Super Century", color: "from-pink-400 to-pink-700", icon: <FaGem /> },
-  //   { id: 7, name: "Time Master", color: "from-sky-400 to-sky-700", icon: <FaClock /> },
-  // ];
+  
 
   // Define all possible badges and conditions
 const allBadges = [
@@ -169,7 +161,7 @@ const allBadges = [
           animate={{ opacity: 1 }}
           className={`bg-white dark:bg-[#111827] border border-gray-200 dark:border-gray-700 p-8 rounded-3xl ${cardShadow} flex flex-col md:flex-row items-center justify-between gap-6`}
         >
-          <div className="flex items-center gap-6">
+          <div className="flex flex-col sm:flex-row items-center gap-6">
             <div
               className="relative w-24 h-24 rounded-full flex items-center justify-center text-white text-3xl font-bold ring-4 ring-emerald-300 shadow-md"
               style={{ backgroundColor: user.avatarColor }}
@@ -227,7 +219,7 @@ const allBadges = [
   )}
 </p>
 
-            <div className="flex justify-center gap-3 pt-3">
+            <div className="flex flex-wrap justify-center gap-3 pt-3">
               {[...Array(10)].map((_, i) => (
                 <div
                   key={i}
