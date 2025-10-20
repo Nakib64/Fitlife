@@ -23,8 +23,8 @@ export default function WorkoutStepForm({
 			className="flex flex-col items-center gap-4 absolute top-0 left-0 w-full h-full"
 		>
 			{/* Dynamic Title */}
-			<div className="text-lg font-semibold text-center">{title || keyName}</div>
-			<div className="text-5xl">{emoji}</div>
+			<div className="text-md lg:text-lg font-semibold text-center">{title || keyName}</div>
+			<div className="text-2xl lg:text-5xl">{emoji}</div>
 
 			{isNumber ? (
 				<input
@@ -57,7 +57,7 @@ export default function WorkoutStepForm({
 						<button
 							key={opt.value}
 							onClick={() => onChange(opt.value)}
-							className={`px-4 py-3 rounded-xl shadow-lg text-lg font-bold transition-all ${
+							className={`px-2 lg:px-4 py-1 lg:py-3 rounded-xl shadow-lg text-lg font-bold transition-all ${
 								value === opt.value
 									? "bg-lime-400 text-white scale-105"
 									: "bg-gray-200 hover:bg-gray-300"
