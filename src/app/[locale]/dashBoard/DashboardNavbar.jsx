@@ -22,6 +22,14 @@ import {
 	SheetClose,
 } from "@/components/ui/sheet";
 import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
 	Home,
 	User,
 	BarChart2,
@@ -92,7 +100,7 @@ export default function DashboardNavbar() {
 				initial={{ opacity: 0, y: -10 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.3 }}
-				className={`sticky top-0 z-50 flex items-center justify-between px-4 lg:px-8 py-3 shadow-md border-b transition-all duration-300 ${
+				className={`sticky top-0 z-50 flex items-center justify-between lg:justify-end px-4 lg:px-8 py-3 shadow-md border-b transition-all duration-300 ${
 					darkMode
 						? "bg-neutral-950 text-gray-200 border-neutral-800"
 						: "bg-white text-gray-800 border-gray-200"
@@ -167,15 +175,22 @@ export default function DashboardNavbar() {
 						{darkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
 					</button>
 
-					{session?.user?.image ? (
-						<img
-							src={session.user.image}
-							alt="User"
-							className="w-8 h-8 rounded-full border border-gray-300"
-						/>
-					) : (
-						<FaUserCircle size={28} className="text-gray-500" />
-					)}
+					<DropdownMenu modal={false}>
+						<DropdownMenuTrigger>
+							{session?.user?.image ? (
+								<img
+									src={session.user.image}
+									alt="User"
+									className="w-8 h-8 rounded-full border border-gray-300"
+								/>
+							) : (
+								<FaUserCircle size={28} className="text-gray-500" />
+							)}
+						</DropdownMenuTrigger>
+						<DropdownMenuContent >
+							<DropdownMenuLabel><button>Logout</button></DropdownMenuLabel>
+						</DropdownMenuContent>
+					</DropdownMenu>
 				</div>
 			</motion.header>
 		</>
