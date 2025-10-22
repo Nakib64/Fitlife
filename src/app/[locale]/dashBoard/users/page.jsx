@@ -143,7 +143,7 @@ const Users = () => {
             }}
             value={String(limit)}
           >
-            <SelectTrigger className="w-28 border border-lime-300 dark:border-lime-700 rounded-lg shadow-sm hover:border-lime-500 transition">
+            <SelectTrigger className="w-28 border border-lime-300 dark:border-lime-700 rounded-lg shadow-sm hover:border-lime-500 transition dark:text-gray-400">
               <SelectValue placeholder={t("limitLabel")} />
             </SelectTrigger>
             <SelectContent>
@@ -163,7 +163,7 @@ const Users = () => {
             }}
             value={roleFilter || "all"}
           >
-            <SelectTrigger className="w-36 border border-lime-300 dark:border-lime-700 rounded-lg shadow-sm hover:border-lime-500 transition">
+            <SelectTrigger className="w-36 border border-lime-300 dark:text-gray-400 dark:border-lime-700 rounded-lg shadow-sm hover:border-lime-500 transition">
               <SelectValue placeholder={t("filterRole")} />
             </SelectTrigger>
             <SelectContent>
@@ -212,9 +212,9 @@ const Users = () => {
                   </TableRow>
                 ))
               : users.map((user) => (
-                  <TableRow key={user._id}>
+                  <TableRow key={user._id} className={"text-gray-600 dark:text-gray-400"}>
                     <TableCell className="font-medium">{user.name}</TableCell>
-                    <TableCell className="text-gray-600 dark:text-gray-300">
+                    <TableCell className="">
                       {user.email}
                     </TableCell>
                     <TableCell>

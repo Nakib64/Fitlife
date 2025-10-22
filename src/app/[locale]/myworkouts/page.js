@@ -11,6 +11,8 @@ import { toast } from "sonner";
 import { useRouter } from "@/i18n/navigation";
 import AIThinkingLoader from "../component/workoutLoading/WorkoutLoading";
 
+
+
 export default function Home({ params }) {
   const [workoutPlan, setWorkoutPlan] = useState([]);
   const [loading, setLoading] = useState(false);
