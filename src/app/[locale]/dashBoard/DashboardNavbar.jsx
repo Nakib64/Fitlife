@@ -179,7 +179,7 @@ export default function DashboardNavbar() {
 					</div>
 				</div>
 				<div>
-					<Button variant={"outline"} onClick={signOut()}>
+					<Button variant={"outline"} onClick={signOut}>
 						Logout
 					</Button>
 				</div>
