@@ -20,9 +20,16 @@ const notoSans = Merriweather({
 	style: ["normal"],
 });
 
-export const metadata={
-  title:"FitLife"
-}
+export const metadata = {
+  title: "FitLife Your AI Powered Fitness Trainer",
+  description: "FitLife Your AI Powered Fitness Trainer",
+  manifest: "/manifest.json",
+  themeColor: "#2563eb",
+  icons: {
+    icon: "/fitlife.jpg",
+    apple: "/fitlife.jpg",
+  },
+};
 
 
 

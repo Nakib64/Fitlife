@@ -1,0 +1,21 @@
+{
+  "name": "FitLife - Your AI Powered Fitness Trainer",
+  "short_name": "FitLife",
+  "description": "Offline-ready Progressive Web App built with Next.js",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/fitlife.jpg",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/fitlife.jpg",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
