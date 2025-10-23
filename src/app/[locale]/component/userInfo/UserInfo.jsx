@@ -42,7 +42,7 @@ const UserInfo = () => {
 									className="rounded-full object-cover border border-lime-300"
 								/>
 							) : (
-								<div className="w-9 h-9 hidden rounded-full bg-lime-500 text-white lg:flex items-center justify-center font-semibold">
+								<div className="w-9 h-9  rounded-full bg-lime-500 text-white flex items-center justify-center font-semibold">
 									{firstName.charAt(0).toUpperCase()}
 								</div>
 							)}
