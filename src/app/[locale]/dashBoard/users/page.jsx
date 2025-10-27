@@ -127,7 +127,7 @@ const Users = () => {
           <Input
             type="text"
             placeholder={t("searchPlaceholder")}
-            className="w-64 border border-lime-300 dark:border-lime-700 rounded-lg shadow-sm focus:border-lime-500 focus:ring-lime-200 transition"
+            className="w-64 border border-lime-300 dark:text-white dark:border-lime-700 rounded-lg shadow-sm focus:border-lime-500 focus:ring-lime-200 transition"
             value={searchTerm}
             onChange={(e) => {
               setPage(1);

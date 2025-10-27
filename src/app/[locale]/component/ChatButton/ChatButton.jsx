@@ -31,7 +31,7 @@ export default function ChatButton() {
             exit={{ opacity: 0, scale: 0.9, y: 50 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="fixed inset-0 sm:bottom-24 sm:right-6 sm:inset-auto 
-                       w-full h-full sm:w-[400px] sm:h-[700px] 
+                       w-full h-full sm:w-[400px] sm:h-[600px] 
                        bg-white rounded-none sm:rounded-2xl 
                        shadow-2xl z-50 flex flex-col overflow-hidden"
           >
