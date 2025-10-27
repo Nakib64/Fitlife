@@ -53,7 +53,8 @@ export default function Login() {
 					// redirect to verify page
 					router.push(`/verify-otp?email=${(loginData?.email)}`);
 				} else {
-					toast.error(res.error || "Invalid credentials, please try again.");
+					console.log(res.error);
+					toast.error("Invalid credentials, please try again.");
 				}
 			} else {
 				toast.success("Login successful!");
@@ -181,14 +182,7 @@ export default function Login() {
 						<Mail className="h-4 w-4 text-red-500" />
 						Continue with Google
 					</Button>
-					<Button
-						variant="outline"
-						className="w-full flex items-center justify-center gap-2"
-						onClick={() => signIn("facebook")}
-					>
-						<Facebook className="h-4 w-4 text-blue-600" />
-						Continue with Facebook
-					</Button>
+					
 				</div>
 
 				{/* Sign Up link */}
