@@ -17,7 +17,7 @@ export async function PATCH(req) {
       return new Response(JSON.stringify({ error: "Missing fields" }), { status: 400 });
     }
 
-    const validRoles = ["user", "premium-user", "controller", "coach"];
+    const validRoles = ["user", "premium-user", "controller", "coach", "admin"];
     if (!validRoles.includes(role)) {
       return new Response(JSON.stringify({ error: "Invalid role" }), { status: 400 });
     }

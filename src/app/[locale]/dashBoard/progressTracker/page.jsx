@@ -161,14 +161,14 @@ export default function ProgressTracker() {
   };
 
   return (
-    <div className="min-h-screen p-8 md:p-12 text-gray-900 dark:text-gray-100 transition-colors duration-500">
+    <div className="min-h-screen  md:p-12 text-gray-900 dark:text-gray-100 transition-colors duration-500">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-12"
       >
-        <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-lime-400 to-green-500 text-transparent bg-clip-text mb-4 py-2">
+        <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-lime-400 to-green-500 text-transparent bg-clip-text py-2">
           🏋️ Fitness Progress Dashboard
         </h1>
         <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl">
@@ -205,7 +205,7 @@ export default function ProgressTracker() {
           className="bg-gray-100 dark:bg-gray-800/70 rounded-3xl shadow-lg p-6 flex flex-col transition-colors duration-500"
         >
           <h2 className="text-2xl font-bold mb-4">📝 Active Workouts</h2>
-          <div className="space-y-4 overflow-y-auto max-h-[600px] pr-2">
+          <div className="space-y-4 overflow-y-auto max-h-[600px]">
             {activeWorkouts.map(
               (day, idx) =>
                 day.exercises.length > 0 && (

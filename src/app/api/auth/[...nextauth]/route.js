@@ -54,12 +54,12 @@ const handler = NextAuth({
         }
 
         // If password correct, send OTP first
-        if (!otpVerified) {
-          const otp = Math.floor(100000 + Math.random() * 900000).toString();
-          await setUserOtp(email, otp);
-          await sendOtpEmail(email, otp);
-          throw new Error("OTP SENT");
-        }
+        // if (!otpVerified) {
+        //   const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        //   await setUserOtp(email, otp);
+        //   await sendOtpEmail(email, otp);
+        //   throw new Error("OTP SENT");
+        // }
 
         // Reset failed attempts & clear OTP
         await updateUser(email, { failedLoginAttempts: 0, lockUntil: null });
