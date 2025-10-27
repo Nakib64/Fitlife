@@ -280,7 +280,7 @@
 		"aiCoach": "Coach IA",
 		"about": "À propos",
 		"dashboard": "Tableau de bord",
-		"Health":"Traqueur de Santé"
+		"Health": "Traqueur de Santé"
 	},
 
 	"footer": {
@@ -295,19 +295,7 @@
 			]
 		},
 		"programs": {
-			"title": "Programmes",
-			"links": [
-				"Step Avancé",
-				"Hot Yoga",
-				"Force Flexible",
-				"Exercices Routiers",
-				"Cardio Danse",
-				"Entraînement Athlétique"
-			]
-		},
-		"quickLinks": {
-			"title": "Liens Rapides",
-			"links": ["Blog", "Lieux", "Contact", "Carrières", "FAQs"]
+			"title": "Programmes"
 		},
 		"newsletter": {
 			"title": "Newsletter",
@@ -316,10 +304,23 @@
 			"button": "S'abonner"
 		},
 		"contact": {
-			"call": "APPELEZ-NOUS : (094) 123 - 456 88",
-			"email": "EMAIL : SUPPORT@EXAMPLE.COM"
+			"call": "APPELEZ-NOUS : (880) 1315168075",
+			"email": "EMAIL : nafiz2282@gmail.com"
 		},
-		"social": ["Facebook", "Instagram", "YouTube", "Twitter"],
+		"social": [
+			{
+				"title": "Facebook",
+				"link": "https://www.facebook.com/nafizuddowla.nokib.CSE.PUST"
+			},
+			{
+				"title": "LinkedIn",
+				"link": "https://www.linkedin.com/in/nafiz64/"
+			},
+			{
+				"title": "Twitter",
+				"link": "https://x.com/nafizuddowla"
+			}
+		],
 		"copyright": "Tous droits réservés"
 	},
 
@@ -421,56 +422,54 @@
 			}
 		}
 	},
-	
-  "healthAdvisor": {
-    "pageTitle": "Tableau de bord des risques de santé IA",
-    "description": "Saisissez vos mesures pour obtenir une analyse alimentée par l'IA et un plan de récupération personnalisé.",
-    "sleepMetricsTitle": "Mesures de sommeil",
-    "workoutCognitiveTitle": "Mesures d'entraînement et cognitives",
-    "analyzeBtn": "Analyser",
-    "resetBtn": "Réinitialiser",
-    "riskLevel": "Niveau de risque",
-    "physiological": "Physiologique",
-    "cognitive": "Cognitif",
-    "aiSummary": "Résumé IA",
-    "actionProtocols": "Protocoles d'action recommandés",
-    "units": {
-      "hours": "heures",
-      "percent": "%",
-      "bpm": "BPM",
-      "min": "min",
-      "rpe": "/10"
-    },
-    "sleepMetrics": {
-      "sleepHours": "Heures de sommeil",
-      "sleepEfficiency": "Efficacité du sommeil",
-      "hrvScore": "Variabilité de la fréquence cardiaque (HRV)",
-      "RHRateDrop": "Baisse de la fréquence cardiaque de récupération"
-    },
-    "workoutCognitiveMetrics": {
-      "rpe": "RPE (Échelle de perception de l'effort)",
-      "workoutDuration": "Durée de l'entraînement",
-      "cognitiveFatigue": "Fatigue cognitive"
-    },
-    "riskLevels": {
-      "LOW": "Faible",
-      "MODERATE": "Modéré",
-      "HIGH": "Élevé",
-      "CRITICAL": "Critique"
-    },
-    "placeholders": {
-      "numberInput": "Entrez une valeur..."
-    },
-    "messages": {
-      "loading": "Chargement...",
-      "analyzing": "Analyse en cours..."
-    },
-    "errors": {
-      "validation": "Veuillez remplir correctement tous les champs !",
-      "connection": "Connexion échouée.",
-      "fetch": "Impossible de récupérer les données de l'IA."
-    }
-  
-}
 
+	"healthAdvisor": {
+		"pageTitle": "Tableau de bord des risques de santé IA",
+		"description": "Saisissez vos mesures pour obtenir une analyse alimentée par l'IA et un plan de récupération personnalisé.",
+		"sleepMetricsTitle": "Mesures de sommeil",
+		"workoutCognitiveTitle": "Mesures d'entraînement et cognitives",
+		"analyzeBtn": "Analyser",
+		"resetBtn": "Réinitialiser",
+		"riskLevel": "Niveau de risque",
+		"physiological": "Physiologique",
+		"cognitive": "Cognitif",
+		"aiSummary": "Résumé IA",
+		"actionProtocols": "Protocoles d'action recommandés",
+		"units": {
+			"hours": "heures",
+			"percent": "%",
+			"bpm": "BPM",
+			"min": "min",
+			"rpe": "/10"
+		},
+		"sleepMetrics": {
+			"sleepHours": "Heures de sommeil",
+			"sleepEfficiency": "Efficacité du sommeil",
+			"hrvScore": "Variabilité de la fréquence cardiaque (HRV)",
+			"RHRateDrop": "Baisse de la fréquence cardiaque de récupération"
+		},
+		"workoutCognitiveMetrics": {
+			"rpe": "RPE (Échelle de perception de l'effort)",
+			"workoutDuration": "Durée de l'entraînement",
+			"cognitiveFatigue": "Fatigue cognitive"
+		},
+		"riskLevels": {
+			"LOW": "Faible",
+			"MODERATE": "Modéré",
+			"HIGH": "Élevé",
+			"CRITICAL": "Critique"
+		},
+		"placeholders": {
+			"numberInput": "Entrez une valeur..."
+		},
+		"messages": {
+			"loading": "Chargement...",
+			"analyzing": "Analyse en cours..."
+		},
+		"errors": {
+			"validation": "Veuillez remplir correctement tous les champs !",
+			"connection": "Connexion échouée.",
+			"fetch": "Impossible de récupérer les données de l'IA."
+		}
+	}
 }
