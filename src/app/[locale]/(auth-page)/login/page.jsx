@@ -8,18 +8,20 @@ import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { Link } from "@/i18n/navigation";
-import { Mail, Facebook, Loader2 } from "lucide-react";
-import { Eye, EyeOff } from "lucide-react";
+import { Mail, Loader2, Eye, EyeOff } from "lucide-react";
 
 export default function Login() {
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 	const [loginData, setLoginData] = useState({ email: "", password: "" });
-	const [attemptsLeft, setAttemptsLeft] = useState(null);
-	const [isLocked, setIsLocked] = useState(false);
-	const searchParams = useSearchParams();
 	const [showPassword, setShowPassword] = useState(false);
+	const searchParams = useSearchParams();
 	const callbackUrl = searchParams.get("callbackUrl") || "/";
+
+	// 🔹 Example admin credentials list
+	const adminAccounts = [
+		{ role: "Admin", email: "sabbirhossain8721@gmail.com", password: "sabbir" },
+	];
 
 	const handleLoginSubmit = async (e) => {
 		e.preventDefault();
@@ -32,34 +34,9 @@ export default function Login() {
 			});
 
 			if (res?.error) {
-				// Check if error contains attempts left
-				const match = res.error.match(/(\d+)\s+attempt/);
-				if (match) {
-					setAttemptsLeft(Number(match[1]));
-				}
-
-				// Check if account is locked
-				if (res.error.toLowerCase().includes("locked")) {
-					setIsLocked(true);
-				}
-
-				if (res.error === "OTP SENT") {
-					// store email/password temporarily in session storage so verify page can finalize login
-					sessionStorage.setItem("otpEmail", loginData.email);
-					sessionStorage.setItem("otpPassword", loginData.password);
-					// optionally set a short ttl timestamp
-					sessionStorage.setItem("otpCreatedAt", Date.now().toString());
-
-					// redirect to verify page
-					router.push(`/verify-otp?email=${(loginData?.email)}`);
-				} else {
-					console.log(res.error);
-					toast.error("Invalid credentials, please try again.");
-				}
+				toast.error("Invalid credentials, please try again.");
 			} else {
 				toast.success("Login successful!");
-				setAttemptsLeft(null);
-				setIsLocked(false);
 				router.push(callbackUrl);
 			}
 		} finally {
@@ -67,6 +44,7 @@ export default function Login() {
 		}
 	};
 
+	// 🔹 Handle Google login
 	const handleGoogleLogin = async () => {
 		const res = await signIn("google", {
 			redirect: false,
@@ -81,9 +59,16 @@ export default function Login() {
 		}
 	};
 
+	// 🔹 Handle table row click to autofill credentials
+	const handleAutofill = (email, password) => {
+		setLoginData({ email, password });
+		toast.info("Admin credentials filled.");
+	};
+
 	return (
 		<div className="flex justify-center items-center min-h-screen bg-gray-50">
 			<div className="w-full max-w-md p-8 bg-white rounded-2xl shadow-xl space-y-6">
+				{/* Header */}
 				<div className="text-center">
 					<h2 className="text-2xl font-bold text-gray-800">Welcome Back</h2>
 					<p className="text-sm text-gray-500 mt-1">
@@ -91,6 +76,7 @@ export default function Login() {
 					</p>
 				</div>
 
+				{/* Login Form */}
 				<form className="space-y-4" onSubmit={handleLoginSubmit}>
 					<div>
 						<Label>Email</Label>
@@ -98,10 +84,13 @@ export default function Login() {
 							type="email"
 							placeholder="your@email.com"
 							value={loginData.email}
-							onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+							onChange={(e) =>
+								setLoginData({ ...loginData, email: e.target.value })
+							}
 							required
 						/>
 					</div>
+
 					<div>
 						<Label>Password</Label>
 						<div className="relative">
@@ -113,7 +102,7 @@ export default function Login() {
 									setLoginData({ ...loginData, password: e.target.value })
 								}
 								required
-								className="pr-10" // extra space for the icon
+								className="pr-10"
 							/>
 							<button
 								type="button"
@@ -127,7 +116,6 @@ export default function Login() {
 								)}
 							</button>
 						</div>
-
 						<div className="text-right mt-1">
 							<Link
 								href="/reset-password"
@@ -138,30 +126,13 @@ export default function Login() {
 						</div>
 					</div>
 
-					{(attemptsLeft !== null || isLocked) && (
-						<div className="w-full p-4 bg-red-50">
-							{attemptsLeft !== null && !isLocked && (
-								<p className="text-sm text-red-500 mt-1">
-									{attemptsLeft} attempt{attemptsLeft > 1 ? "s" : ""} left before account
-									is locked.
-								</p>
-							)}
-
-							{isLocked && (
-								<p className="text-sm text-red-500 mt-1">
-									Your account is temporarily locked. Please try again later.
-								</p>
-							)}
-						</div>
-					)}
-
 					<Button
 						type="submit"
 						className="w-full bg-green-700 hover:bg-green-800"
 						disabled={isLoading}
 					>
 						{isLoading && <Loader2 className="h-5 w-5 animate-spin" />}
-						{isLoading ? "Login in..." : "Login"}
+						{isLoading ? "Logging in..." : "Login"}
 					</Button>
 				</form>
 
@@ -182,11 +153,52 @@ export default function Login() {
 						<Mail className="h-4 w-4 text-red-500" />
 						Continue with Google
 					</Button>
-					
 				</div>
 
-				{/* Sign Up link */}
-				<p className="text-center text-sm text-gray-500">
+				{/* 🔹 Admin Credentials Table */}
+				<div className="mt-6">
+					<h3 className="text-sm font-semibold text-gray-600 mb-2">
+						Quick Admin Login
+					</h3>
+					<div className="overflow-hidden rounded-lg border border-gray-200">
+						<table className="min-w-full text-sm">
+							<thead className="bg-gray-100">
+								<tr>
+									<th className="px-4 py-2 text-left font-medium text-gray-700">
+										Role
+									</th>
+									<th className="px-4 py-2 text-left font-medium text-gray-700">
+										Email
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{adminAccounts.map((admin, idx) => (
+									<tr
+										key={idx}
+										onClick={() =>
+											handleAutofill(admin.email, admin.password)
+										}
+										className="cursor-pointer hover:bg-green-50 transition-colors"
+									>
+										<td className="px-4 py-2 text-gray-700 font-medium">
+											{admin.role}
+										</td>
+										<td className="px-4 py-2 text-gray-500">
+											{admin.email}
+										</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+					<p className="text-xs text-gray-400 mt-2">
+						Click a row to autofill login fields.
+					</p>
+				</div>
+
+				{/* Signup Link */}
+				<p className="text-center text-sm text-gray-500 mt-4">
 					Don’t have an account?{" "}
 					<Link
 						href="/signup"
