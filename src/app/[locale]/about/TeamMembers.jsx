@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
-import {  Linkedin, Github } from "lucide-react";
+import { Linkedin, Github } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { CiGlobe } from "react-icons/ci";
@@ -16,13 +16,21 @@ const team = [
 		name: "Nafiz Uddowla",
 		role: "fullstack",
 		img: "https://i.ibb.co.com/9HS1jfw1/blue.jpg",
-		social: { portfolio: "https://nafiz64-portfolio.vercel.app/", linkedin: "https://www.linkedin.com/in/nafiz64/", github: "https://github.com/Nakib64" },
+		social: {
+			portfolio: "https://nafiz64-portfolio.vercel.app/",
+			linkedin: "https://www.linkedin.com/in/nafiz64/",
+			github: "https://github.com/Nakib64",
+		},
 	},
 	{
-		name: "Sarah Johnson",
+		name: "Mughni Rayhan",
 		role: "fullstack",
-		img: "https://i.ibb.co.com/M5JmRL9g/Whats-App-Image-2025-10-20-at-00-40-23-e4aced24-1.jpg",
-		social: { portfolio: "#", linkedin: "#", github: "#" },
+		img: "https://i.ibb.co.com/My365Xrs/Whats-App-Image-2025-10-27-at-22-40-33-8b9969ed.jpg",
+		social: {
+			portfolio: "https://lustrous-mermaid-45509f.netlify.app/",
+			linkedin: "https://www.linkedin.com/in/mughnirayhan/",
+			github: "https://github.com/MughniRayhan",
+		},
 	},
 	{
 		name: "Alex Chen",
