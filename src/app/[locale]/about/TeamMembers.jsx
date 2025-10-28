@@ -33,16 +33,16 @@ const team = [
 		},
 	},
 	{
-		name: "Alex Chen",
-		role: "ai",
-		img: "https://i.ibb.co/Y0Z9FbF/team3.jpg",
-		social: { portfolio: "#", linkedin: "#", github: "#" },
+		name: "Abid Hasan Ayon",
+		role: "frontend",
+		img: "https://i.ibb.co.com/zVXjdGjP/ayon.jpg",
+		social: { portfolio: "https://abidayon.vercel.app/", linkedin: "https://www.linkedin.com/in/abid-hasan-ayon/", github: "https://github.com/Ayon203008" },
 	},
 	{
-		name: "Priya Singh",
-		role: "frontend",
-		img: "https://i.ibb.co/0CJqFhD/team4.jpg",
-		social: { portfolio: "#", linkedin: "#", github: "#" },
+		name: "Saklain Mostak",
+		role: "fullstack",
+		img: "https://i.ibb.co.com/9FyVLq8/Whats-App-Image-2025-10-20-at-00-40-23-e4aced24-1-1.jpg",
+		social: { portfolio: "https://saklain-porfolio.netlify.app/", linkedin: "https://www.linkedin.com/in/saklain-mostak/", github: "https://github.com/saklain10" },
 	},
 ];
 
