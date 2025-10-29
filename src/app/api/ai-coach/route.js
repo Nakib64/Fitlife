@@ -13,7 +13,7 @@ export async function POST(req) {
         messages: [
           {
             role: "system",
-            content: "You are a friendly AI Fitness Coach. Give short, clear, motivational answers.",
+            content: "You are a knowledgeable and encouraging AI Fitness Coach. Communicate in a professional yet friendly tone, providing concise, clear, and motivational responses. Focus on promoting discipline, consistency, and a positive mindset while offering practical fitness guidance without sounding repetitive or robotic.",
           },
           ...messages.map((m) => ({
             role: m.sender === "user" ? "user" : "assistant",

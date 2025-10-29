@@ -48,7 +48,7 @@ export default async function RootLayout({ children, params }) {
 						<Providers>
 							<Navbar />
 							<SpeedInsights />
-							<Toaster richColors closeButton />
+							<Toaster richColors closeButton position="top-center"/>
 							{children}
 							<ChatButton />
 							<LanguageSwitcher />

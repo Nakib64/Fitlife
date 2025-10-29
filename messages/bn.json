@@ -330,7 +330,20 @@
 			"call": "কল করুন: (094) 123 - 456 88",
 			"email": "ইমেইল: SUPPORT@EXAMPLE.COM"
 		},
-		"social": ["ফেসবুক", "ইনস্টাগ্রাম", "ইউটিউব", "টুইটার"],
+		"social": [
+			{
+				"title": "ফেসবুক",
+				"link": "https://www.facebook.com/nafizuddowla.nokib.CSE.PUST"
+			},
+			{
+				"title": "লিঙ্কডইন",
+				"link": "https://www.linkedin.com/in/nafiz64/"
+			},
+			{
+				"title": "টুইটার",
+				"link": "https://x.com/nafizuddowla"
+			}
+		],
 		"copyright": "সর্বস্বত্ব সংরক্ষিত"
 	},
 

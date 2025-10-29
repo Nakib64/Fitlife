@@ -11,14 +11,14 @@ function DashboardContent({ children }) {
 
   return (
     <div className={darkMode ? "dark" : ""}>
-      <div className="flex min-h-screen bg-gray-100 dark:bg-neutral-950 transition-colors duration-300">
+      <div className="flex  bg-gray-100 dark:bg-neutral-950 transition-colors duration-300">
         {/* Pass mobile state to Sidebar */}
         <Sidebar />
  
-        <div className="flex-1 flex flex-col overflow-auto">
+        <div className="flex-1 flex flex-col max-h-screen overflow-auto">
           {/* Pass toggle function to Navbar */}
           <DashboardNavbar  />
-          <main className="flex-1 p-2 lg:p-4">{children}</main>
+          <main className="flex-1 p-2 lg:p-4 ">{children}</main>
         </div>
       </div>
     </div>
